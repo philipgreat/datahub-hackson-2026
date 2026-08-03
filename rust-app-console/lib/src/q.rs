@@ -16,6 +16,24 @@ impl<T> PurposedQuery<T> {
 pub struct Q;
 
 impl Q {
+    pub fn user_accounts() -> UserAccountRequest {
+        UserAccountRequest::new()
+            .select_self()
+            .and_filter(Expr::gt("version", 0_i64))
+    }
+
+    pub fn user_accounts_minimal() -> UserAccountRequest {
+        UserAccountRequest::new()
+            .and_filter(Expr::gt("version", 0_i64))
+    }
+
+    pub fn user_accounts_with_children() -> UserAccountRequest {
+        UserAccountRequest::new()
+            .unlimited()
+            .select_self_fields()
+            .enhance_children_if_needed()
+    }
+
     pub fn payment_accounts() -> PaymentAccountRequest {
         PaymentAccountRequest::new()
             .select_self()
@@ -47,24 +65,6 @@ impl Q {
 
     pub fn payment_methods_with_children() -> PaymentMethodRequest {
         PaymentMethodRequest::new()
-            .unlimited()
-            .select_self_fields()
-            .enhance_children_if_needed()
-    }
-
-    pub fn payment_statuses() -> PaymentStatusRequest {
-        PaymentStatusRequest::new()
-            .select_self()
-            .and_filter(Expr::gt("version", 0_i64))
-    }
-
-    pub fn payment_statuses_minimal() -> PaymentStatusRequest {
-        PaymentStatusRequest::new()
-            .and_filter(Expr::gt("version", 0_i64))
-    }
-
-    pub fn payment_statuses_with_children() -> PaymentStatusRequest {
-        PaymentStatusRequest::new()
             .unlimited()
             .select_self_fields()
             .enhance_children_if_needed()

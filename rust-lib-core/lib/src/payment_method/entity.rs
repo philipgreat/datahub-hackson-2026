@@ -17,23 +17,23 @@ pub struct PaymentMethod {
 #[teaql(id)]
     id: u64,
 
-// @source payment.xml:26
+// @source payment.xml:36
     method_type: String,
 
-// @source payment.xml:26
+// @source payment.xml:36
     last_four_digits: i64,
 
-// @source payment.xml:26
+// @source payment.xml:36
     create_time: teaql_core::time::Timestamp,
 
-// @source payment.xml:26
+// @source payment.xml:36
     update_time: teaql_core::time::Timestamp,
 #[teaql(version)]
     version: i64,
-// @source payment.xml:26
+// @source payment.xml:36
 #[teaql(column = "payment_account")]
     payment_account_id: u64,
-// @source payment.xml:26
+// @source payment.xml:36
 #[teaql(relation(target = "PaymentAccount", local_key = "payment_account_id", foreign_key = "id"))]
     payment_account: Option<crate::PaymentAccount>,
 #[teaql(relation(target = "PaymentTransaction", local_key = "id", foreign_key = "payment_method_id", many))]

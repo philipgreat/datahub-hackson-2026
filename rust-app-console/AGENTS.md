@@ -39,9 +39,9 @@ Replace `[entity-name]` with the exact entity-name from the table below:
 
 | entity-name | display-name |
 |-------------|--------------|
+| user_account | Customer Account |
 | payment_account | Payment Account |
 | payment_method | Payment Method |
-| payment_status | Payment Status |
 | payment_transaction | Payment Transaction |
 
 

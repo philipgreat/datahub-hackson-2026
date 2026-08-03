@@ -158,6 +158,11 @@ where
 
 
 pub trait TeaqlRepositoryProvider: TeaqlRuntime {
+    type UserAccountRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn user_account_repository(&self) -> Result<Self::UserAccountRepository<'_>, ContextError>;
     type PaymentAccountRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
@@ -168,11 +173,6 @@ pub trait TeaqlRepositoryProvider: TeaqlRuntime {
         Self: 'a;
 
     fn payment_method_repository(&self) -> Result<Self::PaymentMethodRepository<'_>, ContextError>;
-    type PaymentStatusRepository<'a>: TeaqlEntityRepository + 'a
-    where
-        Self: 'a;
-
-    fn payment_status_repository(&self) -> Result<Self::PaymentStatusRepository<'_>, ContextError>;
     type PaymentTransactionRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
@@ -242,6 +242,14 @@ impl TeaqlRuntime for teaql_runtime::UserContext {
 }
 
 impl TeaqlRepositoryProvider for teaql_runtime::UserContext {
+    type UserAccountRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn user_account_repository(&self) -> Result<Self::UserAccountRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("UserAccount")
+    }
+
     type PaymentAccountRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
     where
         Self: 'a;
@@ -256,14 +264,6 @@ impl TeaqlRepositoryProvider for teaql_runtime::UserContext {
 
     fn payment_method_repository(&self) -> Result<Self::PaymentMethodRepository<'_>, ContextError> {
         self.entity_data_service::<crate::runtime::DataServiceExecutor>("PaymentMethod")
-    }
-
-    type PaymentStatusRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
-    where
-        Self: 'a;
-
-    fn payment_status_repository(&self) -> Result<Self::PaymentStatusRepository<'_>, ContextError> {
-        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PaymentStatus")
     }
 
     type PaymentTransactionRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>

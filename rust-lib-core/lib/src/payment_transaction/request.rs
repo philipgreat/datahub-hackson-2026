@@ -476,15 +476,13 @@ impl<R> PaymentTransactionRequest<R> {
     fn dynamic_json_self_field(field: &str) -> Option<&'static str> {
         match field {
             "id" => Some("id"),
-            "transaction_amount" => Some("transaction_amount"),
             "currency_code" => Some("currency_code"),
-            "reference_number" => Some("reference_number"),
+            "transaction_amount" => Some("transaction_amount"),
             "create_time" => Some("create_time"),
             "update_time" => Some("update_time"),
             "version" => Some("version"),
             "payment_account" | "payment_account_id" => Some("payment_account_id"),
             "payment_method" | "payment_method_id" => Some("payment_method_id"),
-            "payment_status" | "payment_status_id" => Some("payment_status_id"),
             _ => None,
         }
     }
@@ -501,12 +499,6 @@ impl<R> PaymentTransactionRequest<R> {
             "payment_method" => {
                 self.with_payment_method_matching(
                     crate::Q::payment_methods_minimal()
-                        .apply_dynamic_json_filter(tail, value),
-                )
-            }
-            "payment_status" => {
-                self.with_payment_status_matching(
-                    crate::Q::payment_statuses_minimal()
                         .apply_dynamic_json_filter(tail, value),
                 )
             }
@@ -588,15 +580,13 @@ impl<R> PaymentTransactionRequest<R> {
 
     pub fn select_self(mut self) -> Self {
         self.query = self.query.project("id");
-        self.query = self.query.project("transaction_amount");
         self.query = self.query.project("currency_code");
-        self.query = self.query.project("reference_number");
+        self.query = self.query.project("transaction_amount");
         self.query = self.query.project("create_time");
         self.query = self.query.project("update_time");
         self.query = self.query.project("version");
         self.query = self.query.project("payment_account_id");
         self.query = self.query.project("payment_method_id");
-        self.query = self.query.project("payment_status_id");
         self
     }
 
@@ -612,7 +602,6 @@ impl<R> PaymentTransactionRequest<R> {
         let mut request = self.select_self();
         request = request.select_payment_account();
         request = request.select_payment_method();
-        request = request.select_payment_status();
         request
     }
 
@@ -857,6 +846,272 @@ impl<R> PaymentTransactionRequest<R> {
 
     pub fn order_by_id_desc_using_gbk(mut self) -> Self {
         self.query = self.query.order_gbk_desc("id");
+        self
+    }
+
+
+    pub fn select_currency_code(mut self) -> Self {
+        self.query = self.query.project("currency_code");
+        self
+    }
+
+    pub fn project_currency_code(self) -> Self {
+        self.select_currency_code()
+    }
+
+    pub fn select_currency_code_raw(self, raw_sql_segment: impl Into<String>) -> Self {
+        self.select_currency_code_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
+    }
+
+    pub fn select_currency_code_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
+        self.query_options
+            .raw_projections
+            .push(RawProjection::new("currency_code", raw_sql_segment));
+        self
+    }
+
+    pub fn group_by_currency_code(self) -> Self {
+        self.group_by("currency_code")
+    }
+
+    pub fn group_by_currency_code_as(self, alias: impl Into<String>) -> Self {
+        let alias = alias.into();
+        let mut request = self.group_by("currency_code");
+        request.query = request
+            .query
+            .project_expr(alias, Expr::column("currency_code"));
+        request
+    }
+
+    pub fn group_by_currency_code_with_function(
+        self,
+        alias: impl Into<String>,
+        function: AggregateFunction,
+    ) -> Self {
+        self.group_by("currency_code")
+            .aggregate_with_function("currency_code", alias, function)
+    }
+
+    pub fn count_currency_code(self) -> Self {
+        self.count_currency_code_as("currency_code_count")
+    }
+
+    pub fn count_currency_code_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_count_field("currency_code", alias)
+    }
+
+    pub fn sum_currency_code(self) -> Self {
+        self.sum_currency_code_as("sum_currency_code")
+    }
+
+    pub fn sum_currency_code_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_sum("currency_code", alias)
+    }
+
+    pub fn avg_currency_code(self) -> Self {
+        self.avg_currency_code_as("avg_currency_code")
+    }
+
+    pub fn avg_currency_code_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_avg("currency_code", alias)
+    }
+
+    pub fn min_currency_code(self) -> Self {
+        self.min_currency_code_as("min_currency_code")
+    }
+
+    pub fn min_currency_code_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_min("currency_code", alias)
+    }
+
+    pub fn max_currency_code(self) -> Self {
+        self.max_currency_code_as("max_currency_code")
+    }
+
+    pub fn max_currency_code_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_max("currency_code", alias)
+    }
+
+    pub fn unselect_currency_code(mut self) -> Self {
+        self.query.projection.retain(|field| field != "currency_code");
+        self.query_options.raw_projections.retain(|projection| projection.property_name != "currency_code");
+        self
+    }
+
+
+    pub fn with_currency_code(
+        mut self,
+        operator: FieldOperator,
+        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
+    ) -> Self {
+        self.query = self.query.and_filter(field_operator_expr(
+            "currency_code",
+            operator,
+            values.into_iter().map(Into::into).collect(),
+        ));
+        self
+    }
+
+    pub fn create_currency_code_criteria(
+        operator: FieldOperator,
+        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
+    ) -> Expr {
+        field_operator_expr(
+            "currency_code",
+            operator,
+            values.into_iter().map(Into::into).collect(),
+        )
+    }
+
+    pub fn with_currency_code_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::eq("currency_code", value));
+        self
+    }
+
+
+
+    pub fn with_currency_code_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::ne("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gte("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lte("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_between(
+        mut self,
+        lower: impl Into<teaql_core::Value>,
+        upper: impl Into<teaql_core::Value>,
+    ) -> Self {
+        self.query = self.query.and_filter(Expr::between("currency_code", lower, upper));
+        self
+    }
+
+    pub fn with_currency_code_between_range<T>(mut self, range: DateRange<T>) -> Self
+    where
+        T: Into<teaql_core::Value>,
+    {
+        self.query = self.query.and_filter(Expr::between(
+            "currency_code",
+            range.start,
+            range.end,
+        ));
+        self
+    }
+
+    pub fn with_currency_code_in(
+        mut self,
+        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
+    ) -> Self {
+        self.query = self.query.and_filter(Expr::in_list(
+            "currency_code",
+            values.into_iter().map(Into::into),
+        ));
+        self
+    }
+
+    pub fn with_currency_code_not_in(
+        mut self,
+        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
+    ) -> Self {
+        self.query = self.query.and_filter(Expr::not_in_list(
+            "currency_code",
+            values.into_iter().map(Into::into),
+        ));
+        self
+    }
+
+    pub fn with_currency_code_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::contain("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_not_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_contain("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::begin_with("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_not_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_begin_with("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::end_with("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_not_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_end_with("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::sound_like("currency_code", value));
+        self
+    }
+    pub fn with_currency_code_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("currency_code", value));
+        self
+    }
+
+    pub fn with_currency_code_is_unknown(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_null("currency_code"));
+        self
+    }
+
+
+
+    pub fn with_currency_code_is_known(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_not_null("currency_code"));
+        self
+    }
+
+
+    pub fn order_by_currency_code_asc(mut self) -> Self {
+        self.query = self.query.order_asc("currency_code");
+        self
+    }
+
+    pub fn order_by_currency_code_desc(mut self) -> Self {
+        self.query = self.query.order_desc("currency_code");
+        self
+    }
+
+    pub fn order_by_currency_code_asc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_asc("currency_code");
+        self
+    }
+
+    pub fn order_by_currency_code_desc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_desc("currency_code");
         self
     }
 
@@ -1133,538 +1388,6 @@ impl<R> PaymentTransactionRequest<R> {
 
     pub fn order_by_transaction_amount_desc_using_gbk(mut self) -> Self {
         self.query = self.query.order_gbk_desc("transaction_amount");
-        self
-    }
-
-
-    pub fn select_currency_code(mut self) -> Self {
-        self.query = self.query.project("currency_code");
-        self
-    }
-
-    pub fn project_currency_code(self) -> Self {
-        self.select_currency_code()
-    }
-
-    pub fn select_currency_code_raw(self, raw_sql_segment: impl Into<String>) -> Self {
-        self.select_currency_code_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
-    }
-
-    pub fn select_currency_code_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
-        self.query_options
-            .raw_projections
-            .push(RawProjection::new("currency_code", raw_sql_segment));
-        self
-    }
-
-    pub fn group_by_currency_code(self) -> Self {
-        self.group_by("currency_code")
-    }
-
-    pub fn group_by_currency_code_as(self, alias: impl Into<String>) -> Self {
-        let alias = alias.into();
-        let mut request = self.group_by("currency_code");
-        request.query = request
-            .query
-            .project_expr(alias, Expr::column("currency_code"));
-        request
-    }
-
-    pub fn group_by_currency_code_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.group_by("currency_code")
-            .aggregate_with_function("currency_code", alias, function)
-    }
-
-    pub fn count_currency_code(self) -> Self {
-        self.count_currency_code_as("currency_code_count")
-    }
-
-    pub fn count_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("currency_code", alias)
-    }
-
-    pub fn sum_currency_code(self) -> Self {
-        self.sum_currency_code_as("sum_currency_code")
-    }
-
-    pub fn sum_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_sum("currency_code", alias)
-    }
-
-    pub fn avg_currency_code(self) -> Self {
-        self.avg_currency_code_as("avg_currency_code")
-    }
-
-    pub fn avg_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_avg("currency_code", alias)
-    }
-
-    pub fn min_currency_code(self) -> Self {
-        self.min_currency_code_as("min_currency_code")
-    }
-
-    pub fn min_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_min("currency_code", alias)
-    }
-
-    pub fn max_currency_code(self) -> Self {
-        self.max_currency_code_as("max_currency_code")
-    }
-
-    pub fn max_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_max("currency_code", alias)
-    }
-
-    pub fn unselect_currency_code(mut self) -> Self {
-        self.query.projection.retain(|field| field != "currency_code");
-        self.query_options.raw_projections.retain(|projection| projection.property_name != "currency_code");
-        self
-    }
-
-
-    pub fn with_currency_code(
-        mut self,
-        operator: FieldOperator,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(field_operator_expr(
-            "currency_code",
-            operator,
-            values.into_iter().map(Into::into).collect(),
-        ));
-        self
-    }
-
-    pub fn create_currency_code_criteria(
-        operator: FieldOperator,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Expr {
-        field_operator_expr(
-            "currency_code",
-            operator,
-            values.into_iter().map(Into::into).collect(),
-        )
-    }
-
-    pub fn with_currency_code_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::eq("currency_code", value));
-        self
-    }
-
-
-
-    pub fn with_currency_code_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::ne("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gte("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lte("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_between(
-        mut self,
-        lower: impl Into<teaql_core::Value>,
-        upper: impl Into<teaql_core::Value>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::between("currency_code", lower, upper));
-        self
-    }
-
-    pub fn with_currency_code_between_range<T>(mut self, range: DateRange<T>) -> Self
-    where
-        T: Into<teaql_core::Value>,
-    {
-        self.query = self.query.and_filter(Expr::between(
-            "currency_code",
-            range.start,
-            range.end,
-        ));
-        self
-    }
-
-    pub fn with_currency_code_in(
-        mut self,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::in_list(
-            "currency_code",
-            values.into_iter().map(Into::into),
-        ));
-        self
-    }
-
-    pub fn with_currency_code_not_in(
-        mut self,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::not_in_list(
-            "currency_code",
-            values.into_iter().map(Into::into),
-        ));
-        self
-    }
-
-    pub fn with_currency_code_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::contain("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_not_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_contain("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::begin_with("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_not_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_begin_with("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::end_with("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_not_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_end_with("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::sound_like("currency_code", value));
-        self
-    }
-    pub fn with_currency_code_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_is_unknown(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("currency_code"));
-        self
-    }
-
-
-
-    pub fn with_currency_code_is_known(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("currency_code"));
-        self
-    }
-
-
-    pub fn order_by_currency_code_asc(mut self) -> Self {
-        self.query = self.query.order_asc("currency_code");
-        self
-    }
-
-    pub fn order_by_currency_code_desc(mut self) -> Self {
-        self.query = self.query.order_desc("currency_code");
-        self
-    }
-
-    pub fn order_by_currency_code_asc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_asc("currency_code");
-        self
-    }
-
-    pub fn order_by_currency_code_desc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_desc("currency_code");
-        self
-    }
-
-
-    pub fn select_reference_number(mut self) -> Self {
-        self.query = self.query.project("reference_number");
-        self
-    }
-
-    pub fn project_reference_number(self) -> Self {
-        self.select_reference_number()
-    }
-
-    pub fn select_reference_number_raw(self, raw_sql_segment: impl Into<String>) -> Self {
-        self.select_reference_number_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
-    }
-
-    pub fn select_reference_number_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
-        self.query_options
-            .raw_projections
-            .push(RawProjection::new("reference_number", raw_sql_segment));
-        self
-    }
-
-    pub fn group_by_reference_number(self) -> Self {
-        self.group_by("reference_number")
-    }
-
-    pub fn group_by_reference_number_as(self, alias: impl Into<String>) -> Self {
-        let alias = alias.into();
-        let mut request = self.group_by("reference_number");
-        request.query = request
-            .query
-            .project_expr(alias, Expr::column("reference_number"));
-        request
-    }
-
-    pub fn group_by_reference_number_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.group_by("reference_number")
-            .aggregate_with_function("reference_number", alias, function)
-    }
-
-    pub fn count_reference_number(self) -> Self {
-        self.count_reference_number_as("reference_number_count")
-    }
-
-    pub fn count_reference_number_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("reference_number", alias)
-    }
-
-    pub fn sum_reference_number(self) -> Self {
-        self.sum_reference_number_as("sum_reference_number")
-    }
-
-    pub fn sum_reference_number_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_sum("reference_number", alias)
-    }
-
-    pub fn avg_reference_number(self) -> Self {
-        self.avg_reference_number_as("avg_reference_number")
-    }
-
-    pub fn avg_reference_number_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_avg("reference_number", alias)
-    }
-
-    pub fn min_reference_number(self) -> Self {
-        self.min_reference_number_as("min_reference_number")
-    }
-
-    pub fn min_reference_number_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_min("reference_number", alias)
-    }
-
-    pub fn max_reference_number(self) -> Self {
-        self.max_reference_number_as("max_reference_number")
-    }
-
-    pub fn max_reference_number_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_max("reference_number", alias)
-    }
-
-    pub fn unselect_reference_number(mut self) -> Self {
-        self.query.projection.retain(|field| field != "reference_number");
-        self.query_options.raw_projections.retain(|projection| projection.property_name != "reference_number");
-        self
-    }
-
-
-    pub fn with_reference_number(
-        mut self,
-        operator: FieldOperator,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(field_operator_expr(
-            "reference_number",
-            operator,
-            values.into_iter().map(Into::into).collect(),
-        ));
-        self
-    }
-
-    pub fn create_reference_number_criteria(
-        operator: FieldOperator,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Expr {
-        field_operator_expr(
-            "reference_number",
-            operator,
-            values.into_iter().map(Into::into).collect(),
-        )
-    }
-
-    pub fn with_reference_number_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::eq("reference_number", value));
-        self
-    }
-
-
-
-    pub fn with_reference_number_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::ne("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gte("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lte("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_between(
-        mut self,
-        lower: impl Into<teaql_core::Value>,
-        upper: impl Into<teaql_core::Value>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::between("reference_number", lower, upper));
-        self
-    }
-
-    pub fn with_reference_number_between_range<T>(mut self, range: DateRange<T>) -> Self
-    where
-        T: Into<teaql_core::Value>,
-    {
-        self.query = self.query.and_filter(Expr::between(
-            "reference_number",
-            range.start,
-            range.end,
-        ));
-        self
-    }
-
-    pub fn with_reference_number_in(
-        mut self,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::in_list(
-            "reference_number",
-            values.into_iter().map(Into::into),
-        ));
-        self
-    }
-
-    pub fn with_reference_number_not_in(
-        mut self,
-        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
-    ) -> Self {
-        self.query = self.query.and_filter(Expr::not_in_list(
-            "reference_number",
-            values.into_iter().map(Into::into),
-        ));
-        self
-    }
-
-    pub fn with_reference_number_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::contain("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_not_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_contain("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::begin_with("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_not_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_begin_with("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::end_with("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_not_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_end_with("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::sound_like("reference_number", value));
-        self
-    }
-    pub fn with_reference_number_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("reference_number", value));
-        self
-    }
-
-    pub fn with_reference_number_is_unknown(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("reference_number"));
-        self
-    }
-
-
-
-    pub fn with_reference_number_is_known(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("reference_number"));
-        self
-    }
-
-
-    pub fn order_by_reference_number_asc(mut self) -> Self {
-        self.query = self.query.order_asc("reference_number");
-        self
-    }
-
-    pub fn order_by_reference_number_desc(mut self) -> Self {
-        self.query = self.query.order_desc("reference_number");
-        self
-    }
-
-    pub fn order_by_reference_number_asc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_asc("reference_number");
-        self
-    }
-
-    pub fn order_by_reference_number_desc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_desc("reference_number");
         self
     }
 
@@ -2427,196 +2150,6 @@ impl<R> PaymentTransactionRequest<R> {
         self.query.relations.retain(|relation| relation.name != "payment_method");
         self
     }
-
-
-    /// Please use `with_payment_status_is` instead
-    pub(crate) fn filter_by_payment_status(mut self, value: impl EntityReference) -> Self {
-        self.query = self.query.and_filter(Expr::eq("payment_status_id", value.entity_id_value()));
-        self
-    }
-    /// Complex relation filter for `payment_status`.
-    ///
-    /// **Usage Priority:**
-    ///
-    /// 1. **Preferred**: If you only want to filter by specific known constants, please **prefer** the generated semantic shortcut methods, such as:
-    ///    - [`Self::with_payment_status_is_xxx`]
-    ///
-    ///    This gives the best code readability.
-    ///
-    /// 2. **Advanced**: Only use this method when you need to perform advanced searches, dynamic subqueries, or filter based on complex relation conditions.
-    ///
-    /// # Example
-    /// ```rust
-    /// // Only use when building dynamic queries
-    /// let dynamic_query = crate::Q::payment_statuses_minimal().filter(...);
-    /// let request = crate::Q::payment_transactions().with_payment_status_matching(dynamic_query);
-    /// ```
-    pub fn with_payment_status_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::in_subquery(
-            "payment_status_id",
-            <crate::PaymentStatus as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_status", selection));
-        self
-    }
-
-
-    /// Complex relation filter for `payment_status`.
-    ///
-    /// **Usage Priority:**
-    ///
-    /// 1. **Preferred**: If you only want to filter by specific known constants, please **prefer** the generated semantic shortcut methods, such as:
-    ///    - [`Self::with_payment_status_is_not_xxx`]
-    ///
-    ///    This gives the best code readability.
-    ///
-    /// 2. **Advanced**: Only use this method when you need to perform advanced searches, dynamic subqueries, or filter based on complex relation conditions.
-    ///
-    /// # Example
-    /// ```rust
-    /// // Only use when building dynamic queries
-    /// let dynamic_query = crate::Q::payment_statuses_minimal().filter(...);
-    /// let request = crate::Q::payment_transactions().without_payment_status_matching(dynamic_query);
-    /// ```
-    pub fn without_payment_status_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::not_in_subquery(
-            "payment_status_id",
-            <crate::PaymentStatus as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_status", selection));
-        self
-    }
-
-
-    pub fn have_payment_status(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("payment_status_id"));
-        self
-    }
-
-    pub fn have_no_payment_status(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("payment_status_id"));
-        self
-    }
-
-
-    pub fn group_by_payment_status(self) -> Self {
-        self.group_by("payment_status_id")
-    }
-
-    pub fn group_by_payment_status_as(self, alias: impl Into<String>) -> Self {
-        let alias = alias.into();
-        let mut request = self.group_by("payment_status_id");
-        request.query = request
-            .query
-            .project_expr(alias, Expr::column("payment_status_id"));
-        request
-    }
-
-    pub fn group_by_payment_status_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.group_by("payment_status_id")
-            .aggregate_with_function("payment_status_id", alias, function)
-    }
-
-    pub fn group_by_payment_status_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        self.query = self.query.group_by("payment_status_id");
-        self.query_options.object_group_bys.push(ObjectGroupBy::new(
-            "payment_status",
-            "payment_status_id",
-            request,
-        ));
-        self
-    }
-
-    pub fn group_by_payment_status_with_details(self) -> Self {
-        self.group_by_payment_status_with_details_from(crate::Q::payment_statuses().unlimited())
-    }
-
-    pub fn group_by_payment_status_with_details_from(self, request: impl Into<QuerySelection>) -> Self {
-        self.group_by_payment_status_with(request)
-    }
-
-
-    pub fn roll_up_to_payment_status(self) -> Self {
-        self.roll_up_to_payment_status_with(crate::Q::payment_statuses().unlimited())
-    }
-
-    pub fn roll_up_to_payment_status_with(self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.with_payment_status_matching(selection.clone())
-            .group_by_payment_status_with(selection)
-    }
-
-    pub fn count_payment_status(self) -> Self {
-        self.count_payment_status_as("payment_status_count")
-    }
-
-    pub fn count_payment_status_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("payment_status_id", alias)
-    }
-
-    pub fn unselect_payment_status(mut self) -> Self {
-        self.query.projection.retain(|field| field != "payment_status_id");
-        self.query.relations.retain(|relation| relation.name != "payment_status");
-        self
-    }
-    pub fn payment_status_is_pending(self) -> Self {
-        self.filter_by_payment_status(1001_u64)
-    }
-
-    pub fn with_payment_status_is_pending(self) -> Self {
-        self.filter_by_payment_status(1001_u64)
-    }
-
-
-
-    pub fn with_payment_status_is_not_pending(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::ne("payment_status_id", 1001_u64));
-        self
-    }
-
-
-    pub fn payment_status_is_success(self) -> Self {
-        self.filter_by_payment_status(1002_u64)
-    }
-
-    pub fn with_payment_status_is_success(self) -> Self {
-        self.filter_by_payment_status(1002_u64)
-    }
-
-
-
-    pub fn with_payment_status_is_not_success(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::ne("payment_status_id", 1002_u64));
-        self
-    }
-
-
-    pub fn payment_status_is_failed(self) -> Self {
-        self.filter_by_payment_status(1003_u64)
-    }
-
-    pub fn with_payment_status_is_failed(self) -> Self {
-        self.filter_by_payment_status(1003_u64)
-    }
-
-
-
-    pub fn with_payment_status_is_not_failed(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::ne("payment_status_id", 1003_u64));
-        self
-    }
-
-
     pub fn select_payment_account(mut self) -> Self {
         self.query = self.query.relation("payment_account");
         self
@@ -2673,37 +2206,6 @@ impl<R> PaymentTransactionRequest<R> {
         self.query_options.facets.push(FacetRequest::new(
             facet_name,
             "payment_method",
-            request,
-            include_all_facets,
-        ));
-        self
-    }
-
-    pub fn select_payment_status(mut self) -> Self {
-        self.query = self.query.relation("payment_status");
-        self
-    }
-
-    pub fn select_payment_status_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.relation_query("payment_status", selection.clone().into_query());
-        self.relation_selections.push(RelationSelection::new("payment_status", selection));
-        self
-}
-
-    pub fn facet_by_payment_status_as(self, facet_name: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.facet_by_payment_status_as_with_options(facet_name, request, true)
-    }
-
-    pub fn facet_by_payment_status_as_with_options(
-        mut self,
-        facet_name: impl Into<String>,
-        request: impl Into<QuerySelection>,
-        include_all_facets: bool,
-    ) -> Self {
-        self.query_options.facets.push(FacetRequest::new(
-            facet_name,
-            "payment_status",
             request,
             include_all_facets,
         ));

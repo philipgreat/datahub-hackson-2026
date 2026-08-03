@@ -6,21 +6,21 @@ use teaql_runtime::{DataServiceError, RuntimeError};
 
 use crate::request_support::*;
 
-impl EntityReference for crate::PaymentTransaction {
+impl EntityReference for crate::UserAccount {
     fn entity_id_value(self) -> teaql_core::Value {
         teaql_core::IdentifiableEntity::id_value(&self)
     }
 }
 
-impl EntityReference for &crate::PaymentTransaction {
+impl EntityReference for &crate::UserAccount {
     fn entity_id_value(self) -> teaql_core::Value {
         teaql_core::IdentifiableEntity::id_value(self)
     }
 }
 
-// ⛔ AI agents: DO NOT read this file for API discovery. Instead run: cargo teaql --input modeling/MODEL.xml rust-assist-query/payment_transaction
+// ⛔ AI agents: DO NOT read this file for API discovery. Instead run: cargo teaql --input modeling/MODEL.xml rust-assist-query/user_account
 #[derive(Debug)]
-pub struct PaymentTransactionRequest<R = crate::PaymentTransaction> {
+pub struct UserAccountRequest<R = crate::UserAccount> {
     query: SelectQuery,
     relation_selections: Vec<RelationSelection>,
     relation_filters: Vec<RelationFilter>,
@@ -29,7 +29,7 @@ pub struct PaymentTransactionRequest<R = crate::PaymentTransaction> {
     marker: PhantomData<R>,
 }
 
-impl<R> Clone for PaymentTransactionRequest<R> {
+impl<R> Clone for UserAccountRequest<R> {
     fn clone(&self) -> Self {
         Self {
             query: self.query.clone(),
@@ -42,10 +42,10 @@ impl<R> Clone for PaymentTransactionRequest<R> {
     }
 }
 
-impl<R> PaymentTransactionRequest<R> {
+impl<R> UserAccountRequest<R> {
     pub(crate) fn new() -> Self {
         Self {
-            query: SelectQuery::new("PaymentTransaction")
+            query: SelectQuery::new("UserAccount")
                 .project("id")
                 .project("version"),
             relation_selections: Vec::new(),
@@ -56,8 +56,8 @@ impl<R> PaymentTransactionRequest<R> {
         }
     }
 
-    pub fn return_type<T>(self) -> PaymentTransactionRequest<T> {
-        PaymentTransactionRequest {
+    pub fn return_type<T>(self) -> UserAccountRequest<T> {
+        UserAccountRequest {
             query: self.query,
             relation_selections: self.relation_selections,
             relation_filters: self.relation_filters,
@@ -99,13 +99,13 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_list<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<SmartList<R>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<SmartList<R>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
         R: teaql_core::Entity,
     {
         let repository = ctx
-            .payment_transaction_repository()
+            .user_account_repository()
             .map_err(|err| DataServiceError::Runtime(RuntimeError::Graph(err.to_string())))?;
         let query_options = self.query_options.clone();
         let relation_aggregates = runtime_relation_aggregates(&query_options);
@@ -128,12 +128,12 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_stream<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<Vec<teaql_data_service::StreamChunk>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<Vec<teaql_data_service::StreamChunk>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
     {
         let repository = ctx
-            .payment_transaction_repository()
+            .user_account_repository()
             .map_err(|err| DataServiceError::Runtime(RuntimeError::Graph(err.to_string())))?;
         let query_options = self.query_options.clone();
         let query = authorize_query(apply_runtime_metadata(
@@ -149,7 +149,7 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_first<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<Option<R>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<Option<R>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
         R: teaql_core::Entity,
@@ -161,7 +161,7 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_one<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<Option<R>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<Option<R>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
         R: teaql_core::Entity,
@@ -175,7 +175,7 @@ impl<R> PaymentTransactionRequest<R> {
         ctx: &'a C,
         offset: u64,
         limit: u64,
-    ) -> Result<SmartList<R>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<SmartList<R>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
         R: teaql_core::Entity,
@@ -189,12 +189,12 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_count<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<u64, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<u64, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
     {
         let repository = ctx
-            .payment_transaction_repository()
+            .user_account_repository()
             .map_err(|err| DataServiceError::Runtime(RuntimeError::Graph(err.to_string())))?;
         let mut query = self.query;
         query.projection.clear();
@@ -208,18 +208,18 @@ impl<R> PaymentTransactionRequest<R> {
         rows.first()
             .and_then(|row| row.get(COUNT_ALIAS))
             .and_then(teaql_core::Value::try_u64)
-            .ok_or_else(|| DataServiceError::Runtime(RuntimeError::Graph(format!("count result for PaymentTransaction is missing or not numeric"))))
+            .ok_or_else(|| DataServiceError::Runtime(RuntimeError::Graph(format!("count result for UserAccount is missing or not numeric"))))
     }
 
     pub(crate) async fn _execute_for_exists<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<bool, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<bool, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
     {
         let repository = ctx
-            .payment_transaction_repository()
+            .user_account_repository()
             .map_err(|err| DataServiceError::Runtime(RuntimeError::Graph(err.to_string())))?;
         let mut query = self.query.limit(1);
         query.relations.clear();
@@ -231,12 +231,12 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_records<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<SmartList<Record>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<SmartList<Record>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
     {
         let repository = ctx
-            .payment_transaction_repository()
+            .user_account_repository()
             .map_err(|err| DataServiceError::Runtime(RuntimeError::Graph(err.to_string())))?;
         let query_options = self.query_options.clone();
         let outer_query = self.query.clone();
@@ -257,7 +257,7 @@ impl<R> PaymentTransactionRequest<R> {
     pub(crate) async fn _execute_for_record<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<Option<Record>, TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<Option<Record>, TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: TeaqlRepositoryProvider + ?Sized,
     {
@@ -476,13 +476,11 @@ impl<R> PaymentTransactionRequest<R> {
     fn dynamic_json_self_field(field: &str) -> Option<&'static str> {
         match field {
             "id" => Some("id"),
-            "currency_code" => Some("currency_code"),
-            "transaction_amount" => Some("transaction_amount"),
+            "user_id" => Some("user_id"),
+            "user_name" => Some("user_name"),
             "create_time" => Some("create_time"),
             "update_time" => Some("update_time"),
             "version" => Some("version"),
-            "payment_account" | "payment_account_id" => Some("payment_account_id"),
-            "payment_method" | "payment_method_id" => Some("payment_method_id"),
             _ => None,
         }
     }
@@ -490,15 +488,9 @@ impl<R> PaymentTransactionRequest<R> {
     fn apply_dynamic_json_chain_filter(self, head: &str, tail: &str, value: &JsonValue) -> Self {
         let _ = (tail, value);
         match head {
-            "payment_account" => {
-                self.with_payment_account_matching(
+            "payment_account_list" => {
+                self.with_payment_account_list_matching(
                     crate::Q::payment_accounts_minimal()
-                        .apply_dynamic_json_filter(tail, value),
-                )
-            }
-            "payment_method" => {
-                self.with_payment_method_matching(
-                    crate::Q::payment_methods_minimal()
                         .apply_dynamic_json_filter(tail, value),
                 )
             }
@@ -580,13 +572,11 @@ impl<R> PaymentTransactionRequest<R> {
 
     pub fn select_self(mut self) -> Self {
         self.query = self.query.project("id");
-        self.query = self.query.project("currency_code");
-        self.query = self.query.project("transaction_amount");
+        self.query = self.query.project("user_id");
+        self.query = self.query.project("user_name");
         self.query = self.query.project("create_time");
         self.query = self.query.project("update_time");
         self.query = self.query.project("version");
-        self.query = self.query.project("payment_account_id");
-        self.query = self.query.project("payment_method_id");
         self
     }
 
@@ -599,14 +589,13 @@ impl<R> PaymentTransactionRequest<R> {
     }
 
     pub fn select_all(self) -> Self {
-        let mut request = self.select_self();
-        request = request.select_payment_account();
-        request = request.select_payment_method();
-        request
+        self.select_self()
     }
 
     pub fn select_children(self) -> Self {
-        self.select_all()
+        let mut request = self.select_all();
+        request = request.select_payment_account_list();
+        request
     }
 
     pub fn select_any(self) -> Self {
@@ -850,544 +839,534 @@ impl<R> PaymentTransactionRequest<R> {
     }
 
 
-    pub fn select_currency_code(mut self) -> Self {
-        self.query = self.query.project("currency_code");
+    pub fn select_user_id(mut self) -> Self {
+        self.query = self.query.project("user_id");
         self
     }
 
-    pub fn project_currency_code(self) -> Self {
-        self.select_currency_code()
+    pub fn project_user_id(self) -> Self {
+        self.select_user_id()
     }
 
-    pub fn select_currency_code_raw(self, raw_sql_segment: impl Into<String>) -> Self {
-        self.select_currency_code_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
+    pub fn select_user_id_raw(self, raw_sql_segment: impl Into<String>) -> Self {
+        self.select_user_id_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
     }
 
-    pub fn select_currency_code_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
+    pub fn select_user_id_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
         self.query_options
             .raw_projections
-            .push(RawProjection::new("currency_code", raw_sql_segment));
+            .push(RawProjection::new("user_id", raw_sql_segment));
         self
     }
 
-    pub fn group_by_currency_code(self) -> Self {
-        self.group_by("currency_code")
+    pub fn group_by_user_id(self) -> Self {
+        self.group_by("user_id")
     }
 
-    pub fn group_by_currency_code_as(self, alias: impl Into<String>) -> Self {
+    pub fn group_by_user_id_as(self, alias: impl Into<String>) -> Self {
         let alias = alias.into();
-        let mut request = self.group_by("currency_code");
+        let mut request = self.group_by("user_id");
         request.query = request
             .query
-            .project_expr(alias, Expr::column("currency_code"));
+            .project_expr(alias, Expr::column("user_id"));
         request
     }
 
-    pub fn group_by_currency_code_with_function(
+    pub fn group_by_user_id_with_function(
         self,
         alias: impl Into<String>,
         function: AggregateFunction,
     ) -> Self {
-        self.group_by("currency_code")
-            .aggregate_with_function("currency_code", alias, function)
+        self.group_by("user_id")
+            .aggregate_with_function("user_id", alias, function)
     }
 
-    pub fn count_currency_code(self) -> Self {
-        self.count_currency_code_as("currency_code_count")
+    pub fn count_user_id(self) -> Self {
+        self.count_user_id_as("user_id_count")
     }
 
-    pub fn count_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("currency_code", alias)
+    pub fn count_user_id_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_count_field("user_id", alias)
     }
 
-    pub fn sum_currency_code(self) -> Self {
-        self.sum_currency_code_as("sum_currency_code")
+    pub fn sum_user_id(self) -> Self {
+        self.sum_user_id_as("sum_user_id")
     }
 
-    pub fn sum_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_sum("currency_code", alias)
+    pub fn sum_user_id_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_sum("user_id", alias)
     }
 
-    pub fn avg_currency_code(self) -> Self {
-        self.avg_currency_code_as("avg_currency_code")
+    pub fn avg_user_id(self) -> Self {
+        self.avg_user_id_as("avg_user_id")
     }
 
-    pub fn avg_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_avg("currency_code", alias)
+    pub fn avg_user_id_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_avg("user_id", alias)
     }
 
-    pub fn min_currency_code(self) -> Self {
-        self.min_currency_code_as("min_currency_code")
+    pub fn min_user_id(self) -> Self {
+        self.min_user_id_as("min_user_id")
     }
 
-    pub fn min_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_min("currency_code", alias)
+    pub fn min_user_id_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_min("user_id", alias)
     }
 
-    pub fn max_currency_code(self) -> Self {
-        self.max_currency_code_as("max_currency_code")
+    pub fn max_user_id(self) -> Self {
+        self.max_user_id_as("max_user_id")
     }
 
-    pub fn max_currency_code_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_max("currency_code", alias)
+    pub fn max_user_id_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_max("user_id", alias)
     }
 
-    pub fn unselect_currency_code(mut self) -> Self {
-        self.query.projection.retain(|field| field != "currency_code");
-        self.query_options.raw_projections.retain(|projection| projection.property_name != "currency_code");
+    pub fn unselect_user_id(mut self) -> Self {
+        self.query.projection.retain(|field| field != "user_id");
+        self.query_options.raw_projections.retain(|projection| projection.property_name != "user_id");
         self
     }
 
 
-    pub fn with_currency_code(
+    pub fn with_user_id(
         mut self,
         operator: FieldOperator,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(field_operator_expr(
-            "currency_code",
+            "user_id",
             operator,
             values.into_iter().map(Into::into).collect(),
         ));
         self
     }
 
-    pub fn create_currency_code_criteria(
+    pub fn create_user_id_criteria(
         operator: FieldOperator,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Expr {
         field_operator_expr(
-            "currency_code",
+            "user_id",
             operator,
             values.into_iter().map(Into::into).collect(),
         )
     }
 
-    pub fn with_currency_code_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::eq("currency_code", value));
+    pub fn with_user_id_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::eq("user_id", value));
         self
     }
 
 
 
-    pub fn with_currency_code_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::ne("currency_code", value));
+    pub fn with_user_id_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::ne("user_id", value));
         self
     }
 
-    pub fn with_currency_code_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("currency_code", value));
+    pub fn with_user_id_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("user_id", value));
         self
     }
 
-    pub fn with_currency_code_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gte("currency_code", value));
+    pub fn with_user_id_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gte("user_id", value));
         self
     }
 
-    pub fn with_currency_code_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("currency_code", value));
+    pub fn with_user_id_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("user_id", value));
         self
     }
 
-    pub fn with_currency_code_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lte("currency_code", value));
+    pub fn with_user_id_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lte("user_id", value));
         self
     }
 
-    pub fn with_currency_code_between(
+    pub fn with_user_id_between(
         mut self,
         lower: impl Into<teaql_core::Value>,
         upper: impl Into<teaql_core::Value>,
     ) -> Self {
-        self.query = self.query.and_filter(Expr::between("currency_code", lower, upper));
+        self.query = self.query.and_filter(Expr::between("user_id", lower, upper));
         self
     }
 
-    pub fn with_currency_code_between_range<T>(mut self, range: DateRange<T>) -> Self
+    pub fn with_user_id_between_range<T>(mut self, range: DateRange<T>) -> Self
     where
         T: Into<teaql_core::Value>,
     {
         self.query = self.query.and_filter(Expr::between(
-            "currency_code",
+            "user_id",
             range.start,
             range.end,
         ));
         self
     }
 
-    pub fn with_currency_code_in(
+    pub fn with_user_id_in(
         mut self,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(Expr::in_list(
-            "currency_code",
+            "user_id",
             values.into_iter().map(Into::into),
         ));
         self
     }
 
-    pub fn with_currency_code_not_in(
+    pub fn with_user_id_not_in(
         mut self,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(Expr::not_in_list(
-            "currency_code",
+            "user_id",
             values.into_iter().map(Into::into),
         ));
         self
     }
 
-    pub fn with_currency_code_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::contain("currency_code", value));
+    pub fn with_user_id_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::contain("user_id", value));
         self
     }
 
-    pub fn with_currency_code_not_containing(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_contain("currency_code", value));
+    pub fn with_user_id_not_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_contain("user_id", value));
         self
     }
 
-    pub fn with_currency_code_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::begin_with("currency_code", value));
+    pub fn with_user_id_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::begin_with("user_id", value));
         self
     }
 
-    pub fn with_currency_code_not_starting_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_begin_with("currency_code", value));
+    pub fn with_user_id_not_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_begin_with("user_id", value));
         self
     }
 
-    pub fn with_currency_code_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::end_with("currency_code", value));
+    pub fn with_user_id_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::end_with("user_id", value));
         self
     }
 
-    pub fn with_currency_code_not_ending_with(mut self, value: impl Into<String>) -> Self {
-        self.query = self.query.and_filter(Expr::not_end_with("currency_code", value));
+    pub fn with_user_id_not_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_end_with("user_id", value));
         self
     }
 
-    pub fn with_currency_code_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::sound_like("currency_code", value));
+    pub fn with_user_id_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::sound_like("user_id", value));
         self
     }
-    pub fn with_currency_code_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("currency_code", value));
-        self
-    }
-
-    pub fn with_currency_code_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("currency_code", value));
+    pub fn with_user_id_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("user_id", value));
         self
     }
 
-    pub fn with_currency_code_is_unknown(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("currency_code"));
+    pub fn with_user_id_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("user_id", value));
         self
     }
 
-
-
-    pub fn with_currency_code_is_known(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("currency_code"));
+    pub fn with_user_id_is_unknown(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_null("user_id"));
         self
     }
 
 
-    pub fn order_by_currency_code_asc(mut self) -> Self {
-        self.query = self.query.order_asc("currency_code");
-        self
-    }
 
-    pub fn order_by_currency_code_desc(mut self) -> Self {
-        self.query = self.query.order_desc("currency_code");
-        self
-    }
-
-    pub fn order_by_currency_code_asc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_asc("currency_code");
-        self
-    }
-
-    pub fn order_by_currency_code_desc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_desc("currency_code");
+    pub fn with_user_id_is_known(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_not_null("user_id"));
         self
     }
 
 
-    pub fn select_transaction_amount(mut self) -> Self {
-        self.query = self.query.project("transaction_amount");
+    pub fn order_by_user_id_asc(mut self) -> Self {
+        self.query = self.query.order_asc("user_id");
         self
     }
 
-    pub fn project_transaction_amount(self) -> Self {
-        self.select_transaction_amount()
+    pub fn order_by_user_id_desc(mut self) -> Self {
+        self.query = self.query.order_desc("user_id");
+        self
     }
 
-    pub fn select_transaction_amount_raw(self, raw_sql_segment: impl Into<String>) -> Self {
-        self.select_transaction_amount_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
+    pub fn order_by_user_id_asc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_asc("user_id");
+        self
     }
 
-    pub fn select_transaction_amount_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
+    pub fn order_by_user_id_desc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_desc("user_id");
+        self
+    }
+
+
+    pub fn select_user_name(mut self) -> Self {
+        self.query = self.query.project("user_name");
+        self
+    }
+
+    pub fn project_user_name(self) -> Self {
+        self.select_user_name()
+    }
+
+    pub fn select_user_name_raw(self, raw_sql_segment: impl Into<String>) -> Self {
+        self.select_user_name_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
+    }
+
+    pub fn select_user_name_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
         self.query_options
             .raw_projections
-            .push(RawProjection::new("transaction_amount", raw_sql_segment));
+            .push(RawProjection::new("user_name", raw_sql_segment));
         self
     }
 
-    pub fn select_transaction_amount_with_function(self, function: AggregateFunction) -> Self {
-        self.select_transaction_amount_as_with_function("transaction_amount", function)
+    pub fn group_by_user_name(self) -> Self {
+        self.group_by("user_name")
     }
 
-    pub fn select_transaction_amount_as_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.aggregate_with_function("transaction_amount", alias, function)
-    }
-
-    pub fn group_by_transaction_amount(self) -> Self {
-        self.group_by("transaction_amount")
-    }
-
-    pub fn group_by_transaction_amount_as(self, alias: impl Into<String>) -> Self {
+    pub fn group_by_user_name_as(self, alias: impl Into<String>) -> Self {
         let alias = alias.into();
-        let mut request = self.group_by("transaction_amount");
+        let mut request = self.group_by("user_name");
         request.query = request
             .query
-            .project_expr(alias, Expr::column("transaction_amount"));
+            .project_expr(alias, Expr::column("user_name"));
         request
     }
 
-    pub fn group_by_transaction_amount_with_function(
+    pub fn group_by_user_name_with_function(
         self,
         alias: impl Into<String>,
         function: AggregateFunction,
     ) -> Self {
-        self.group_by("transaction_amount")
-            .aggregate_with_function("transaction_amount", alias, function)
+        self.group_by("user_name")
+            .aggregate_with_function("user_name", alias, function)
     }
 
-    pub fn count_transaction_amount(self) -> Self {
-        self.count_transaction_amount_as("transaction_amount_count")
+    pub fn count_user_name(self) -> Self {
+        self.count_user_name_as("user_name_count")
     }
 
-    pub fn count_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("transaction_amount", alias)
+    pub fn count_user_name_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_count_field("user_name", alias)
     }
 
-    pub fn sum_transaction_amount(self) -> Self {
-        self.sum_transaction_amount_as("sum_transaction_amount")
+    pub fn sum_user_name(self) -> Self {
+        self.sum_user_name_as("sum_user_name")
     }
 
-    pub fn sum_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_sum("transaction_amount", alias)
+    pub fn sum_user_name_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_sum("user_name", alias)
     }
 
-    pub fn avg_transaction_amount(self) -> Self {
-        self.avg_transaction_amount_as("avg_transaction_amount")
+    pub fn avg_user_name(self) -> Self {
+        self.avg_user_name_as("avg_user_name")
     }
 
-    pub fn avg_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_avg("transaction_amount", alias)
+    pub fn avg_user_name_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_avg("user_name", alias)
     }
 
-    pub fn min_transaction_amount(self) -> Self {
-        self.min_transaction_amount_as("min_transaction_amount")
+    pub fn min_user_name(self) -> Self {
+        self.min_user_name_as("min_user_name")
     }
 
-    pub fn min_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_min("transaction_amount", alias)
+    pub fn min_user_name_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_min("user_name", alias)
     }
 
-    pub fn max_transaction_amount(self) -> Self {
-        self.max_transaction_amount_as("max_transaction_amount")
+    pub fn max_user_name(self) -> Self {
+        self.max_user_name_as("max_user_name")
     }
 
-    pub fn max_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_max("transaction_amount", alias)
+    pub fn max_user_name_as(self, alias: impl Into<String>) -> Self {
+        self.aggregate_max("user_name", alias)
     }
 
-    pub fn standard_deviation_transaction_amount(self) -> Self {
-        self.standard_deviation_transaction_amount_as("stdDev_transaction_amount")
-    }
-
-    pub fn standard_deviation_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_stddev("transaction_amount", alias)
-    }
-
-    pub fn square_root_of_population_standard_deviation_transaction_amount(self) -> Self {
-        self.square_root_of_population_standard_deviation_transaction_amount_as("stdDevPop_transaction_amount")
-    }
-
-    pub fn square_root_of_population_standard_deviation_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_stddev_pop("transaction_amount", alias)
-    }
-
-    pub fn sample_variance_transaction_amount(self) -> Self {
-        self.sample_variance_transaction_amount_as("varSamp_transaction_amount")
-    }
-
-    pub fn sample_variance_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_var_samp("transaction_amount", alias)
-    }
-
-    pub fn sample_population_variance_transaction_amount(self) -> Self {
-        self.sample_population_variance_transaction_amount_as("varPop_transaction_amount")
-    }
-
-    pub fn sample_population_variance_transaction_amount_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_var_pop("transaction_amount", alias)
-    }
-
-    pub fn unselect_transaction_amount(mut self) -> Self {
-        self.query.projection.retain(|field| field != "transaction_amount");
-        self.query_options.raw_projections.retain(|projection| projection.property_name != "transaction_amount");
+    pub fn unselect_user_name(mut self) -> Self {
+        self.query.projection.retain(|field| field != "user_name");
+        self.query_options.raw_projections.retain(|projection| projection.property_name != "user_name");
         self
     }
 
 
-    pub fn with_transaction_amount(
+    pub fn with_user_name(
         mut self,
         operator: FieldOperator,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(field_operator_expr(
-            "transaction_amount",
+            "user_name",
             operator,
             values.into_iter().map(Into::into).collect(),
         ));
         self
     }
 
-    pub fn create_transaction_amount_criteria(
+    pub fn create_user_name_criteria(
         operator: FieldOperator,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Expr {
         field_operator_expr(
-            "transaction_amount",
+            "user_name",
             operator,
             values.into_iter().map(Into::into).collect(),
         )
     }
 
-    pub fn with_transaction_amount_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::eq("transaction_amount", value));
+    pub fn with_user_name_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::eq("user_name", value));
         self
     }
 
 
 
-    pub fn with_transaction_amount_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::ne("transaction_amount", value));
+    pub fn with_user_name_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::ne("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("transaction_amount", value));
+    pub fn with_user_name_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gte("transaction_amount", value));
+    pub fn with_user_name_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gte("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("transaction_amount", value));
+    pub fn with_user_name_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lte("transaction_amount", value));
+    pub fn with_user_name_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lte("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_between(
+    pub fn with_user_name_between(
         mut self,
         lower: impl Into<teaql_core::Value>,
         upper: impl Into<teaql_core::Value>,
     ) -> Self {
-        self.query = self.query.and_filter(Expr::between("transaction_amount", lower, upper));
+        self.query = self.query.and_filter(Expr::between("user_name", lower, upper));
         self
     }
 
-    pub fn with_transaction_amount_between_range<T>(mut self, range: DateRange<T>) -> Self
+    pub fn with_user_name_between_range<T>(mut self, range: DateRange<T>) -> Self
     where
         T: Into<teaql_core::Value>,
     {
         self.query = self.query.and_filter(Expr::between(
-            "transaction_amount",
+            "user_name",
             range.start,
             range.end,
         ));
         self
     }
 
-    pub fn with_transaction_amount_in(
+    pub fn with_user_name_in(
         mut self,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(Expr::in_list(
-            "transaction_amount",
+            "user_name",
             values.into_iter().map(Into::into),
         ));
         self
     }
 
-    pub fn with_transaction_amount_not_in(
+    pub fn with_user_name_not_in(
         mut self,
         values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
     ) -> Self {
         self.query = self.query.and_filter(Expr::not_in_list(
-            "transaction_amount",
+            "user_name",
             values.into_iter().map(Into::into),
         ));
         self
     }
 
-    pub fn with_transaction_amount_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::lt("transaction_amount", value));
+    pub fn with_user_name_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::contain("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
-        self.query = self.query.and_filter(Expr::gt("transaction_amount", value));
+    pub fn with_user_name_not_containing(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_contain("user_name", value));
         self
     }
 
-    pub fn with_transaction_amount_is_unknown(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("transaction_amount"));
+    pub fn with_user_name_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::begin_with("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_not_starting_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_begin_with("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::end_with("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_not_ending_with(mut self, value: impl Into<String>) -> Self {
+        self.query = self.query.and_filter(Expr::not_end_with("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::sound_like("user_name", value));
+        self
+    }
+    pub fn with_user_name_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::lt("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
+        self.query = self.query.and_filter(Expr::gt("user_name", value));
+        self
+    }
+
+    pub fn with_user_name_is_unknown(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_null("user_name"));
         self
     }
 
 
 
-    pub fn with_transaction_amount_is_known(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("transaction_amount"));
+    pub fn with_user_name_is_known(mut self) -> Self {
+        self.query = self.query.and_filter(Expr::is_not_null("user_name"));
         self
     }
 
 
-    pub fn order_by_transaction_amount_asc(mut self) -> Self {
-        self.query = self.query.order_asc("transaction_amount");
+    pub fn order_by_user_name_asc(mut self) -> Self {
+        self.query = self.query.order_asc("user_name");
         self
     }
 
-    pub fn order_by_transaction_amount_desc(mut self) -> Self {
-        self.query = self.query.order_desc("transaction_amount");
+    pub fn order_by_user_name_desc(mut self) -> Self {
+        self.query = self.query.order_desc("user_name");
         self
     }
 
-    pub fn order_by_transaction_amount_asc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_asc("transaction_amount");
+    pub fn order_by_user_name_asc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_asc("user_name");
         self
     }
 
-    pub fn order_by_transaction_amount_desc_using_gbk(mut self) -> Self {
-        self.query = self.query.order_gbk_desc("transaction_amount");
+    pub fn order_by_user_name_desc_using_gbk(mut self) -> Self {
+        self.query = self.query.order_gbk_desc("user_name");
         self
     }
 
@@ -1936,297 +1915,253 @@ impl<R> PaymentTransactionRequest<R> {
         self.query = self.query.order_gbk_desc("version");
         self
     }
-    pub fn filter_by_payment_account(mut self, value: impl EntityReference) -> Self {
-        self.query = self.query.and_filter(Expr::eq("payment_account_id", value.entity_id_value()));
-        self
+    pub fn user_id_is_u_987654321(self) -> Self {
+        self.with_user_id_is("U-987654321")
     }
 
-    pub fn with_payment_account_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+    pub fn with_user_id_is_u_987654321(self) -> Self {
+        self.with_user_id_is("U-987654321")
+    }
+
+
+
+    pub fn with_user_id_is_not_u_987654321(self) -> Self {
+        self.with_user_id_is_not("U-987654321")
+    }
+
+
+
+    pub fn user_name_is_boolean(self) -> Self {
+        self.with_user_name_is("boolean()")
+    }
+
+    pub fn with_user_name_is_boolean(self) -> Self {
+        self.with_user_name_is("boolean()")
+    }
+
+
+
+    pub fn with_user_name_is_not_boolean(self) -> Self {
+        self.with_user_name_is_not("boolean()")
+    }
+
+
+
+    pub fn create_time_is_create_time(self) -> Self {
+        self.with_create_time_is("createTime()")
+    }
+
+    pub fn with_create_time_is_create_time(self) -> Self {
+        self.with_create_time_is("createTime()")
+    }
+
+
+
+    pub fn with_create_time_is_not_create_time(self) -> Self {
+        self.with_create_time_is_not("createTime()")
+    }
+
+
+
+    pub fn update_time_is_update_time(self) -> Self {
+        self.with_update_time_is("updateTime()")
+    }
+
+    pub fn with_update_time_is_update_time(self) -> Self {
+        self.with_update_time_is("updateTime()")
+    }
+
+
+
+    pub fn with_update_time_is_not_update_time(self) -> Self {
+        self.with_update_time_is_not("updateTime()")
+    }
+
+
+
+
+    pub fn have_payment_accounts(self) -> Self {
+        self.with_payment_account_list_matching(SelectQuery::new("PaymentAccount"))
+    }
+
+    pub fn have_no_payment_accounts(self) -> Self {
+        self.without_payment_account_list_matching(SelectQuery::new("PaymentAccount"))
+    }
+
+    pub fn with_payment_account_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
         let selection = request.into();
         self.query = self.query.and_filter(Expr::in_subquery(
-            "payment_account_id",
+            "id",
             <crate::PaymentAccount as teaql_core::TeaqlEntity>::entity_descriptor(),
             selection.query.clone(),
-            "id",
+            "user_account_id",
         ));
-        self.relation_filters.push(RelationFilter::new("payment_account", selection));
+        self.relation_filters.push(RelationFilter::new("payment_account_list", selection));
         self
     }
 
-
-    pub fn without_payment_account_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+    pub fn without_payment_account_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
         let selection = request.into();
         self.query = self.query.and_filter(Expr::not_in_subquery(
-            "payment_account_id",
+            "id",
             <crate::PaymentAccount as teaql_core::TeaqlEntity>::entity_descriptor(),
             selection.query.clone(),
-            "id",
+            "user_account_id",
         ));
-        self.relation_filters.push(RelationFilter::new("payment_account", selection));
+        self.relation_filters.push(RelationFilter::new("payment_account_list", selection));
         self
     }
 
-
-    pub fn have_payment_account(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("payment_account_id"));
+    pub fn select_payment_account_list(mut self) -> Self {
+        self.query = self.query.relation("payment_account_list");
         self
     }
 
-    pub fn have_no_payment_account(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("payment_account_id"));
-        self
-    }
-
-
-    pub fn group_by_payment_account(self) -> Self {
-        self.group_by("payment_account_id")
-    }
-
-    pub fn group_by_payment_account_as(self, alias: impl Into<String>) -> Self {
-        let alias = alias.into();
-        let mut request = self.group_by("payment_account_id");
-        request.query = request
-            .query
-            .project_expr(alias, Expr::column("payment_account_id"));
-        request
-    }
-
-    pub fn group_by_payment_account_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.group_by("payment_account_id")
-            .aggregate_with_function("payment_account_id", alias, function)
-    }
-
-    pub fn group_by_payment_account_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        self.query = self.query.group_by("payment_account_id");
-        self.query_options.object_group_bys.push(ObjectGroupBy::new(
-            "payment_account",
-            "payment_account_id",
-            request,
-        ));
-        self
-    }
-
-    pub fn group_by_payment_account_with_details(self) -> Self {
-        self.group_by_payment_account_with_details_from(crate::Q::payment_accounts().unlimited())
-    }
-
-    pub fn group_by_payment_account_with_details_from(self, request: impl Into<QuerySelection>) -> Self {
-        self.group_by_payment_account_with(request)
-    }
-
-
-    pub fn roll_up_to_payment_account(self) -> Self {
-        self.roll_up_to_payment_account_with(crate::Q::payment_accounts().unlimited())
-    }
-
-    pub fn roll_up_to_payment_account_with(self, request: impl Into<QuerySelection>) -> Self {
+    pub fn select_payment_account_list_with(mut self, request: impl Into<QuerySelection>) -> Self {
         let selection = request.into();
-        self.with_payment_account_matching(selection.clone())
-            .group_by_payment_account_with(selection)
-    }
-
-    pub fn count_payment_account(self) -> Self {
-        self.count_payment_account_as("payment_account_count")
-    }
-
-    pub fn count_payment_account_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("payment_account_id", alias)
-    }
-
-    pub fn unselect_payment_account(mut self) -> Self {
-        self.query.projection.retain(|field| field != "payment_account_id");
-        self.query.relations.retain(|relation| relation.name != "payment_account");
-        self
-    }
-
-
-    pub fn filter_by_payment_method(mut self, value: impl EntityReference) -> Self {
-        self.query = self.query.and_filter(Expr::eq("payment_method_id", value.entity_id_value()));
-        self
-    }
-
-    pub fn with_payment_method_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::in_subquery(
-            "payment_method_id",
-            <crate::PaymentMethod as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_method", selection));
-        self
-    }
-
-
-    pub fn without_payment_method_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::not_in_subquery(
-            "payment_method_id",
-            <crate::PaymentMethod as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_method", selection));
-        self
-    }
-
-
-    pub fn have_payment_method(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_not_null("payment_method_id"));
-        self
-    }
-
-    pub fn have_no_payment_method(mut self) -> Self {
-        self.query = self.query.and_filter(Expr::is_null("payment_method_id"));
-        self
-    }
-
-
-    pub fn group_by_payment_method(self) -> Self {
-        self.group_by("payment_method_id")
-    }
-
-    pub fn group_by_payment_method_as(self, alias: impl Into<String>) -> Self {
-        let alias = alias.into();
-        let mut request = self.group_by("payment_method_id");
-        request.query = request
-            .query
-            .project_expr(alias, Expr::column("payment_method_id"));
-        request
-    }
-
-    pub fn group_by_payment_method_with_function(
-        self,
-        alias: impl Into<String>,
-        function: AggregateFunction,
-    ) -> Self {
-        self.group_by("payment_method_id")
-            .aggregate_with_function("payment_method_id", alias, function)
-    }
-
-    pub fn group_by_payment_method_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        self.query = self.query.group_by("payment_method_id");
-        self.query_options.object_group_bys.push(ObjectGroupBy::new(
-            "payment_method",
-            "payment_method_id",
-            request,
-        ));
-        self
-    }
-
-    pub fn group_by_payment_method_with_details(self) -> Self {
-        self.group_by_payment_method_with_details_from(crate::Q::payment_methods().unlimited())
-    }
-
-    pub fn group_by_payment_method_with_details_from(self, request: impl Into<QuerySelection>) -> Self {
-        self.group_by_payment_method_with(request)
-    }
-
-
-    pub fn roll_up_to_payment_method(self) -> Self {
-        self.roll_up_to_payment_method_with(crate::Q::payment_methods().unlimited())
-    }
-
-    pub fn roll_up_to_payment_method_with(self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.with_payment_method_matching(selection.clone())
-            .group_by_payment_method_with(selection)
-    }
-
-    pub fn count_payment_method(self) -> Self {
-        self.count_payment_method_as("payment_method_count")
-    }
-
-    pub fn count_payment_method_as(self, alias: impl Into<String>) -> Self {
-        self.aggregate_count_field("payment_method_id", alias)
-    }
-
-    pub fn unselect_payment_method(mut self) -> Self {
-        self.query.projection.retain(|field| field != "payment_method_id");
-        self.query.relations.retain(|relation| relation.name != "payment_method");
-        self
-    }
-    pub fn select_payment_account(mut self) -> Self {
-        self.query = self.query.relation("payment_account");
-        self
-    }
-
-    pub fn select_payment_account_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.relation_query("payment_account", selection.clone().into_query());
-        self.relation_selections.push(RelationSelection::new("payment_account", selection));
+        self.query = self.query.relation_query("payment_account_list", selection.clone().into_query());
+        self.relation_selections.push(RelationSelection::new("payment_account_list", selection));
         self
 }
-
-    pub fn facet_by_payment_account_as(self, facet_name: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.facet_by_payment_account_as_with_options(facet_name, request, true)
+    pub fn count_payment_accounts(self) -> Self {
+        self.count_payment_accounts_as("count_payment_accounts")
     }
 
-    pub fn facet_by_payment_account_as_with_options(
-        mut self,
-        facet_name: impl Into<String>,
-        request: impl Into<QuerySelection>,
-        include_all_facets: bool,
-    ) -> Self {
-        self.query_options.facets.push(FacetRequest::new(
-            facet_name,
-            "payment_account",
-            request,
-            include_all_facets,
-        ));
-        self
+    pub fn count_payment_accounts_as(self, alias: impl Into<String>) -> Self {
+        self.count_payment_accounts_with(alias, crate::Q::payment_accounts().unlimited())
     }
 
-    pub fn select_payment_method(mut self) -> Self {
-        self.query = self.query.relation("payment_method");
-        self
-    }
-
-    pub fn select_payment_method_with(mut self, request: impl Into<QuerySelection>) -> Self {
+    pub fn count_payment_accounts_with(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
         let selection = request.into();
-        self.query = self.query.relation_query("payment_method", selection.clone().into_query());
-        self.relation_selections.push(RelationSelection::new("payment_method", selection));
-        self
-}
-
-    pub fn facet_by_payment_method_as(self, facet_name: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.facet_by_payment_method_as_with_options(facet_name, request, true)
-    }
-
-    pub fn facet_by_payment_method_as_with_options(
-        mut self,
-        facet_name: impl Into<String>,
-        request: impl Into<QuerySelection>,
-        include_all_facets: bool,
-    ) -> Self {
-        self.query_options.facets.push(FacetRequest::new(
-            facet_name,
-            "payment_method",
-            request,
-            include_all_facets,
+        self.query_options.relation_aggregates.push(RelationAggregate::new(
+            "payment_account_list",
+            alias,
+            selection,
+            true,
         ));
         self
+    }
+
+    pub fn stats_from_payment_accounts(self, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as("refinements", request)
+    }
+
+    pub fn stats_from_payment_accounts_as(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        let selection = request.into();
+        self.query_options.relation_aggregates.push(RelationAggregate::new(
+            "payment_account_list",
+            alias,
+            selection,
+            false,
+        ));
+        self
+    }
+
+    pub fn group_by_payment_accounts_with_details(self, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts(request)
+    }
+
+
+    pub fn sum_account_number_of_payment_accounts(self) -> Self {
+        self.sum_account_number_of_payment_accounts_as("sum_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn sum_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().sum("account_number", "sum_account_number"))
+    }
+    pub fn min_account_number_of_payment_accounts(self) -> Self {
+        self.min_account_number_of_payment_accounts_as("min_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn min_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().min("account_number", "min_account_number"))
+    }
+    pub fn max_account_number_of_payment_accounts(self) -> Self {
+        self.max_account_number_of_payment_accounts_as("max_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn max_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().max("account_number", "max_account_number"))
+    }
+    pub fn avg_account_number_of_payment_accounts(self) -> Self {
+        self.avg_account_number_of_payment_accounts_as("avg_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn avg_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().avg("account_number", "avg_account_number"))
+    }
+    pub fn standard_deviation_account_number_of_payment_accounts(self) -> Self {
+        self.standard_deviation_account_number_of_payment_accounts_as("standard_deviation_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn standard_deviation_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().stddev("account_number", "stdDev_account_number"))
+    }
+    pub fn square_root_of_population_standard_deviation_account_number_of_payment_accounts(self) -> Self {
+        self.square_root_of_population_standard_deviation_account_number_of_payment_accounts_as("square_root_of_population_standard_deviation_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn square_root_of_population_standard_deviation_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().stddev_pop("account_number", "stdDevPop_account_number"))
+    }
+    pub fn sample_variance_account_number_of_payment_accounts(self) -> Self {
+        self.sample_variance_account_number_of_payment_accounts_as("sample_variance_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn sample_variance_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().var_samp("account_number", "varSamp_account_number"))
+    }
+    pub fn sample_population_variance_account_number_of_payment_accounts(self) -> Self {
+        self.sample_population_variance_account_number_of_payment_accounts_as("sample_population_variance_account_number_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn sample_population_variance_account_number_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().var_pop("account_number", "varPop_account_number"))
+    }
+    pub fn min_create_time_of_payment_accounts(self) -> Self {
+        self.min_create_time_of_payment_accounts_as("min_create_time_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn min_create_time_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().min("create_time", "min_create_time"))
+    }
+    pub fn max_create_time_of_payment_accounts(self) -> Self {
+        self.max_create_time_of_payment_accounts_as("max_create_time_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn max_create_time_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().max("create_time", "max_create_time"))
+    }
+    pub fn min_update_time_of_payment_accounts(self) -> Self {
+        self.min_update_time_of_payment_accounts_as("min_update_time_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn min_update_time_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().min("update_time", "min_update_time"))
+    }
+    pub fn max_update_time_of_payment_accounts(self) -> Self {
+        self.max_update_time_of_payment_accounts_as("max_update_time_of_payment_accounts", crate::Q::payment_accounts().unlimited())
+    }
+
+    pub fn max_update_time_of_payment_accounts_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+        self.stats_from_payment_accounts_as(alias, request.into().into_query().max("update_time", "max_update_time"))
     }
 }
 
-impl<R> Default for PaymentTransactionRequest<R> {
+impl<R> Default for UserAccountRequest<R> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<R> From< PaymentTransactionRequest<R> > for SelectQuery {
-    fn from(request: PaymentTransactionRequest<R>) -> Self {
+impl<R> From< UserAccountRequest<R> > for SelectQuery {
+    fn from(request: UserAccountRequest<R>) -> Self {
         QuerySelection::from(request).into_query()
     }
 }
 
-impl<R> From< PaymentTransactionRequest<R> > for QuerySelection {
-    fn from(request: PaymentTransactionRequest<R>) -> Self {
+impl<R> From< UserAccountRequest<R> > for QuerySelection {
+    fn from(request: UserAccountRequest<R>) -> Self {
         Self {
             query: request.query,
             relation_selections: request.relation_selections,
@@ -2238,10 +2173,10 @@ impl<R> From< PaymentTransactionRequest<R> > for QuerySelection {
 }
 
 
-impl<'a, C> crate::request_support::AuditedSave<'a, C> for teaql_core::Audited<crate::PaymentTransaction> 
+impl<'a, C> crate::request_support::AuditedSave<'a, C> for teaql_core::Audited<crate::UserAccount> 
 where C: crate::request_support::TeaqlRepositoryProvider + ?Sized + 'a
 {
-    type Error = crate::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>;
+    type Error = crate::TeaqlDataServiceError<C::UserAccountRepository<'a>>;
     fn save(self, ctx: &'a C) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<teaql_runtime::GraphNode, Self::Error>> + '_>> {
         Box::pin(async move {
             teaql_runtime::save_audited_ledger_entity(self, ctx.user_context())
@@ -2251,15 +2186,15 @@ where C: crate::request_support::TeaqlRepositoryProvider + ?Sized + 'a
     }
 }
 
-impl<R: teaql_core::Entity> crate::PurposedQuery<PaymentTransactionRequest<R>> {
-    pub fn new_entity<C>(&self, ctx: &C) -> crate::PaymentTransaction
+impl<R: teaql_core::Entity> crate::PurposedQuery<UserAccountRequest<R>> {
+    pub fn new_entity<C>(&self, ctx: &C) -> crate::UserAccount
     where
         C: crate::TeaqlRuntime + ?Sized,
     {
-        crate::PaymentTransaction::runtime_new(ctx.user_context().entity_root())
+        crate::UserAccount::runtime_new(ctx.user_context().entity_root())
     }
 
-    fn into_inner_with_trace(mut self) -> PaymentTransactionRequest<R> {
+    fn into_inner_with_trace(mut self) -> UserAccountRequest<R> {
         self.inner.query.trace_chain.push(teaql_core::TraceNode::new(
             self.inner.query.entity.clone(),
             None,
@@ -2273,7 +2208,7 @@ impl<R: teaql_core::Entity> crate::PurposedQuery<PaymentTransactionRequest<R>> {
         ctx: &'a C,
         offset: u64,
         limit: u64,
-    ) -> Result<teaql_core::SmartList<R>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<teaql_core::SmartList<R>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
@@ -2283,14 +2218,14 @@ impl<R: teaql_core::Entity> crate::PurposedQuery<PaymentTransactionRequest<R>> {
     pub async fn execute_for_exists<'a, C>(
         self,
         ctx: &'a C,
-    ) -> Result<bool, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    ) -> Result<bool, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
         self.into_inner_with_trace()._execute_for_exists(ctx).await
     }
 
-    pub async fn execute_for_list<'a, C>(self, ctx: &'a C) -> Result<teaql_core::SmartList<R>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_list<'a, C>(self, ctx: &'a C) -> Result<teaql_core::SmartList<R>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
@@ -2300,21 +2235,21 @@ impl<R: teaql_core::Entity> crate::PurposedQuery<PaymentTransactionRequest<R>> {
     /// Execute query in streaming mode (chunked).
     /// Returns a Vec of StreamChunk, each containing up to chunk_size rows.
     /// Set chunk size via .stream(chunk_size) or .stream_default() on the query.
-    pub async fn execute_for_stream<'a, C>(self, ctx: &'a C) -> Result<Vec<teaql_data_service::StreamChunk>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_stream<'a, C>(self, ctx: &'a C) -> Result<Vec<teaql_data_service::StreamChunk>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
         self.into_inner_with_trace()._execute_for_stream(ctx).await
     }
 
-    pub async fn execute_for_first<'a, C>(self, ctx: &'a C) -> Result<Option<R>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_first<'a, C>(self, ctx: &'a C) -> Result<Option<R>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
         self.into_inner_with_trace()._execute_for_first(ctx).await
     }
 
-    pub async fn execute_for_one<'a, C>(self, ctx: &'a C) -> Result<Option<R>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_one<'a, C>(self, ctx: &'a C) -> Result<Option<R>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
@@ -2322,21 +2257,21 @@ impl<R: teaql_core::Entity> crate::PurposedQuery<PaymentTransactionRequest<R>> {
     }
 
 
-    pub async fn execute_for_records<'a, C>(self, ctx: &'a C) -> Result<teaql_core::SmartList<teaql_core::Record>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_records<'a, C>(self, ctx: &'a C) -> Result<teaql_core::SmartList<teaql_core::Record>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
         self.into_inner_with_trace()._execute_for_records(ctx).await
     }
 
-    pub async fn execute_for_record<'a, C>(self, ctx: &'a C) -> Result<Option<teaql_core::Record>, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_record<'a, C>(self, ctx: &'a C) -> Result<Option<teaql_core::Record>, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {
         self.into_inner_with_trace()._execute_for_record(ctx).await
     }
 
-    pub async fn execute_for_count<'a, C>(self, ctx: &'a C) -> Result<u64, crate::request_support::TeaqlDataServiceError<C::PaymentTransactionRepository<'a>>>
+    pub async fn execute_for_count<'a, C>(self, ctx: &'a C) -> Result<u64, crate::request_support::TeaqlDataServiceError<C::UserAccountRepository<'a>>>
     where
         C: crate::request_support::TeaqlRepositoryProvider + ?Sized,
     {

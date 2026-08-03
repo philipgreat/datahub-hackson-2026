@@ -4,6 +4,11 @@
 pub struct E;
 
 impl E {
+    pub fn user_account<'a>(value: &'a crate::UserAccount) -> crate::UserAccountExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("UserAccount(id={})", value.id()));
+        crate::UserAccountExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
     pub fn payment_account<'a>(value: &'a crate::PaymentAccount) -> crate::PaymentAccountExpression<'a> {
         let root_desc = std::sync::Arc::new(format!("PaymentAccount(id={})", value.id()));
         crate::PaymentAccountExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
@@ -12,11 +17,6 @@ impl E {
     pub fn payment_method<'a>(value: &'a crate::PaymentMethod) -> crate::PaymentMethodExpression<'a> {
         let root_desc = std::sync::Arc::new(format!("PaymentMethod(id={})", value.id()));
         crate::PaymentMethodExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
-    }
-
-    pub fn payment_status<'a>(value: &'a crate::PaymentStatus) -> crate::PaymentStatusExpression<'a> {
-        let root_desc = std::sync::Arc::new(format!("PaymentStatus(id={})", value.id()));
-        crate::PaymentStatusExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
     }
 
     pub fn payment_transaction<'a>(value: &'a crate::PaymentTransaction) -> crate::PaymentTransactionExpression<'a> {

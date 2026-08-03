@@ -32,18 +32,13 @@ impl<'a> PaymentTransactionExpression<'a> {
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
 
-    pub fn get_transaction_amount(self) -> crate::ValueExpression<'a, rust_decimal::Decimal> {
-        let next = self.result.and_then("transaction_amount", |entity| entity.eval_transaction_amount());
-        crate::ValueExpression::new(next, self.root_desc.clone())
-    }
-
     pub fn get_currency_code(self) -> crate::ValueExpression<'a, String> {
         let next = self.result.and_then("currency_code", |entity| entity.eval_currency_code());
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
 
-    pub fn get_reference_number(self) -> crate::ValueExpression<'a, String> {
-        let next = self.result.and_then("reference_number", |entity| entity.eval_reference_number());
+    pub fn get_transaction_amount(self) -> crate::ValueExpression<'a, rust_decimal::Decimal> {
+        let next = self.result.and_then("transaction_amount", |entity| entity.eval_transaction_amount());
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
 
@@ -70,11 +65,6 @@ impl<'a> PaymentTransactionExpression<'a> {
         let next = self.result.and_then("payment_method_id", |entity| entity.eval_payment_method_id());
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
-
-    pub fn get_payment_status_id(self) -> crate::ValueExpression<'a, u64> {
-        let next = self.result.and_then("payment_status_id", |entity| entity.eval_payment_status_id());
-        crate::ValueExpression::new(next, self.root_desc.clone())
-    }
     pub fn get_payment_account(self) -> crate::PaymentAccountExpression<'a> {
         let next = self.result.and_then("payment_account", |entity| entity.eval_payment_account());
         crate::PaymentAccountExpression::new(next, self.root_desc.clone())
@@ -83,43 +73,6 @@ impl<'a> PaymentTransactionExpression<'a> {
     pub fn get_payment_method(self) -> crate::PaymentMethodExpression<'a> {
         let next = self.result.and_then("payment_method", |entity| entity.eval_payment_method());
         crate::PaymentMethodExpression::new(next, self.root_desc.clone())
-    }
-
-    pub fn get_payment_status(self) -> crate::PaymentStatusExpression<'a> {
-        let next = self.result.and_then("payment_status", |entity| entity.eval_payment_status());
-        crate::PaymentStatusExpression::new(next, self.root_desc.clone())
-    }
-    pub fn payment_status_is_pending(self) -> crate::ValueExpression<'a, bool> {
-        let next = self.result.and_then("payment_status_id", |entity| {
-            if !entity.is_loaded("payment_status_id") {
-                teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_status_id".to_string(), attempted_path: "payment_status_id".to_string() }
-            } else {
-                teaql_core::eval::EvalResult::Value(entity.payment_status_is_pending())
-            }
-        });
-        crate::ValueExpression::new(next, self.root_desc.clone())
-    }
-
-    pub fn payment_status_is_success(self) -> crate::ValueExpression<'a, bool> {
-        let next = self.result.and_then("payment_status_id", |entity| {
-            if !entity.is_loaded("payment_status_id") {
-                teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_status_id".to_string(), attempted_path: "payment_status_id".to_string() }
-            } else {
-                teaql_core::eval::EvalResult::Value(entity.payment_status_is_success())
-            }
-        });
-        crate::ValueExpression::new(next, self.root_desc.clone())
-    }
-
-    pub fn payment_status_is_failed(self) -> crate::ValueExpression<'a, bool> {
-        let next = self.result.and_then("payment_status_id", |entity| {
-            if !entity.is_loaded("payment_status_id") {
-                teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_status_id".to_string(), attempted_path: "payment_status_id".to_string() }
-            } else {
-                teaql_core::eval::EvalResult::Value(entity.payment_status_is_failed())
-            }
-        });
-        crate::ValueExpression::new(next, self.root_desc.clone())
     }
 }
 

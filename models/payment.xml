@@ -8,7 +8,7 @@
   <user_account _name="Customer Account"
                 _module="Core"
                 _module_key="core"
-                user_id="string()"
+                user_id="U-987654321"
                 user_name="boolean()"
                 _audit_mask_fields="user_name"
                 create_time="createTime()"
@@ -35,22 +35,7 @@
                   create_time="createTime()"
                   update_time="updateTime()"/>
 
-  <payment_status _name="Payment Status"
-                  _module="Core"
-                  _module_key="core"
-                  payment_account="payment_account()"
-                  id="id()"
-                  name="string()"
-                  code="string()"
-                  color="string()"
-                  display_order="number()"
-                  progress="number()"
-                  _constant="true"
-                  _identifier="code">
-    <_value id="1001" name="Pending" code="PENDING" color="#F59E0B" display_order="1" progress="0"/>
-    <_value id="1002" name="Success" code="SUCCESS" color="#16A34A" display_order="2" progress="100"/>
-    <_value id="1003" name="Failed" code="FAILED" color="#DC2626" display_order="3" progress="-1"/>
-  </payment_status>
+
 
   <payment_transaction _name="Payment Transaction"
                        _module="Core"
