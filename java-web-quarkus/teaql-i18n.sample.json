@@ -1,0 +1,51 @@
+{
+    "_instructions": "This is a translation dictionary sample for the TeaQL domain package 'payment-service'. To translate this file, you can copy its content and paste it into any modern AI tool (like ChatGPT, Claude, Gemini, etc.) with the following prompt: 'Translate this JSON file containing TeaQL domain vocabulary keys into 15 languages: Arabic (ar), Simplified Chinese (zh_CN), Traditional Chinese (zh_TW), Spanish (es), French (fr), German (de), Japanese (ja), Korean (ko), Portuguese (pt), Thai (th), Ukrainian (uk), Filipino (fil), Indonesian (id), English (en) under each key. Return only the valid JSON result.' Save the translated JSON externally, and configure the JVM parameter -Dteaql.i18n.path pointing to the translated JSON file path at runtime.",
+    "accountName": {
+        "en": "Account Name"
+    },
+    "updateTime": {
+        "en": "Update Time"
+    },
+    "accountNumber": {
+        "en": "Account Number"
+    },
+    "userName": {
+        "en": "User Name"
+    },
+    "userId": {
+        "en": "User Id"
+    },
+    "version": {
+        "en": "Version"
+    },
+    "methodType": {
+        "en": "Method Type"
+    },
+    "createTime": {
+        "en": "Create Time"
+    },
+    "lastFourDigits": {
+        "en": "Last Four Digits"
+    },
+    "transactionAmount": {
+        "en": "Transaction Amount"
+    },
+    "userAccount": {
+        "en": "User Account"
+    },
+    "paymentMethod": {
+        "en": "Payment Method"
+    },
+    "id": {
+        "en": "Id"
+    },
+    "paymentTransaction": {
+        "en": "Payment Transaction"
+    },
+    "currencyCode": {
+        "en": "Currency Code"
+    },
+    "paymentAccount": {
+        "en": "Payment Account"
+    }
+}
