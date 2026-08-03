@@ -5,9 +5,19 @@
       org="example"
       _module_key="root">
 
+  <user_account _name="Customer Account"
+                _module="Core"
+                _module_key="core"
+                user_id="string()"
+                user_name="boolean()"
+                _audit_mask_fields="user_name"
+                create_time="createTime()"
+                update_time="updateTime()"/>
+
   <payment_account _name="Payment Account"
                    _module="Core"
                    _module_key="core"
+                   user_account="user_account()"
                    account_name="Main Corporate Account"
                    account_number="1234567890"
                    currency_code="USD"
