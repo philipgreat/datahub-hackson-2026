@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root name="payment-service"
+      cfg_mask_china_mobile="false"
+      data_service="sqlite"
+      org="example"
+      _module_key="root">
+
+  <payment_account _name="Payment Account"
+                   _module="Core"
+                   _module_key="core"
+                   account_name="Main Corporate Account"
+                   account_number="1234567890"
+                   currency_code="USD"
+                   _audit_mask_fields="account_number,account_name"
+                   create_time="createTime()"
+                   update_time="updateTime()"/>
+
+  <payment_method _name="Payment Method"
+                  _module="Core"
+                  _module_key="core"
+                  payment_account="payment_account()"
+                  method_type="CREDIT_CARD"
+                  last_four_digits="4242"
+                  _audit_mask_fields="payment_account,last_four_digits"
+                  create_time="createTime()"
+                  update_time="updateTime()"/>
+
+  <payment_status _name="Payment Status"
+                  _module="Core"
+                  _module_key="core"
+                  payment_account="payment_account()"
+                  id="id()"
+                  name="string()"
+                  code="string()"
+                  color="string()"
+                  display_order="number()"
+                  progress="number()"
+                  _constant="true"
+                  _identifier="code">
+    <_value id="1001" name="Pending" code="PENDING" color="#F59E0B" display_order="1" progress="0"/>
+    <_value id="1002" name="Success" code="SUCCESS" color="#16A34A" display_order="2" progress="100"/>
+    <_value id="1003" name="Failed" code="FAILED" color="#DC2626" display_order="3" progress="-1"/>
+  </payment_status>
+
+  <payment_transaction _name="Payment Transaction"
+                       _module="Core"
+                       _module_key="core"
+                       payment_account="payment_account()"
+                       currency_code="USD"
+                       payment_method="payment_method()"
+                       transaction_amount="150.00"
+                       _audit_mask_fields="payment_account"
+                       create_time="createTime()"
+                       update_time="updateTime()"/>
+</root>
