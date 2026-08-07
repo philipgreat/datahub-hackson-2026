@@ -24,4 +24,6 @@ target
 *.py
 __pycache__/
 *.db
-*.log
+# Logs
+logs
+*.log.gz
