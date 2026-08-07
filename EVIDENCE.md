@@ -80,7 +80,7 @@ The following is the sanitized response captured from DataHub in Docker, which d
 Given the captured context (from both `payment_transactions` and the newly queried `fct_users_created` which provides the `user_account` schema), the coding agent wrote the following TeaQL model.
 
 - **Schema grounding**: Business fields strictly correspond to fields returned by DataHub.
-- **Shift-left governance**: The DataHub description context caused the agent to add `_audit_mask_fields="payment_account"`. Runtime masking behavior is verified via integration tests.
+- **Shift-left governance**: The DataHub description context caused the agent to add `_audit_mask_fields="payment_account"`. Runtime masking behavior testing for this specific service is currently PENDING (verified at compilation level).
 
 **Generated `examples/payment/05-generated-model.xml`:**
 ```xml
@@ -119,7 +119,7 @@ Given the captured context (from both `payment_transactions` and the newly queri
 | :--- | :--- | :--- |
 | **Dataset**: `prod.finance.payment_transactions` | `<entity name="PaymentTransaction" ...>` | Entity mapped 1:1. |
 | **Field**: `transaction_amount` (DECIMAL) | `type="Decimal"` | Numeric validation enforced by TeaQL. |
-| **Constraint**: Description requested Masking | `_audit_mask_fields="payment_account"` | Expected policy mapping; runtime behavior successfully verified by passing tests in Rust and Java application targets. |
+| **Constraint**: Description requested Masking | `_audit_mask_fields="payment_account"` | Expected policy mapping; runtime testing is pending for this specific module, though the exact same policy mechanism is successfully verified in the ERP sample. |
 
 ## Verification Goal Achieved
 
@@ -127,7 +127,7 @@ The Docker run successfully established that the coding-agent workflow:
 
 1. Reads schema fields from DataHub rather than inventing them.
 2. Translates captured constraints into explicit TeaQL policies.
-3. Generates code that builds and passes the recorded tests (verified in `examples/payment/09-test-summary.md`).
+3. Generates code that successfully compiles natively (testing pending, see `examples/payment/09-test-summary.md`).
 
 ## 5. Checked-In ERP Generation Sample (48 Interrelated Entities)
 The repository includes a 48-entity ERP model and large generated Rust and Java samples. The tests for these libraries were verified in the clean container (`run_all.sh` outputs recorded in `examples/payment/run/build-and-test/`).
