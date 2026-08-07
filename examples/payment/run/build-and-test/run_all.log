@@ -1,0 +1,307 @@
+Generating and testing...
+=======================================
+Testing java-lib-core (Skipping generator since jar is missing)
+Running java-lib-core tests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< com.example:enterprise-erp-system-core >---------------
+[INFO] Building enterprise-erp-system-core 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system-core ---
+[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system-core ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (default-compile) @ enterprise-erp-system-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 249 source files with javac [debug parameters release 21] to target/classes
+[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/Q.java: /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/Q.java使用或覆盖了已过时的 API。
+[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/Q.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 某些输入文件使用了未经检查或不安全的操作。
+[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system-core ---
+[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system-core ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ enterprise-erp-system-core ---
+[INFO] No tests to run.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.220 s
+[INFO] Finished at: 2026-08-08T02:33:46+08:00
+[INFO] ------------------------------------------------------------------------
+java-lib-core DONE.
+=======================================
+Testing java-web-spring-boot (Skipping generator since jar is missing)
+Running java-web-spring-boot tests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.example:enterprise-erp-system >------------------
+[INFO] Building enterprise-erp-system 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
+[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-spring-boot/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (default-compile) @ enterprise-erp-system ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 4 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
+[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-spring-boot/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ enterprise-erp-system ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.enterpriseerpsystem.KycAuthInterceptorTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.242 s -- in com.example.enterpriseerpsystem.KycAuthInterceptorTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.395 s
+[INFO] Finished at: 2026-08-08T02:33:53+08:00
+[INFO] ------------------------------------------------------------------------
+java-web-spring-boot DONE.
+=======================================
+Testing java-web-quarkus (Skipping generator since jar is missing)
+Running java-web-quarkus tests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.example:enterprise-erp-system >------------------
+[INFO] Building enterprise-erp-system 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
+[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-quarkus/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (default-compile) @ enterprise-erp-system ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
+[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-quarkus/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ enterprise-erp-system ---
+[INFO] No tests to run.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.586 s
+[INFO] Finished at: 2026-08-08T02:33:59+08:00
+[INFO] ------------------------------------------------------------------------
+java-web-quarkus DONE.
+=======================================
+Testing java-web-micronaut (Skipping generator since jar is missing)
+Running java-web-micronaut tests
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.example:enterprise-erp-system >------------------
+[INFO] Building enterprise-erp-system 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
+[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-micronaut/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (default-compile) @ enterprise-erp-system ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug parameters release 21] to target/classes
+[INFO] Creating bean classes for 2 type elements
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
+[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-micronaut/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ enterprise-erp-system ---
+[INFO] No tests to run.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.535 s
+[INFO] Finished at: 2026-08-08T02:34:05+08:00
+[INFO] ------------------------------------------------------------------------
+java-web-micronaut DONE.
+=======================================
+Testing rust-lib-core (Skipping generator since jar is missing)
+Running rust-lib-core tests
+   Compiling enterprise-erp-system-core v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-lib-core/lib)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 32.56s
+     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core-61abe66c34518435)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests enterprise_erp_system_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rust-lib-core DONE.
+=======================================
+Testing rust-app-console (Skipping generator since jar is missing)
+Running rust-app-console tests
+   Compiling payment-service-core-workspace v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-app-console)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s
+     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/payment_service_core_workspace-f639510af1edf883)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/payment_service_core_workspace-29b900f57e81fdb0)
+
+running 1 test
+test tests::test_process_stream_data_quality ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests payment_service_core_workspace
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rust-app-console DONE.
+=======================================
+Testing rust-web-axum (Skipping generator since jar is missing)
+Running rust-web-axum tests
+   Compiling serde_core v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling tokio v1.53.1
+   Compiling tracing v0.1.44
+   Compiling futures-channel v0.3.33
+   Compiling futures-task v0.3.33
+   Compiling slab v0.4.12
+   Compiling axum-macros v0.5.1
+   Compiling matchit v0.8.4
+   Compiling futures-util v0.3.33
+   Compiling axum-core v0.5.6
+   Compiling serde v1.0.229
+   Compiling serde_path_to_error v0.1.20
+   Compiling hyper v1.11.0
+   Compiling tower v0.5.3
+   Compiling chrono v0.4.45
+   Compiling rust_decimal v1.42.1
+   Compiling serde_urlencoded v0.7.1
+   Compiling hyper-util v0.1.20
+   Compiling axum v0.8.9
+   Compiling teaql-core v4.2.3
+   Compiling rusqlite v0.40.1
+   Compiling teaql-data-service v4.2.3
+   Compiling teaql-sql v4.2.3
+   Compiling teaql-runtime v4.2.3
+   Compiling teaql-provider-sqlite v4.2.3
+   Compiling teaql-web-integration-axum v4.2.3
+   Compiling enterprise-erp-system-core v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-lib-core/lib)
+   Compiling enterprise-erp-system-core-web-axum v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-web-axum)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 37.30s
+     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-d0747dba8c493918)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-bcb1a962f5f43007)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests enterprise_erp_system_core_web_axum
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rust-web-axum DONE.
+=======================================
+Testing rust-web-topcoat (Skipping generator since jar is missing)
+Running rust-web-topcoat tests
+   Compiling syn v2.0.117
+   Compiling synstructure v0.13.2
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.1
+   Compiling zerovec-derive v0.11.2
+   Compiling tokio-macros v2.6.1
+   Compiling displaydoc v0.2.5
+   Compiling openssl-macros v0.1.1
+   Compiling serde_derive v1.0.228
+   Compiling async-trait v0.1.89
+   Compiling maud_macros v0.26.0
+   Compiling openssl v0.10.75
+   Compiling maud v0.26.0
+   Compiling tokio v1.50.0
+   Compiling axum-core v0.4.5
+   Compiling zerofrom v0.1.6
+   Compiling yoke v0.8.1
+   Compiling zerovec v0.11.5
+   Compiling zerotrie v0.2.3
+   Compiling tinystr v0.8.2
+   Compiling potential_utf v0.1.4
+   Compiling icu_collections v2.1.1
+   Compiling icu_locale_core v2.1.1
+   Compiling serde v1.0.228
+   Compiling icu_provider v2.1.1
+   Compiling icu_normalizer v2.1.1
+   Compiling icu_properties v2.1.2
+   Compiling serde_urlencoded v0.7.1
+   Compiling native-tls v0.2.18
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling tokio-util v0.7.18
+   Compiling tokio-native-tls v0.3.1
+   Compiling hyper v1.8.1
+   Compiling tower v0.5.3
+   Compiling h2 v0.3.27
+   Compiling hyper-util v0.1.20
+   Compiling axum v0.7.9
+   Compiling hyper v0.14.32
+   Compiling hyper-tls v0.5.0
+   Compiling reqwest v0.11.27
+   Compiling bandwidth v0.1.0 (/home/philip)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 24.75s
+     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/bandwidth-40f5ada4ceea4a4a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+rust-web-topcoat DONE.
