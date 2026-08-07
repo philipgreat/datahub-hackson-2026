@@ -28,6 +28,21 @@ Without MCP, the AI agent is isolated from the enterprise reality. By connecting
 - **Enterprise Context Mapping**: By leveraging DataHub's Business Glossary, the agent successfully maps disparate physical tables into unified relational software models (e.g., linking a payment transaction to a user account).
 - **Closed-Loop Data Lineage**: Our stream-processing applications (`rust-app-console`) utilize data quality constraints derived from DataHub, and upon successful batch execution, they report the operational data lineage back to DataHub.
 
+### 3. Where is the Evidence of MCP Usage?
+We have recorded the raw JSON-RPC logs demonstrating the AI Agent successfully calling the DataHub MCP Server to fetch enterprise schemas before writing any code. 
+👉 **Please review [EVIDENCE.md](./EVIDENCE.md) for the complete MCP interaction logs and the resulting Zero-Hallucination generation proof.**
+
+## Testing & Validation Environment
+
+To prove that our generated artifacts are truly production-ready ("works on the first try"), we have established a rigorous testing environment:
+
+- **Local Infrastructure**: A `docker-compose.yml` file is provided to quickly spin up **PostgreSQL** (port 5433) and **Redis** (port 6380) locally. These act as the shared foundational layer for all microservices.
+- **Continuous Integration Script**: We built `run_all.sh` to trigger end-to-end compilation and test execution across all 8 generated and manual workspaces (Java & Rust) in a single command.
+- **Unit & Integration Tests**:
+  - *Java*: Tested using `mvn test`, encompassing custom application logic like the `KycAuthInterceptorTest`, which validates the DataHub compliance policies injected into the web layer.
+  - *Rust*: Tested using `cargo test`, verifying stream processing logic, data quality constraints, and ensuring the memory-safe auto-generated domain structures compile flawlessly.
+  - *Python Engine Validation*: Integration tests (`test_business_enrichment.py`) exist to validate that the MCP output successfully parses into the underlying TeaQL generation engine.
+
 ## Module Responsibilities
 
 - **Rust APP Console**: Designed for streaming data processing. It utilizes `execute for stream` to read data streams for batch processing.
