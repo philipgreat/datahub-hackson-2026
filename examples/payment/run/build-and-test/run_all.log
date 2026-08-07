@@ -31,12 +31,12 @@ Testing rust-web-topcoat (Skipping generator since jar is missing)
 Running rust-web-topcoat tests
 rust-web-topcoat DONE.
 psystem/Q.java使用或覆盖了已过时的 API。
-[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/Q.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
-[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 某些输入文件使用了未经检查或不安全的操作。
-[INFO] /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+[INFO] /opt/workspace/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/Q.java: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[INFO] /opt/workspace/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 某些输入文件使用了未经检查或不安全的操作。
+[INFO] /opt/workspace/githome/datahub-hackson-2026/java-lib-core/lib/src/main/java/com/example/enterpriseerpsystem/coupon/CouponExpression.java: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system-core ---
-[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-lib-core/lib/src/test/resources
+[INFO] skip non existing resourceDirectory /opt/workspace/githome/datahub-hackson-2026/java-lib-core/lib/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system-core ---
 [INFO] No sources to compile
@@ -61,7 +61,7 @@ Running java-web-spring-boot tests
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
-[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-spring-boot/target
+[INFO] Deleting /opt/workspace/githome/datahub-hackson-2026/java-web-spring-boot/target
 [INFO] 
 [INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -71,7 +71,7 @@ Running java-web-spring-boot tests
 [INFO] Compiling 4 source files with javac [debug parameters release 21] to target/classes
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
-[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-spring-boot/src/test/resources
+[INFO] skip non existing resourceDirectory /opt/workspace/githome/datahub-hackson-2026/java-web-spring-boot/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
 [INFO] Recompiling the module because of changed dependency.
@@ -108,7 +108,7 @@ Running java-web-quarkus tests
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
-[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-quarkus/target
+[INFO] Deleting /opt/workspace/githome/datahub-hackson-2026/java-web-quarkus/target
 [INFO] 
 [INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -118,7 +118,7 @@ Running java-web-quarkus tests
 [INFO] Compiling 3 source files with javac [debug parameters release 21] to target/classes
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
-[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-quarkus/src/test/resources
+[INFO] skip non existing resourceDirectory /opt/workspace/githome/datahub-hackson-2026/java-web-quarkus/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
 [INFO] No sources to compile
@@ -143,7 +143,7 @@ Running java-web-micronaut tests
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.2.0:clean (default-clean) @ enterprise-erp-system ---
-[INFO] Deleting /home/philip/githome/datahub-hackson-2026/java-web-micronaut/target
+[INFO] Deleting /opt/workspace/githome/datahub-hackson-2026/java-web-micronaut/target
 [INFO] 
 [INFO] --- resources:3.4.0:resources (default-resources) @ enterprise-erp-system ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -154,7 +154,7 @@ Running java-web-micronaut tests
 [INFO] Creating bean classes for 2 type elements
 [INFO] 
 [INFO] --- resources:3.4.0:testResources (default-testResources) @ enterprise-erp-system ---
-[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/java-web-micronaut/src/test/resources
+[INFO] skip non existing resourceDirectory /opt/workspace/githome/datahub-hackson-2026/java-web-micronaut/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ enterprise-erp-system ---
 [INFO] No sources to compile
@@ -172,7 +172,7 @@ java-web-micronaut DONE.
 Testing rust-lib-core (Skipping generator since jar is missing)
 Running rust-lib-core tests
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
-     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core-61abe66c34518435)
+     Running unittests src/lib.rs (/opt/workspace/shared-cargo-target/debug/deps/enterprise_erp_system_core-61abe66c34518435)
 
 running 0 tests
 
@@ -189,13 +189,13 @@ rust-lib-core DONE.
 Testing rust-app-console (Skipping generator since jar is missing)
 Running rust-app-console tests
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.05s
-     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/payment_service_core_workspace-f639510af1edf883)
+     Running unittests src/lib.rs (/opt/workspace/shared-cargo-target/debug/deps/payment_service_core_workspace-f639510af1edf883)
 
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/payment_service_core_workspace-29b900f57e81fdb0)
+     Running unittests src/main.rs (/opt/workspace/shared-cargo-target/debug/deps/payment_service_core_workspace-29b900f57e81fdb0)
 
 running 1 test
 test tests::test_process_stream_data_quality ... ok
@@ -213,13 +213,13 @@ rust-app-console DONE.
 Testing rust-web-axum (Skipping generator since jar is missing)
 Running rust-web-axum tests
     Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
-     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-d0747dba8c493918)
+     Running unittests src/lib.rs (/opt/workspace/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-d0747dba8c493918)
 
 running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-bcb1a962f5f43007)
+     Running unittests src/main.rs (/opt/workspace/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-bcb1a962f5f43007)
 
 running 0 tests
 
@@ -245,9 +245,9 @@ Running rust-web-topcoat tests
    Compiling teaql-sql v4.2.5
    Compiling teaql-runtime v4.2.5
    Compiling teaql-provider-sqlite v4.2.5
-   Compiling enterprise-erp-system-core v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-web-topcoat/lib)
+   Compiling enterprise-erp-system-core v0.1.0 (/opt/workspace/githome/datahub-hackson-2026/rust-web-topcoat/lib)
     Finished `test` profile [unoptimized + debuginfo] target(s) in 33.56s
-     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core-fde4bc18b99a060c)
+     Running unittests src/lib.rs (/opt/workspace/shared-cargo-target/debug/deps/enterprise_erp_system_core-fde4bc18b99a060c)
 
 running 0 tests
 

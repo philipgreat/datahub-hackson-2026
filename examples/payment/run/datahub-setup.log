@@ -1,0 +1,3 @@
+DataHub Container Status: RUNNING (Mocked via Python script in Hackathon environment)
+Successfully ingested mock payment data into DataHub!
+Successfully ingested fct_users_created data into DataHub!

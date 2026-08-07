@@ -1,11 +1,3 @@
-=== Java Generation Command ===
-mvn io.teaql:teaql-maven-plugin:1.1.0:generate \
-  -Dteaql.modelFile=examples/payment/05-generated-model.xml \
-  -Dteaql.domainName=payment-service \
-  -Dteaql.scope=java-lib-core \
-  -Dteaql.output=examples/payment/07-generated-code/java-lib-core
-
-=== Java Generation Log ===
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------------< org.apache.maven:standalone-pom >-------------------
@@ -35,18 +27,4 @@ mvn io.teaql:teaql-maven-plugin:1.1.0:generate \
 [INFO] Total time:  1.705 s
 [INFO] Finished at: 2026-08-08T03:04:16+08:00
 [INFO] ------------------------------------------------------------------------
-Exit Code: 0
-
-=== Rust Generation Command ===
-cargo teaql generate \
-  --model-file examples/payment/05-generated-model.xml \
-  --domain-name payment-service \
-  --scope rust-lib-core \
-  --output examples/payment/07-generated-code/rust-lib-core
-
-=== Rust Generation Log ===
-model input: /opt/workspace/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
-using https://api.teaql.io/latest/generate
-generated output in /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core
-archive saved to /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core/domain.zip
 Exit Code: 0

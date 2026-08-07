@@ -1,0 +1,5 @@
+model input: /opt/workspace/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
+using https://api.teaql.io/latest/generate
+generated output in /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core
+archive saved to /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core/domain.zip
+Exit Code: 0

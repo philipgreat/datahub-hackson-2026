@@ -4,8 +4,8 @@ openjdk version "25.0.2" 2026-01-20
 OpenJDK Runtime Environment GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01)
 OpenJDK 64-Bit Server VM GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01, mixed mode, sharing)
 Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
-Maven home: /home/philip/.sdkman/candidates/maven/current
-Java version: 25.0.2, vendor: GraalVM Community, runtime: /home/philip/.sdkman/candidates/java/25.0.2-graalce
+Maven home: /opt/workspace/.sdkman/candidates/maven/current
+Java version: 25.0.2, vendor: GraalVM Community, runtime: /opt/workspace/.sdkman/candidates/java/25.0.2-graalce
 Default locale: zh_CN, platform encoding: UTF-8
 OS name: "linux", version: "6.8.0-124-generic", arch: "amd64", family: "unix"
 cargo 1.97.1 (c980f4866 2026-06-30)

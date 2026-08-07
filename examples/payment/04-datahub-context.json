@@ -63,12 +63,12 @@
       "owners": [
         {
           "owner": {
-            "urn": "urn:li:corpuser:jdoe",
+            "urn": "urn:li:corpuser:[REDACTED_USER]",
             "properties": {
               "active": true,
-              "displayName": "John Doe",
+              "displayName": "[REDACTED_NAME]",
               "title": "Software Engineer",
-              "email": "jdoe@linkedin.com"
+              "email": "[REDACTED_EMAIL]"
             }
           },
           "type": "DATAOWNER",
