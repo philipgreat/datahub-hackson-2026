@@ -72,28 +72,38 @@ The following is the sanitized response captured from DataHub in Docker, which d
 ```
 
 ## 3. Verified TeaQL Model
-Given the captured context, the coding agent wrote the following TeaQL model.
+Given the captured context (from both `payment_transactions` and the newly queried `fct_users_created` which provides the `user_account` schema), the coding agent wrote the following TeaQL model.
 
-- **Schema grounding**: Business fields strictly correspond to fields returned by DataHub. 
+- **Schema grounding**: Business fields strictly correspond to fields returned by DataHub.
 - **Shift-left governance**: The DataHub description context caused the agent to add `_audit_mask_fields="payment_account"`. Runtime masking behavior is verified via integration tests.
 
 **Generated `examples/payment/05-generated-model.xml`:**
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<teaql>
-    <entities>
-        <entity name="PaymentTransaction" table="payment_transactions">
-            <!-- Derived from DataHub description: "包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块" -->
-            <attribute name="_audit_mask_fields" value="payment_account"/>
-            <fields>
-                <field name="payment_account" type="String" native_type="VARCHAR" required="true" description="Linked user account ID"/>
-                <field name="currency_code" type="String" native_type="VARCHAR" required="true" description="Currency (e.g. USD, CNY)"/>
-                <field name="payment_method" type="String" native_type="VARCHAR" required="true" description="Method used (e.g. CREDIT_CARD)"/>
-                <field name="transaction_amount" type="Decimal" native_type="DECIMAL" required="true" description="Total transaction amount"/>
-            </fields>
-        </entity>
-    </entities>
-</teaql>
+<root name="payment-service"
+      data_service="sqlite"
+      org="example"
+      _module_key="root">
+
+  <user_account _name="User Account"
+                _module="Core"
+                _module_key="core"
+                user_name="string()"
+                create_time="createTime()"
+                update_time="updateTime()"/>
+
+  <!-- Derived from DataHub description: "包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块" -->
+  <payment_transaction _name="Payment Transaction"
+                       _module="Core"
+                       _module_key="core"
+                       payment_account="user_account()"
+                       currency_code="string()"
+                       payment_method="string()"
+                       transaction_amount="150.00"
+                       _audit_mask_fields="payment_account"
+                       create_time="createTime()"
+                       update_time="updateTime()"/>
+</root>
 ```
 
 ## 4. Multi-Entity Graph and Policy Mapping Verification

@@ -65,3 +65,32 @@ schema = SchemaMetadataClass(
 
 emitter.emit(MetadataChangeProposalWrapper(entityUrn=dataset_urn, aspect=schema))
 print("Successfully ingested mock payment data into DataHub!")
+
+# Ingest fct_users_created
+user_urn = "urn:li:dataset:(urn:li:dataPlatform:hive,fct_users_created,PROD)"
+user_props = DatasetPropertiesClass(
+    name="fct_users_created",
+    description="Hive table containing core user account information."
+)
+emitter.emit(MetadataChangeProposalWrapper(entityUrn=user_urn, aspect=user_props))
+
+user_fields = [
+    SchemaFieldClass(
+        fieldPath="user_name",
+        type=SchemaFieldDataTypeClass(type=StringTypeClass()),
+        nativeDataType="VARCHAR",
+        description="The user's username.",
+        globalTags=GlobalTagsClass(tags=[pii_tag])
+    )
+]
+
+user_schema = SchemaMetadataClass(
+    schemaName="fct_users_created",
+    platform="urn:li:dataPlatform:hive",
+    version=0,
+    hash="",
+    platformSchema=OtherSchemaClass(rawSchema=""), 
+    fields=user_fields
+)
+emitter.emit(MetadataChangeProposalWrapper(entityUrn=user_urn, aspect=user_schema))
+print("Successfully ingested fct_users_created data into DataHub!")
