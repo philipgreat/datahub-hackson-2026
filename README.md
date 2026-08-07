@@ -4,12 +4,14 @@
 
 This project is built around the Payment model, delegating different tasks to various Workspaces.
 
-## The Role of DataHub: Metadata-Driven Architecture
+## The Role of DataHub & MCP: A Metadata-Driven Architecture
 
-DataHub is the core enabler of this project, acting as the absolute **Source of Truth** for our Enterprise Data Architecture. It eliminates AI hallucinations during code generation and enforces "Shift-Left" data governance.
+DataHub acts as the absolute **Source of Truth** for our Enterprise Data Architecture, providing the crucial semantic context needed to eliminate AI hallucinations and enforce "Shift-Left" data governance. 
 
-### 1. To What Extent Did We Use DataHub?
-Our AI agent integrates directly with the **DataHub MCP (Model Context Protocol) Server**. Before writing any infrastructure code, the agent queries DataHub for:
+**However, DataHub's value is unlocked entirely through the MCP (Model Context Protocol) Server, which acts as the critical bridge.**
+
+### 1. MCP as the Bridge: How Did We Access DataHub?
+Without MCP, the AI agent is isolated from the enterprise reality. By connecting to the **DataHub MCP Server**, the AI agent gains a direct, standardized bridge to query live metadata before writing any code. Through this MCP bridge, the agent fetches:
 - **Physical Schemas**: Exact column names, data types, and nullability (e.g., from Snowflake or Hive).
 - **Compliance & Privacy Tags**: Identifying which fields contain Highly Sensitive PII.
 - **Business Glossary**: Understanding the logical relationships between isolated tables across the enterprise.
