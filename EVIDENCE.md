@@ -31,7 +31,7 @@ The DataHub MCP Server returns the precise schema from Snowflake. Note the speci
       "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)",
       "name": "payment_transactions",
       "properties": {
-        "description": "【黑客松专用】企业核心支付流水表。包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块。"
+        "description": "[Hackathon Specific] Enterprise core payment transactions table. Contains highly sensitive user payment accounts, must integrate with audit and data masking modules."
       },
       "schemaMetadata": {
         "platformUrn": "urn:li:dataPlatform:snowflake",
