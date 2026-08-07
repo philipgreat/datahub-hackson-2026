@@ -1,13 +1,13 @@
 
 # TeaQL Java CRUD Guide
 
-Generated for `com.example.paymentservice`. Use this guide when adding controllers, services, jobs, or integration code in this workspace.
+Generated for `com.example.enterpriseerpsystem`. Use this guide when adding controllers, services, jobs, or integration code in this workspace.
 
 ## Setup
 
 ```java
-import com.example.paymentservice.Q;
-import com.example.paymentservice.PaymentServiceUserContext;
+import com.example.enterpriseerpsystem.Q;
+import com.example.enterpriseerpsystem.EnterpriseErpSystemUserContext;
 import io.teaql.core.web.WebResponse;
 ```
 
@@ -46,7 +46,7 @@ Prefer typed generated query entry points. Controller methods that return one ob
 ```java
 public WebResponse getOne(@TQLContext UserContext userContext, Long id) {
     try {
-        var entity = Q.paymentAccounts()
+        var entity = Q.customers()
             .filterById(id)
             .selectSelf()
             .comment("load detail by id")
@@ -66,7 +66,7 @@ Controller methods that return multiple objects should wrap the list in `WebResp
 ```java
 public WebResponse list(@TQLContext UserContext userContext) {
     try {
-        var list = Q.paymentAccounts()
+        var list = Q.customers()
             .selectSelf()
             .page(1, 20)
             .comment("list tasks")
@@ -82,7 +82,7 @@ public WebResponse list(@TQLContext UserContext userContext) {
 ## Create
 
 ```java
-var entity = new PaymentAccount();
+var entity = new Customer();
 // Fill fields with generated updateXxx(...) methods, not setXxx(...).
 entity.auditAs("Create new item").save(userContext);
 ```
@@ -90,7 +90,7 @@ entity.auditAs("Create new item").save(userContext);
 ## Update
 
 ```java
-var entity = Q.paymentAccounts()
+var entity = Q.customers()
     .filterById(id)
     .selectSelf()
     .comment("load for update")
@@ -107,10 +107,150 @@ entity.auditAs("Update entity properties").save(userContext);
 Use generated selectors. Do not write a loop that queries children one row at a time. The examples below focus on the entities with the highest reverse relation counts because they are stronger aggregate-root candidates.
 
 ```java
-var list = Q.paymentAccounts()
-    .selectUserAccountWith(Q.userAccounts().selectSelf())
-    .comment("load with userAccount")
-    .purpose("fetch associated userAccount")
+var list = Q.customers()
+    .selectContactListWith(Q.contacts().selectSelf())
+    .comment("load with contactList")
+    .purpose("fetch child contactList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectContractListWith(Q.contracts().selectSelf())
+    .comment("load with contractList")
+    .purpose("fetch child contractList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectProductReviewListWith(Q.productReviews().selectSelf())
+    .comment("load with productReviewList")
+    .purpose("fetch child productReviewList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectShoppingCartListWith(Q.shoppingCarts().selectSelf())
+    .comment("load with shoppingCartList")
+    .purpose("fetch child shoppingCartList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectGlobalOrderListWith(Q.globalOrders().selectSelf())
+    .comment("load with globalOrderList")
+    .purpose("fetch child globalOrderList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectWishlistListWith(Q.wishlists().selectSelf())
+    .comment("load with wishlistList")
+    .purpose("fetch child wishlistList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectInvoiceListWith(Q.invoices().selectSelf())
+    .comment("load with invoiceList")
+    .purpose("fetch child invoiceList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectReturnRequestListWith(Q.returnRequests().selectSelf())
+    .comment("load with returnRequestList")
+    .purpose("fetch child returnRequestList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.customers()
+    .selectTicketListWith(Q.tickets().selectSelf())
+    .comment("load with ticketList")
+    .purpose("fetch child ticketList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectDepartmentWith(Q.departments().selectSelf())
+    .comment("load with department")
+    .purpose("fetch associated department")
+    .executeForList(userContext);
+```
+
+
+
+
+
+```java
+var list = Q.employees()
+    .selectLeaveRequestListWith(Q.leaveRequests().selectSelf())
+    .comment("load with leaveRequestList")
+    .purpose("fetch child leaveRequestList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectAttendanceListWith(Q.attendances().selectSelf())
+    .comment("load with attendanceList")
+    .purpose("fetch child attendanceList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectBenefitListWith(Q.benefits().selectSelf())
+    .comment("load with benefitList")
+    .purpose("fetch child benefitList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectEmployeeReviewListWith(Q.employeeReviews().selectSelf())
+    .comment("load with employeeReviewList")
+    .purpose("fetch child employeeReviewList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectPayrollListWith(Q.payrolls().selectSelf())
+    .comment("load with payrollList")
+    .purpose("fetch child payrollList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectExpenseListWith(Q.expenses().selectSelf())
+    .comment("load with expenseList")
+    .purpose("fetch child expenseList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.employees()
+    .selectSupportAgentListWith(Q.supportAgents().selectSelf())
+    .comment("load with supportAgentList")
+    .purpose("fetch child supportAgentList")
+    .executeForList(userContext);
+```
+
+```java
+var list = Q.products()
+    .selectCategoryWith(Q.categories().selectSelf())
+    .comment("load with category")
+    .purpose("fetch associated category")
     .executeForList(userContext);
 ```
 
@@ -119,48 +259,44 @@ var list = Q.paymentAccounts()
 
 
 
+
 ```java
-var list = Q.paymentAccounts()
-    .selectPaymentMethodListWith(Q.paymentMethods().selectSelf())
-    .comment("load with paymentMethodList")
-    .purpose("fetch child paymentMethodList")
+var list = Q.products()
+    .selectProductReviewListWith(Q.productReviews().selectSelf())
+    .comment("load with productReviewList")
+    .purpose("fetch child productReviewList")
     .executeForList(userContext);
 ```
 
 ```java
-var list = Q.paymentAccounts()
-    .selectPaymentTransactionListWith(Q.paymentTransactions().selectSelf())
-    .comment("load with paymentTransactionList")
-    .purpose("fetch child paymentTransactionList")
+var list = Q.products()
+    .selectCartItemListWith(Q.cartItems().selectSelf())
+    .comment("load with cartItemList")
+    .purpose("fetch child cartItemList")
     .executeForList(userContext);
 ```
 
 ```java
-var list = Q.paymentMethods()
-    .selectPaymentAccountWith(Q.paymentAccounts().selectSelf())
-    .comment("load with paymentAccount")
-    .purpose("fetch associated paymentAccount")
+var list = Q.products()
+    .selectOrderItemListWith(Q.orderItems().selectSelf())
+    .comment("load with orderItemList")
+    .purpose("fetch child orderItemList")
     .executeForList(userContext);
 ```
 
-
-
-
-
 ```java
-var list = Q.paymentMethods()
-    .selectPaymentTransactionListWith(Q.paymentTransactions().selectSelf())
-    .comment("load with paymentTransactionList")
-    .purpose("fetch child paymentTransactionList")
+var list = Q.products()
+    .selectInventoryItemListWith(Q.inventoryItems().selectSelf())
+    .comment("load with inventoryItemList")
+    .purpose("fetch child inventoryItemList")
     .executeForList(userContext);
 ```
 
-
 ```java
-var list = Q.userAccounts()
-    .selectPaymentAccountListWith(Q.paymentAccounts().selectSelf())
-    .comment("load with paymentAccountList")
-    .purpose("fetch child paymentAccountList")
+var list = Q.products()
+    .selectPurchaseOrderItemListWith(Q.purchaseOrderItems().selectSelf())
+    .comment("load with purchaseOrderItemList")
+    .purpose("fetch child purchaseOrderItemList")
     .executeForList(userContext);
 ```
 
@@ -187,6 +323,6 @@ Do not hard-delete rows. Do not write SQL `DELETE` or `UPDATE` statements. If th
 
 These entities are selected by reverse relation count, not by model declaration order.
 
-- `PaymentAccount`: reverse relations `2`, query `Q.paymentAccounts()`, save `new PaymentAccount().auditAs("comment").save(userContext)`, request `com.example.paymentservice.paymentaccount.PaymentAccountRequest`
-- `PaymentMethod`: reverse relations `1`, query `Q.paymentMethods()`, save `new PaymentMethod().auditAs("comment").save(userContext)`, request `com.example.paymentservice.paymentmethod.PaymentMethodRequest`
-- `UserAccount`: reverse relations `1`, query `Q.userAccounts()`, save `new UserAccount().auditAs("comment").save(userContext)`, request `com.example.paymentservice.useraccount.UserAccountRequest`
+- `Customer`: reverse relations `9`, query `Q.customers()`, save `new Customer().auditAs("comment").save(userContext)`, request `com.example.enterpriseerpsystem.customer.CustomerRequest`
+- `Employee`: reverse relations `7`, query `Q.employees()`, save `new Employee().auditAs("comment").save(userContext)`, request `com.example.enterpriseerpsystem.employee.EmployeeRequest`
+- `Product`: reverse relations `5`, query `Q.products()`, save `new Product().auditAs("comment").save(userContext)`, request `com.example.enterpriseerpsystem.product.ProductRequest`

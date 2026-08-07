@@ -8,7 +8,7 @@
 To get the exact usage and examples for Customizing the Runtime (UserContext assembly, SQL debugging, Schema modes), you must fetch the dynamically generated prompt directly from the code generation server. Use your tools to execute the following command:
 
 ```bash
-cargo teaql --input models/payment-service.xml java-assist-runtime-custom
+cargo teaql --input models/enterprise-erp-system.xml java-assist-runtime-custom
 ```
 
 Once the command succeeds, read its output. Use the printed code as a template to write your logic.

@@ -9,15 +9,15 @@ struct AppState;
 
 impl ContextProvider for AppState {
     fn build_context(&self) -> UserContext {
-        payment_service_core::module_with_behaviors_and_checkers().into_context()
+        enterprise_erp_system_core::module_with_behaviors_and_checkers().into_context()
     }
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let runtime = payment_service_core::service_runtime_from_env().await?;
+    let runtime = enterprise_erp_system_core::service_runtime_from_env().await?;
     runtime.ensure_schema().await?;
-    let bind_addr = std::env::var("PAYMENT_SERVICE_CORE_BIND_ADDR")
+    let bind_addr = std::env::var("ENTERPRISE_ERP_SYSTEM_CORE_BIND_ADDR")
         .unwrap_or_else(|_| "127.0.0.1:3000".to_owned());
 
     let app = Router::new()
@@ -33,6 +33,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 async fn health() -> WebResponse<Value> {
     WebResponse::of_single(json!({
         "status": "ok",
-        "service": "payment-service-core-web-axum"
+        "service": "enterprise-erp-system-core-web-axum"
     }))
 }

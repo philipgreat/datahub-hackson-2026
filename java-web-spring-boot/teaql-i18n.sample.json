@@ -1,51 +1,474 @@
 {
-    "_instructions": "This is a translation dictionary sample for the TeaQL domain package 'payment-service'. To translate this file, you can copy its content and paste it into any modern AI tool (like ChatGPT, Claude, Gemini, etc.) with the following prompt: 'Translate this JSON file containing TeaQL domain vocabulary keys into 15 languages: Arabic (ar), Simplified Chinese (zh_CN), Traditional Chinese (zh_TW), Spanish (es), French (fr), German (de), Japanese (ja), Korean (ko), Portuguese (pt), Thai (th), Ukrainian (uk), Filipino (fil), Indonesian (id), English (en) under each key. Return only the valid JSON result.' Save the translated JSON externally, and configure the JVM parameter -Dteaql.i18n.path pointing to the translated JSON file path at runtime.",
-    "accountName": {
-        "en": "Account Name"
+    "reason": {
+        "en": "Reason"
     },
-    "updateTime": {
-        "en": "Update Time"
+    "specialty": {
+        "en": "Specialty"
     },
-    "accountNumber": {
-        "en": "Account Number"
+    "reviewerId": {
+        "en": "Reviewer Id"
     },
-    "userName": {
-        "en": "User Name"
+    "endDate": {
+        "en": "End Date"
     },
-    "userId": {
-        "en": "User Id"
+    "catalog": {
+        "en": "Catalog"
     },
-    "version": {
-        "en": "Version"
+    "validFrom": {
+        "en": "Valid From"
     },
-    "methodType": {
-        "en": "Method Type"
+    "salary": {
+        "en": "Salary"
     },
-    "createTime": {
-        "en": "Create Time"
+    "type": {
+        "en": "Type"
     },
-    "lastFourDigits": {
-        "en": "Last Four Digits"
+    "cartItem": {
+        "en": "Cart Item"
     },
-    "transactionAmount": {
-        "en": "Transaction Amount"
+    "loyaltyPoints": {
+        "en": "Loyalty Points"
     },
-    "userAccount": {
-        "en": "User Account"
+    "ssn": {
+        "en": "Ssn"
     },
-    "paymentMethod": {
-        "en": "Payment Method"
+    "reorderLevel": {
+        "en": "Reorder Level"
+    },
+    "score": {
+        "en": "Score"
+    },
+    "knowledgeBase": {
+        "en": "Knowledge Base"
+    },
+    "quote": {
+        "en": "Quote"
+    },
+    "balance": {
+        "en": "Balance"
+    },
+    "terms": {
+        "en": "Terms"
+    },
+    "price": {
+        "en": "Price"
+    },
+    "supplier": {
+        "en": "Supplier"
+    },
+    "timesUsed": {
+        "en": "Times Used"
+    },
+    "season": {
+        "en": "Season"
+    },
+    "payment": {
+        "en": "Payment"
     },
     "id": {
         "en": "Id"
     },
-    "paymentTransaction": {
-        "en": "Payment Transaction"
+    "sku": {
+        "en": "Sku"
     },
-    "currencyCode": {
-        "en": "Currency Code"
+    "unitPrice": {
+        "en": "Unit Price"
     },
-    "paymentAccount": {
-        "en": "Payment Account"
+    "expectedRevenue": {
+        "en": "Expected Revenue"
+    },
+    "method": {
+        "en": "Method"
+    },
+    "entryDate": {
+        "en": "Entry Date"
+    },
+    "orderItem": {
+        "en": "Order Item"
+    },
+    "probability": {
+        "en": "Probability"
+    },
+    "contract": {
+        "en": "Contract"
+    },
+    "opportunity": {
+        "en": "Opportunity"
+    },
+    "sla": {
+        "en": "Sla"
+    },
+    "minSalary": {
+        "en": "Min Salary"
+    },
+    "priority": {
+        "en": "Priority"
+    },
+    "warehouse": {
+        "en": "Warehouse"
+    },
+    "version": {
+        "en": "Version"
+    },
+    "benefit": {
+        "en": "Benefit"
+    },
+    "leaveRequest": {
+        "en": "Leave Request"
+    },
+    "supportAgent": {
+        "en": "Support Agent"
+    },
+    "phone": {
+        "en": "Phone"
+    },
+    "payroll": {
+        "en": "Payroll"
+    },
+    "periodStart": {
+        "en": "Period Start"
+    },
+    "startDate": {
+        "en": "Start Date"
+    },
+    "refund": {
+        "en": "Refund"
+    },
+    "status": {
+        "en": "Status"
+    },
+    "_instructions": "This is a translation dictionary sample for the TeaQL domain package 'enterprise-erp-system'. To translate this file, you can copy its content and paste it into any modern AI tool (like ChatGPT, Claude, Gemini, etc.) with the following prompt: 'Translate this JSON file containing TeaQL domain vocabulary keys into 15 languages: Arabic (ar), Simplified Chinese (zh_CN), Traditional Chinese (zh_TW), Spanish (es), French (fr), German (de), Japanese (ja), Korean (ko), Portuguese (pt), Thai (th), Ukrainian (uk), Filipino (fil), Indonesian (id), English (en) under each key. Return only the valid JSON result.' Save the translated JSON externally, and configure the JVM parameter -Dteaql.i18n.path pointing to the translated JSON file path at runtime.",
+    "role": {
+        "en": "Role"
+    },
+    "purchaseOrderItem": {
+        "en": "Purchase Order Item"
+    },
+    "commentText": {
+        "en": "Comment Text"
+    },
+    "capacity": {
+        "en": "Capacity"
+    },
+    "discountPercentage": {
+        "en": "Discount Percentage"
+    },
+    "priorityLevel": {
+        "en": "Priority Level"
+    },
+    "shoppingCart": {
+        "en": "Shopping Cart"
+    },
+    "currency": {
+        "en": "Currency"
+    },
+    "debit": {
+        "en": "Debit"
+    },
+    "deliveryDate": {
+        "en": "Delivery Date"
+    },
+    "returnRequest": {
+        "en": "Return Request"
+    },
+    "email": {
+        "en": "Email"
+    },
+    "reviewText": {
+        "en": "Review Text"
+    },
+    "refundAmount": {
+        "en": "Refund Amount"
+    },
+    "timestamp": {
+        "en": "Timestamp"
+    },
+    "validTo": {
+        "en": "Valid To"
+    },
+    "ledger": {
+        "en": "Ledger"
+    },
+    "product": {
+        "en": "Product"
+    },
+    "address": {
+        "en": "Address"
+    },
+    "planType": {
+        "en": "Plan Type"
+    },
+    "coupon": {
+        "en": "Coupon"
+    },
+    "usageLimit": {
+        "en": "Usage Limit"
+    },
+    "updateTime": {
+        "en": "Update Time"
+    },
+    "managerId": {
+        "en": "Manager Id"
+    },
+    "sessionId": {
+        "en": "Session Id"
+    },
+    "authorId": {
+        "en": "Author Id"
+    },
+    "lead": {
+        "en": "Lead"
+    },
+    "parentId": {
+        "en": "Parent Id"
+    },
+    "checkIn": {
+        "en": "Check In"
+    },
+    "createTime": {
+        "en": "Create Time"
+    },
+    "shippingAddress": {
+        "en": "Shipping Address"
+    },
+    "validUntil": {
+        "en": "Valid Until"
+    },
+    "shippedDate": {
+        "en": "Shipped Date"
+    },
+    "cardLast4": {
+        "en": "Card Last4"
+    },
+    "transaction": {
+        "en": "Transaction"
+    },
+    "inventoryItem": {
+        "en": "Inventory Item"
+    },
+    "subject": {
+        "en": "Subject"
+    },
+    "wishlist": {
+        "en": "Wishlist"
+    },
+    "dueDate": {
+        "en": "Due Date"
+    },
+    "dateIncurred": {
+        "en": "Date Incurred"
+    },
+    "rating": {
+        "en": "Rating"
+    },
+    "source": {
+        "en": "Source"
+    },
+    "employee": {
+        "en": "Employee"
+    },
+    "isActive": {
+        "en": "Is Active"
+    },
+    "productReview": {
+        "en": "Product Review"
+    },
+    "createdAt": {
+        "en": "Created At"
+    },
+    "processedDate": {
+        "en": "Processed Date"
+    },
+    "contact": {
+        "en": "Contact"
+    },
+    "credit": {
+        "en": "Credit"
+    },
+    "stock": {
+        "en": "Stock"
+    },
+    "trackingNumber": {
+        "en": "Tracking Number"
+    },
+    "globalOrder": {
+        "en": "Global Order"
+    },
+    "budget": {
+        "en": "Budget"
+    },
+    "periodEnd": {
+        "en": "Period End"
+    },
+    "shipment": {
+        "en": "Shipment"
+    },
+    "recipientSignature": {
+        "en": "Recipient Signature"
+    },
+    "accountType": {
+        "en": "Account Type"
+    },
+    "salesTerritory": {
+        "en": "Sales Territory"
+    },
+    "employeeReview": {
+        "en": "Employee Review"
+    },
+    "tax": {
+        "en": "Tax"
+    },
+    "expense": {
+        "en": "Expense"
+    },
+    "netPay": {
+        "en": "Net Pay"
+    },
+    "taxRate": {
+        "en": "Tax Rate"
+    },
+    "totalAmount": {
+        "en": "Total Amount"
+    },
+    "name": {
+        "en": "Name"
+    },
+    "campaign": {
+        "en": "Campaign"
+    },
+    "position": {
+        "en": "Position"
+    },
+    "checkOut": {
+        "en": "Check Out"
+    },
+    "region": {
+        "en": "Region"
+    },
+    "orderDate": {
+        "en": "Order Date"
+    },
+    "totalCost": {
+        "en": "Total Cost"
+    },
+    "maxSalary": {
+        "en": "Max Salary"
+    },
+    "code": {
+        "en": "Code"
+    },
+    "description": {
+        "en": "Description"
+    },
+    "title": {
+        "en": "Title"
+    },
+    "content": {
+        "en": "Content"
+    },
+    "isAbandoned": {
+        "en": "Is Abandoned"
+    },
+    "provider": {
+        "en": "Provider"
+    },
+    "rate": {
+        "en": "Rate"
+    },
+    "reviewDate": {
+        "en": "Review Date"
+    },
+    "grossPay": {
+        "en": "Gross Pay"
+    },
+    "quantityOnHand": {
+        "en": "Quantity On Hand"
+    },
+    "activeTickets": {
+        "en": "Active Tickets"
+    },
+    "convertedCustomerId": {
+        "en": "Converted Customer Id"
+    },
+    "department": {
+        "en": "Department"
+    },
+    "issueDate": {
+        "en": "Issue Date"
+    },
+    "value": {
+        "en": "Value"
+    },
+    "hoursWorked": {
+        "en": "Hours Worked"
+    },
+    "views": {
+        "en": "Views"
+    },
+    "delivery": {
+        "en": "Delivery"
+    },
+    "amount": {
+        "en": "Amount"
+    },
+    "hireDate": {
+        "en": "Hire Date"
+    },
+    "comments": {
+        "en": "Comments"
+    },
+    "cost": {
+        "en": "Cost"
+    },
+    "quantity": {
+        "en": "Quantity"
+    },
+    "ticket": {
+        "en": "Ticket"
+    },
+    "contactEmail": {
+        "en": "Contact Email"
+    },
+    "closeDate": {
+        "en": "Close Date"
+    },
+    "carrier": {
+        "en": "Carrier"
+    },
+    "resolutionHours": {
+        "en": "Resolution Hours"
+    },
+    "ticketComment": {
+        "en": "Ticket Comment"
+    },
+    "unitCost": {
+        "en": "Unit Cost"
+    },
+    "purchaseOrder": {
+        "en": "Purchase Order"
+    },
+    "location": {
+        "en": "Location"
+    },
+    "invoice": {
+        "en": "Invoice"
+    },
+    "category": {
+        "en": "Category"
+    },
+    "paymentDate": {
+        "en": "Payment Date"
+    },
+    "account": {
+        "en": "Account"
+    },
+    "attendance": {
+        "en": "Attendance"
+    },
+    "customer": {
+        "en": "Customer"
+    },
+    "promotion": {
+        "en": "Promotion"
     }
 }

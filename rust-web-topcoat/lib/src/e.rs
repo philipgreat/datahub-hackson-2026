@@ -4,24 +4,244 @@
 pub struct E;
 
 impl E {
-    pub fn user_account<'a>(value: &'a crate::UserAccount) -> crate::UserAccountExpression<'a> {
-        let root_desc = std::sync::Arc::new(format!("UserAccount(id={})", value.id()));
-        crate::UserAccountExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    pub fn employee<'a>(value: &'a crate::Employee) -> crate::EmployeeExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Employee(id={})", value.id()));
+        crate::EmployeeExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
     }
 
-    pub fn payment_account<'a>(value: &'a crate::PaymentAccount) -> crate::PaymentAccountExpression<'a> {
-        let root_desc = std::sync::Arc::new(format!("PaymentAccount(id={})", value.id()));
-        crate::PaymentAccountExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    pub fn department<'a>(value: &'a crate::Department) -> crate::DepartmentExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Department(id={})", value.id()));
+        crate::DepartmentExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
     }
 
-    pub fn payment_method<'a>(value: &'a crate::PaymentMethod) -> crate::PaymentMethodExpression<'a> {
-        let root_desc = std::sync::Arc::new(format!("PaymentMethod(id={})", value.id()));
-        crate::PaymentMethodExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    pub fn position<'a>(value: &'a crate::Position) -> crate::PositionExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Position(id={})", value.id()));
+        crate::PositionExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
     }
 
-    pub fn payment_transaction<'a>(value: &'a crate::PaymentTransaction) -> crate::PaymentTransactionExpression<'a> {
-        let root_desc = std::sync::Arc::new(format!("PaymentTransaction(id={})", value.id()));
-        crate::PaymentTransactionExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    pub fn leave_request<'a>(value: &'a crate::LeaveRequest) -> crate::LeaveRequestExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("LeaveRequest(id={})", value.id()));
+        crate::LeaveRequestExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn attendance<'a>(value: &'a crate::Attendance) -> crate::AttendanceExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Attendance(id={})", value.id()));
+        crate::AttendanceExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn benefit<'a>(value: &'a crate::Benefit) -> crate::BenefitExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Benefit(id={})", value.id()));
+        crate::BenefitExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn employee_review<'a>(value: &'a crate::EmployeeReview) -> crate::EmployeeReviewExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("EmployeeReview(id={})", value.id()));
+        crate::EmployeeReviewExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn payroll<'a>(value: &'a crate::Payroll) -> crate::PayrollExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Payroll(id={})", value.id()));
+        crate::PayrollExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn customer<'a>(value: &'a crate::Customer) -> crate::CustomerExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Customer(id={})", value.id()));
+        crate::CustomerExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn lead<'a>(value: &'a crate::Lead) -> crate::LeadExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Lead(id={})", value.id()));
+        crate::LeadExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn opportunity<'a>(value: &'a crate::Opportunity) -> crate::OpportunityExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Opportunity(id={})", value.id()));
+        crate::OpportunityExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn contact<'a>(value: &'a crate::Contact) -> crate::ContactExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Contact(id={})", value.id()));
+        crate::ContactExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn campaign<'a>(value: &'a crate::Campaign) -> crate::CampaignExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Campaign(id={})", value.id()));
+        crate::CampaignExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn contract<'a>(value: &'a crate::Contract) -> crate::ContractExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Contract(id={})", value.id()));
+        crate::ContractExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn quote<'a>(value: &'a crate::Quote) -> crate::QuoteExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Quote(id={})", value.id()));
+        crate::QuoteExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn sales_territory<'a>(value: &'a crate::SalesTerritory) -> crate::SalesTerritoryExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("SalesTerritory(id={})", value.id()));
+        crate::SalesTerritoryExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn product<'a>(value: &'a crate::Product) -> crate::ProductExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Product(id={})", value.id()));
+        crate::ProductExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn category<'a>(value: &'a crate::Category) -> crate::CategoryExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Category(id={})", value.id()));
+        crate::CategoryExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn catalog<'a>(value: &'a crate::Catalog) -> crate::CatalogExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Catalog(id={})", value.id()));
+        crate::CatalogExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn product_review<'a>(value: &'a crate::ProductReview) -> crate::ProductReviewExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("ProductReview(id={})", value.id()));
+        crate::ProductReviewExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn shopping_cart<'a>(value: &'a crate::ShoppingCart) -> crate::ShoppingCartExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("ShoppingCart(id={})", value.id()));
+        crate::ShoppingCartExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn cart_item<'a>(value: &'a crate::CartItem) -> crate::CartItemExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("CartItem(id={})", value.id()));
+        crate::CartItemExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn global_order<'a>(value: &'a crate::GlobalOrder) -> crate::GlobalOrderExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("GlobalOrder(id={})", value.id()));
+        crate::GlobalOrderExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn order_item<'a>(value: &'a crate::OrderItem) -> crate::OrderItemExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("OrderItem(id={})", value.id()));
+        crate::OrderItemExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn wishlist<'a>(value: &'a crate::Wishlist) -> crate::WishlistExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Wishlist(id={})", value.id()));
+        crate::WishlistExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn promotion<'a>(value: &'a crate::Promotion) -> crate::PromotionExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Promotion(id={})", value.id()));
+        crate::PromotionExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn coupon<'a>(value: &'a crate::Coupon) -> crate::CouponExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Coupon(id={})", value.id()));
+        crate::CouponExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn invoice<'a>(value: &'a crate::Invoice) -> crate::InvoiceExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Invoice(id={})", value.id()));
+        crate::InvoiceExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn payment<'a>(value: &'a crate::Payment) -> crate::PaymentExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Payment(id={})", value.id()));
+        crate::PaymentExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn refund<'a>(value: &'a crate::Refund) -> crate::RefundExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Refund(id={})", value.id()));
+        crate::RefundExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn account<'a>(value: &'a crate::Account) -> crate::AccountExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Account(id={})", value.id()));
+        crate::AccountExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn transaction<'a>(value: &'a crate::Transaction) -> crate::TransactionExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Transaction(id={})", value.id()));
+        crate::TransactionExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn tax_rate<'a>(value: &'a crate::TaxRate) -> crate::TaxRateExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("TaxRate(id={})", value.id()));
+        crate::TaxRateExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn expense<'a>(value: &'a crate::Expense) -> crate::ExpenseExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Expense(id={})", value.id()));
+        crate::ExpenseExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn ledger<'a>(value: &'a crate::Ledger) -> crate::LedgerExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Ledger(id={})", value.id()));
+        crate::LedgerExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn supplier<'a>(value: &'a crate::Supplier) -> crate::SupplierExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Supplier(id={})", value.id()));
+        crate::SupplierExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn warehouse<'a>(value: &'a crate::Warehouse) -> crate::WarehouseExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Warehouse(id={})", value.id()));
+        crate::WarehouseExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn inventory_item<'a>(value: &'a crate::InventoryItem) -> crate::InventoryItemExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("InventoryItem(id={})", value.id()));
+        crate::InventoryItemExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn purchase_order<'a>(value: &'a crate::PurchaseOrder) -> crate::PurchaseOrderExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("PurchaseOrder(id={})", value.id()));
+        crate::PurchaseOrderExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn purchase_order_item<'a>(value: &'a crate::PurchaseOrderItem) -> crate::PurchaseOrderItemExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("PurchaseOrderItem(id={})", value.id()));
+        crate::PurchaseOrderItemExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn shipment<'a>(value: &'a crate::Shipment) -> crate::ShipmentExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Shipment(id={})", value.id()));
+        crate::ShipmentExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn delivery<'a>(value: &'a crate::Delivery) -> crate::DeliveryExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Delivery(id={})", value.id()));
+        crate::DeliveryExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn return_request<'a>(value: &'a crate::ReturnRequest) -> crate::ReturnRequestExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("ReturnRequest(id={})", value.id()));
+        crate::ReturnRequestExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn ticket<'a>(value: &'a crate::Ticket) -> crate::TicketExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Ticket(id={})", value.id()));
+        crate::TicketExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn ticket_comment<'a>(value: &'a crate::TicketComment) -> crate::TicketCommentExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("TicketComment(id={})", value.id()));
+        crate::TicketCommentExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn sla<'a>(value: &'a crate::Sla) -> crate::SlaExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("Sla(id={})", value.id()));
+        crate::SlaExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn knowledge_base<'a>(value: &'a crate::KnowledgeBase) -> crate::KnowledgeBaseExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("KnowledgeBase(id={})", value.id()));
+        crate::KnowledgeBaseExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
+    }
+
+    pub fn support_agent<'a>(value: &'a crate::SupportAgent) -> crate::SupportAgentExpression<'a> {
+        let root_desc = std::sync::Arc::new(format!("SupportAgent(id={})", value.id()));
+        crate::SupportAgentExpression::new(teaql_core::eval::EvalResult::Value(value), root_desc)
     }
 }
 

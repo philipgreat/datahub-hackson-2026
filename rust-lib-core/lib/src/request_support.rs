@@ -158,26 +158,246 @@ where
 
 
 pub trait TeaqlRepositoryProvider: TeaqlRuntime {
-    type UserAccountRepository<'a>: TeaqlEntityRepository + 'a
+    type EmployeeRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
 
-    fn user_account_repository(&self) -> Result<Self::UserAccountRepository<'_>, ContextError>;
-    type PaymentAccountRepository<'a>: TeaqlEntityRepository + 'a
+    fn employee_repository(&self) -> Result<Self::EmployeeRepository<'_>, ContextError>;
+    type DepartmentRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
 
-    fn payment_account_repository(&self) -> Result<Self::PaymentAccountRepository<'_>, ContextError>;
-    type PaymentMethodRepository<'a>: TeaqlEntityRepository + 'a
+    fn department_repository(&self) -> Result<Self::DepartmentRepository<'_>, ContextError>;
+    type PositionRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
 
-    fn payment_method_repository(&self) -> Result<Self::PaymentMethodRepository<'_>, ContextError>;
-    type PaymentTransactionRepository<'a>: TeaqlEntityRepository + 'a
+    fn position_repository(&self) -> Result<Self::PositionRepository<'_>, ContextError>;
+    type LeaveRequestRepository<'a>: TeaqlEntityRepository + 'a
     where
         Self: 'a;
 
-    fn payment_transaction_repository(&self) -> Result<Self::PaymentTransactionRepository<'_>, ContextError>;
+    fn leave_request_repository(&self) -> Result<Self::LeaveRequestRepository<'_>, ContextError>;
+    type AttendanceRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn attendance_repository(&self) -> Result<Self::AttendanceRepository<'_>, ContextError>;
+    type BenefitRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn benefit_repository(&self) -> Result<Self::BenefitRepository<'_>, ContextError>;
+    type EmployeeReviewRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn employee_review_repository(&self) -> Result<Self::EmployeeReviewRepository<'_>, ContextError>;
+    type PayrollRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn payroll_repository(&self) -> Result<Self::PayrollRepository<'_>, ContextError>;
+    type CustomerRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn customer_repository(&self) -> Result<Self::CustomerRepository<'_>, ContextError>;
+    type LeadRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn lead_repository(&self) -> Result<Self::LeadRepository<'_>, ContextError>;
+    type OpportunityRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn opportunity_repository(&self) -> Result<Self::OpportunityRepository<'_>, ContextError>;
+    type ContactRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn contact_repository(&self) -> Result<Self::ContactRepository<'_>, ContextError>;
+    type CampaignRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn campaign_repository(&self) -> Result<Self::CampaignRepository<'_>, ContextError>;
+    type ContractRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn contract_repository(&self) -> Result<Self::ContractRepository<'_>, ContextError>;
+    type QuoteRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn quote_repository(&self) -> Result<Self::QuoteRepository<'_>, ContextError>;
+    type SalesTerritoryRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn sales_territory_repository(&self) -> Result<Self::SalesTerritoryRepository<'_>, ContextError>;
+    type ProductRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn product_repository(&self) -> Result<Self::ProductRepository<'_>, ContextError>;
+    type CategoryRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn category_repository(&self) -> Result<Self::CategoryRepository<'_>, ContextError>;
+    type CatalogRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn catalog_repository(&self) -> Result<Self::CatalogRepository<'_>, ContextError>;
+    type ProductReviewRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn product_review_repository(&self) -> Result<Self::ProductReviewRepository<'_>, ContextError>;
+    type ShoppingCartRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn shopping_cart_repository(&self) -> Result<Self::ShoppingCartRepository<'_>, ContextError>;
+    type CartItemRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn cart_item_repository(&self) -> Result<Self::CartItemRepository<'_>, ContextError>;
+    type GlobalOrderRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn global_order_repository(&self) -> Result<Self::GlobalOrderRepository<'_>, ContextError>;
+    type OrderItemRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn order_item_repository(&self) -> Result<Self::OrderItemRepository<'_>, ContextError>;
+    type WishlistRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn wishlist_repository(&self) -> Result<Self::WishlistRepository<'_>, ContextError>;
+    type PromotionRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn promotion_repository(&self) -> Result<Self::PromotionRepository<'_>, ContextError>;
+    type CouponRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn coupon_repository(&self) -> Result<Self::CouponRepository<'_>, ContextError>;
+    type InvoiceRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn invoice_repository(&self) -> Result<Self::InvoiceRepository<'_>, ContextError>;
+    type PaymentRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn payment_repository(&self) -> Result<Self::PaymentRepository<'_>, ContextError>;
+    type RefundRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn refund_repository(&self) -> Result<Self::RefundRepository<'_>, ContextError>;
+    type AccountRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn account_repository(&self) -> Result<Self::AccountRepository<'_>, ContextError>;
+    type TransactionRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn transaction_repository(&self) -> Result<Self::TransactionRepository<'_>, ContextError>;
+    type TaxRateRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn tax_rate_repository(&self) -> Result<Self::TaxRateRepository<'_>, ContextError>;
+    type ExpenseRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn expense_repository(&self) -> Result<Self::ExpenseRepository<'_>, ContextError>;
+    type LedgerRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn ledger_repository(&self) -> Result<Self::LedgerRepository<'_>, ContextError>;
+    type SupplierRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn supplier_repository(&self) -> Result<Self::SupplierRepository<'_>, ContextError>;
+    type WarehouseRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn warehouse_repository(&self) -> Result<Self::WarehouseRepository<'_>, ContextError>;
+    type InventoryItemRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn inventory_item_repository(&self) -> Result<Self::InventoryItemRepository<'_>, ContextError>;
+    type PurchaseOrderRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn purchase_order_repository(&self) -> Result<Self::PurchaseOrderRepository<'_>, ContextError>;
+    type PurchaseOrderItemRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn purchase_order_item_repository(&self) -> Result<Self::PurchaseOrderItemRepository<'_>, ContextError>;
+    type ShipmentRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn shipment_repository(&self) -> Result<Self::ShipmentRepository<'_>, ContextError>;
+    type DeliveryRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn delivery_repository(&self) -> Result<Self::DeliveryRepository<'_>, ContextError>;
+    type ReturnRequestRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn return_request_repository(&self) -> Result<Self::ReturnRequestRepository<'_>, ContextError>;
+    type TicketRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn ticket_repository(&self) -> Result<Self::TicketRepository<'_>, ContextError>;
+    type TicketCommentRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn ticket_comment_repository(&self) -> Result<Self::TicketCommentRepository<'_>, ContextError>;
+    type SlaRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn sla_repository(&self) -> Result<Self::SlaRepository<'_>, ContextError>;
+    type KnowledgeBaseRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn knowledge_base_repository(&self) -> Result<Self::KnowledgeBaseRepository<'_>, ContextError>;
+    type SupportAgentRepository<'a>: TeaqlEntityRepository + 'a
+    where
+        Self: 'a;
+
+    fn support_agent_repository(&self) -> Result<Self::SupportAgentRepository<'_>, ContextError>;
 }
 
 #[allow(async_fn_in_trait)]
@@ -242,36 +462,388 @@ impl TeaqlRuntime for teaql_runtime::UserContext {
 }
 
 impl TeaqlRepositoryProvider for teaql_runtime::UserContext {
-    type UserAccountRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    type EmployeeRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
     where
         Self: 'a;
 
-    fn user_account_repository(&self) -> Result<Self::UserAccountRepository<'_>, ContextError> {
-        self.entity_data_service::<crate::runtime::DataServiceExecutor>("UserAccount")
+    fn employee_repository(&self) -> Result<Self::EmployeeRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Employee")
     }
 
-    type PaymentAccountRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    type DepartmentRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
     where
         Self: 'a;
 
-    fn payment_account_repository(&self) -> Result<Self::PaymentAccountRepository<'_>, ContextError> {
-        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PaymentAccount")
+    fn department_repository(&self) -> Result<Self::DepartmentRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Department")
     }
 
-    type PaymentMethodRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    type PositionRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
     where
         Self: 'a;
 
-    fn payment_method_repository(&self) -> Result<Self::PaymentMethodRepository<'_>, ContextError> {
-        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PaymentMethod")
+    fn position_repository(&self) -> Result<Self::PositionRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Position")
     }
 
-    type PaymentTransactionRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    type LeaveRequestRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
     where
         Self: 'a;
 
-    fn payment_transaction_repository(&self) -> Result<Self::PaymentTransactionRepository<'_>, ContextError> {
-        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PaymentTransaction")
+    fn leave_request_repository(&self) -> Result<Self::LeaveRequestRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("LeaveRequest")
+    }
+
+    type AttendanceRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn attendance_repository(&self) -> Result<Self::AttendanceRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Attendance")
+    }
+
+    type BenefitRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn benefit_repository(&self) -> Result<Self::BenefitRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Benefit")
+    }
+
+    type EmployeeReviewRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn employee_review_repository(&self) -> Result<Self::EmployeeReviewRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("EmployeeReview")
+    }
+
+    type PayrollRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn payroll_repository(&self) -> Result<Self::PayrollRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Payroll")
+    }
+
+    type CustomerRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn customer_repository(&self) -> Result<Self::CustomerRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Customer")
+    }
+
+    type LeadRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn lead_repository(&self) -> Result<Self::LeadRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Lead")
+    }
+
+    type OpportunityRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn opportunity_repository(&self) -> Result<Self::OpportunityRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Opportunity")
+    }
+
+    type ContactRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn contact_repository(&self) -> Result<Self::ContactRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Contact")
+    }
+
+    type CampaignRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn campaign_repository(&self) -> Result<Self::CampaignRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Campaign")
+    }
+
+    type ContractRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn contract_repository(&self) -> Result<Self::ContractRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Contract")
+    }
+
+    type QuoteRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn quote_repository(&self) -> Result<Self::QuoteRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Quote")
+    }
+
+    type SalesTerritoryRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn sales_territory_repository(&self) -> Result<Self::SalesTerritoryRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("SalesTerritory")
+    }
+
+    type ProductRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn product_repository(&self) -> Result<Self::ProductRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Product")
+    }
+
+    type CategoryRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn category_repository(&self) -> Result<Self::CategoryRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Category")
+    }
+
+    type CatalogRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn catalog_repository(&self) -> Result<Self::CatalogRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Catalog")
+    }
+
+    type ProductReviewRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn product_review_repository(&self) -> Result<Self::ProductReviewRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("ProductReview")
+    }
+
+    type ShoppingCartRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn shopping_cart_repository(&self) -> Result<Self::ShoppingCartRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("ShoppingCart")
+    }
+
+    type CartItemRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn cart_item_repository(&self) -> Result<Self::CartItemRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("CartItem")
+    }
+
+    type GlobalOrderRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn global_order_repository(&self) -> Result<Self::GlobalOrderRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("GlobalOrder")
+    }
+
+    type OrderItemRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn order_item_repository(&self) -> Result<Self::OrderItemRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("OrderItem")
+    }
+
+    type WishlistRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn wishlist_repository(&self) -> Result<Self::WishlistRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Wishlist")
+    }
+
+    type PromotionRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn promotion_repository(&self) -> Result<Self::PromotionRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Promotion")
+    }
+
+    type CouponRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn coupon_repository(&self) -> Result<Self::CouponRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Coupon")
+    }
+
+    type InvoiceRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn invoice_repository(&self) -> Result<Self::InvoiceRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Invoice")
+    }
+
+    type PaymentRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn payment_repository(&self) -> Result<Self::PaymentRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Payment")
+    }
+
+    type RefundRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn refund_repository(&self) -> Result<Self::RefundRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Refund")
+    }
+
+    type AccountRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn account_repository(&self) -> Result<Self::AccountRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Account")
+    }
+
+    type TransactionRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn transaction_repository(&self) -> Result<Self::TransactionRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Transaction")
+    }
+
+    type TaxRateRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn tax_rate_repository(&self) -> Result<Self::TaxRateRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("TaxRate")
+    }
+
+    type ExpenseRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn expense_repository(&self) -> Result<Self::ExpenseRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Expense")
+    }
+
+    type LedgerRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn ledger_repository(&self) -> Result<Self::LedgerRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Ledger")
+    }
+
+    type SupplierRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn supplier_repository(&self) -> Result<Self::SupplierRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Supplier")
+    }
+
+    type WarehouseRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn warehouse_repository(&self) -> Result<Self::WarehouseRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Warehouse")
+    }
+
+    type InventoryItemRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn inventory_item_repository(&self) -> Result<Self::InventoryItemRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("InventoryItem")
+    }
+
+    type PurchaseOrderRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn purchase_order_repository(&self) -> Result<Self::PurchaseOrderRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PurchaseOrder")
+    }
+
+    type PurchaseOrderItemRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn purchase_order_item_repository(&self) -> Result<Self::PurchaseOrderItemRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("PurchaseOrderItem")
+    }
+
+    type ShipmentRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn shipment_repository(&self) -> Result<Self::ShipmentRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Shipment")
+    }
+
+    type DeliveryRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn delivery_repository(&self) -> Result<Self::DeliveryRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Delivery")
+    }
+
+    type ReturnRequestRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn return_request_repository(&self) -> Result<Self::ReturnRequestRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("ReturnRequest")
+    }
+
+    type TicketRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn ticket_repository(&self) -> Result<Self::TicketRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Ticket")
+    }
+
+    type TicketCommentRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn ticket_comment_repository(&self) -> Result<Self::TicketCommentRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("TicketComment")
+    }
+
+    type SlaRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn sla_repository(&self) -> Result<Self::SlaRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("Sla")
+    }
+
+    type KnowledgeBaseRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn knowledge_base_repository(&self) -> Result<Self::KnowledgeBaseRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("KnowledgeBase")
+    }
+
+    type SupportAgentRepository<'a> = teaql_runtime::EntityDataService<'a, crate::runtime::DataServiceExecutor>
+    where
+        Self: 'a;
+
+    fn support_agent_repository(&self) -> Result<Self::SupportAgentRepository<'_>, ContextError> {
+        self.entity_data_service::<crate::runtime::DataServiceExecutor>("SupportAgent")
     }
 }
 

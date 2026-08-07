@@ -12,7 +12,7 @@
 To get exact TeaQL Tool API usage, execute:
 
 ```bash
-cargo teaql --input models/payment-service.xml rust-assist-tool-api/[module]
+cargo teaql --input models/enterprise-erp-system.xml rust-assist-tool-api/[module]
 ```
 
 | module | T:: Facade | Description |

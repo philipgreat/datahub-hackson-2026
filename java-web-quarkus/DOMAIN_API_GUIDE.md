@@ -2,7 +2,7 @@
 **ATTENTION AI AGENTS:** Do not guess TeaQL API methods! To get the exact API usage and query examples for the entity you are working on, you must fetch the dynamically generated prompt directly from the code generation server. Use your tools to execute the following command to download the exact contextual prompt for the entity:
 
 ```bash
-cargo teaql --input models/payment-service.xml java-assist-[action]/[entity-name]
+cargo teaql --input models/enterprise-erp-system.xml java-assist-[action]/[entity-name]
 ```
 
 Replace `[entity-name]` with the exact entity-name of the entity.
@@ -11,10 +11,54 @@ Replace `[entity-name]` with the exact entity-name of the entity.
 
 | entity-name | display-name |
 |-------------|--------------|
-| user_account | Customer Account |
-| payment_account | Payment Account |
-| payment_method | Payment Method |
-| payment_transaction | Payment Transaction |
+| employee | Employee |
+| department | Department |
+| position | Position |
+| leave_request | Leave Request |
+| attendance | Attendance |
+| benefit | Benefit |
+| employee_review | Employee Review |
+| payroll | Payroll |
+| customer | Customer |
+| lead | Lead |
+| opportunity | Opportunity |
+| contact | Contact |
+| campaign | Campaign |
+| contract | Contract |
+| quote | Quote |
+| sales_territory | Sales Territory |
+| product | Product |
+| category | Category |
+| catalog | Catalog |
+| product_review | Product Review |
+| shopping_cart | Shopping Cart |
+| cart_item | Cart Item |
+| global_order | Global Order |
+| order_item | Order Item |
+| wishlist | Wishlist |
+| promotion | Promotion |
+| coupon | Coupon |
+| invoice | Invoice |
+| payment | Payment |
+| refund | Refund |
+| account | Account |
+| transaction | Transaction |
+| tax_rate | Tax Rate |
+| expense | Expense |
+| ledger | Ledger |
+| supplier | Supplier |
+| warehouse | Warehouse |
+| inventory_item | Inventory Item |
+| purchase_order | Purchase Order |
+| purchase_order_item | Purchase Order Item |
+| shipment | Shipment |
+| delivery | Delivery |
+| return_request | Return Request |
+| ticket | Ticket |
+| ticket_comment | Ticket Comment |
+| sla | Sla |
+| knowledge_base | Knowledge Base |
+| support_agent | Support Agent |
 
 
 Replace `[action]` with one of the following depending on what you are trying to write:

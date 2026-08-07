@@ -12,7 +12,7 @@
 To get the exact API usage and examples for Framework-level APIs (UserContext, SmartList, WebResponse, Entity Expression, Checkers, etc.), you must fetch the dynamically generated prompt directly from the code generation server. Use your tools to execute the following command:
 
 ```bash
-cargo teaql --input models/payment-service.xml java-assist-tool-api
+cargo teaql --input models/enterprise-erp-system.xml java-assist-tool-api
 ```
 
 Once the command succeeds, read its output. Use the printed code as a template to write your logic.
@@ -21,11 +21,11 @@ Once the command succeeds, read its output. Use the printed code as a template t
 
 If you need reference code or tool APIs specifically tailored for your domain objects (e.g., `user`, `order`), TeaQL provides code generators that yield perfect, ready-to-copy Java code snippets.
 
-You can query these assist APIs for any object defined in your `models/payment-service.xml`:
+You can query these assist APIs for any object defined in your `models/enterprise-erp-system.xml`:
 
 | Target | Description | Example Command |
 |--------|-------------|-----------------|
-| `java-assist-query/[object]` | How to query and filter `[object]` | `cargo teaql --input models/payment-service.xml java-assist-query/school` |
-| `java-assist-create/[object]` | How to insert/create `[object]` | `cargo teaql --input models/payment-service.xml java-assist-create/school` |
-| `java-assist-update/[object]` | How to update `[object]` | `cargo teaql --input models/payment-service.xml java-assist-update/school` |
-| `java-assist-delete/[object]` | How to delete `[object]` | `cargo teaql --input models/payment-service.xml java-assist-delete/school` |
+| `java-assist-query/[object]` | How to query and filter `[object]` | `cargo teaql --input models/enterprise-erp-system.xml java-assist-query/school` |
+| `java-assist-create/[object]` | How to insert/create `[object]` | `cargo teaql --input models/enterprise-erp-system.xml java-assist-create/school` |
+| `java-assist-update/[object]` | How to update `[object]` | `cargo teaql --input models/enterprise-erp-system.xml java-assist-update/school` |
+| `java-assist-delete/[object]` | How to delete `[object]` | `cargo teaql --input models/enterprise-erp-system.xml java-assist-delete/school` |

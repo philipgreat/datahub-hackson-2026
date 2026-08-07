@@ -8,7 +8,7 @@
 For exact runtime examples, execute:
 
 ```bash
-cargo teaql --input models/payment-service.xml rust-assist-runtime-custom
+cargo teaql --input models/enterprise-erp-system.xml rust-assist-runtime-custom
 ```
 
 Axum integration comes from `teaql-web-integration-axum`, which provides:

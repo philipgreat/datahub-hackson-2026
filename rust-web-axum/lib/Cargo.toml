@@ -1,9 +1,9 @@
 
 [package]
-name = "payment-service-core"
+name = "enterprise-erp-system-core"
 version = "0.1.0"
 edition = "2021"
-description = "Generated TeaQL service crate for payment-service"
+description = "Generated TeaQL service crate for enterprise-erp-system"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
@@ -21,3 +21,4 @@ teaql-tool-core = "1.0.0"
 teaql-provider-sqlite = "4.2.3"
 rusqlite = { version = "0.40", features = ["bundled", "chrono", "column_decltype"] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+redis = "1.5.0"
