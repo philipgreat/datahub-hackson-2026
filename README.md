@@ -1,8 +1,14 @@
 # datahub-hackson-2026
 
-## Project Positioning
+**Hackathon Track: Metadata-Aware Code Generation & Development**
 
-This project is built around the Payment model, delegating different tasks to various Workspaces.
+## Project Positioning & Track Alignment
+
+This project is built around the Enterprise Payment model and demonstrates a production-grade implementation for the **Metadata-Aware Code Generation & Development** track. 
+
+By deeply integrating with the DataHub MCP Server, our AI Agent generates robust, heavily-typed infrastructure code (spanning Rust and Java) that **works on the first try**. The architecture is specifically designed for real-world engineering teams: 
+- **Production-Ready & Mergeable**: The generated artifacts are split into `Generated Library` (for zero-touch domain logic) and `Workspace` (for manual application logic), ensuring that pull requests are clean, reviewable, and ready for your data team to merge.
+- **Sample Generated Artifacts included**: We have included massive, fully-compiled sample artifacts (such as the 180k+ lines in `rust-lib-core` and the `EVIDENCE.md` file) so judges can verify the extreme quality, safety, and scale of the output.
 
 ## The Role of DataHub & MCP: A Metadata-Driven Architecture
 
