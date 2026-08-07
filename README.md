@@ -42,17 +42,24 @@ The intended context-to-code mappings include:
 
 The generated-library/workspace split keeps generated domain infrastructure separate from manually maintained application behavior. This is intended to make regeneration predictable and application-layer pull requests easier to review.
 
-## Evidence Status: Verified
+## Evidence Status
 
-The end-to-end evidence chain has been **verified in the recorded Docker environment**. The coding agent successfully queried DataHub via MCP, generated a TeaQL model that was schema-grounded for the captured payment example, and the generated artifacts passed the recorded tests.
+The end-to-end evidence chain has been verified in the recorded Docker environment, with specific status per phase:
+- **MCP Fetch**: VERIFIED
+- **KSML Modeling**: VERIFIED
+- **Code Generation**: VERIFIED
+- **Compilation**: VERIFIED
+- **Runtime Policy Verification** (for `payment-service`): PENDING
+
+The coding agent successfully queried DataHub via MCP, generated a TeaQL model that was schema-grounded for the captured payment example, and the generated Rust/Java artifacts were successfully compiled natively. 
 
 ### Reproducible End-to-End Run Command
-To reproduce the test and build verification in this environment:
+To reproduce the environment setup, DataHub ingestion, and compilation/testing steps:
 ```bash
 # 1. Start the services (DataHub, etc.)
 # 2. Ingest mock payment metadata
 python3 ingest_payment.py
-# 3. Run all tests and builds
+# 3. Run all tests and builds (compiles payment-service and runs tests for the ERP app)
 ./run_all.sh
 ```
 
@@ -72,9 +79,10 @@ The complete evidence chain is preserved in the `examples/payment/` directory:
 6. **[Test Summary](examples/payment/09-test-summary.md)**: The build and test execution results.
 
 ### Test Results Summary
-- **Java (`java-web-spring-boot`)**: 4 tests passed, validating the Spring Interceptor's enforcement of the DataHub-originated compliance policies.
-- **Rust (`rust-app-console`)**: 1 test passed, validating the streaming logic's handling of DataHub-originated dirty transaction fields.
-- **Build**: All generated domain libraries (`rust-lib-core` and `java-lib-core`) successfully compiled.
+- **Generated Payment Service**: Code generation succeeded, and the resulting `java-lib-core` and `rust-lib-core` successfully compiled. Runtime integration tests are currently PENDING.
+- **Pre-existing Massive ERP System**: The repository includes a large-scale ERP system generated using the exact same TeaQL workflow. For this ERP system:
+  - **Java (`java-web-spring-boot`)**: 4 tests passed, validating the Interceptor's basic KYC access control logic (checking user ID headers directly).
+  - **Rust (`rust-app-console`)**: 1 test passed, validating the streaming logic's numeric data quality filter (rejecting negative transaction amounts).
 
 ### Known Limitations
 - **TeaQL Generator**: The code generation process utilizes an online service directly rather than a local `generator-1.1.0.jar` executable. As such, local generation steps are bypassed, and the test phase relies on the domain libraries (`rust-lib-core` and `java-lib-core`) that have been successfully generated and returned by this online service.

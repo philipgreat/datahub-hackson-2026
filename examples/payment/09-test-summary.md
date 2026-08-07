@@ -8,13 +8,13 @@ This document summarizes the test outcomes for the generated and extended projec
 - **Result**: `[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0`
 - **Duration**: `0.242 s`
 - **Status**: PASSED
-- **Significance**: Confirms that the Spring Interceptor correctly interprets the DataHub-originated compliance policies (`_audit_mask_fields`) in a full Spring MVC test context.
+- **Significance**: Confirms that the Interceptor correctly enforces basic KYC access control rules via direct class instantiation (checking user ID headers), though without a full Spring MVC context.
 
 ## Rust Application Tests
 - **Workspace**: `rust-app-console`
 - **Result**: `test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s`
 - **Status**: PASSED
-- **Significance**: Confirms that the streaming logic correctly interprets missing or dirty transaction fields, executing data quality filters before reporting back.
+- **Significance**: Confirms that the streaming logic correctly executes numeric data quality filters (rejecting negative or zero transaction amounts).
 
 ## Notes
 - The tests described above are executed against the massive ERP sample application present in the repository, which uses the exact same TeaQL generation workflow.
