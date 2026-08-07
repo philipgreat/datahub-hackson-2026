@@ -1,6 +1,11 @@
 # Verified Evidence Mapping: DataHub MCP to TeaQL Code Generation
 
-> **Evidence status:** VERIFIED. The payloads below represent the raw, sanitized output of the final Docker run, executing the end-to-end code generation and test workflow described in `EVIDENCE_TODO.md`.
+> **Evidence status:**
+> - MCP Fetch: VERIFIED
+> - KSML Modeling: VERIFIED
+> - Code Generation: VERIFIED
+> - Compilation: VERIFIED
+> - Runtime Policy Verification (for `payment-service`): PENDING
 
 This project uses the DataHub MCP Server from an external coding agent. The coding agent queries DataHub before writing a TeaQL model; the generated Rust and Java applications are outputs of that development workflow and do not call MCP at runtime.
 
