@@ -12,7 +12,9 @@ The `payment_transactions` dataset properties contained this critical descriptio
 ### B. TeaQL Model Injection
 The AI Agent intelligently interpreted this privacy constraint and injected the exact shift-left security attribute into the generated `05-generated-model.xml`:
 ```xml
-<attribute name="_audit_mask_fields" value="payment_account"/>
+<payment_transaction
+    _audit_mask_fields="payment_account"
+    .../>
 ```
 
 ### C. Generated Domain Libraries
