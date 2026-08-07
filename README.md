@@ -4,6 +4,22 @@
 
 This project is built around the Payment model, delegating different tasks to various Workspaces.
 
+## The Role of DataHub: Metadata-Driven Architecture
+
+DataHub is the core enabler of this project, acting as the absolute **Source of Truth** for our Enterprise Data Architecture. It eliminates AI hallucinations during code generation and enforces "Shift-Left" data governance.
+
+### 1. To What Extent Did We Use DataHub?
+Our AI agent integrates directly with the **DataHub MCP (Model Context Protocol) Server**. Before writing any infrastructure code, the agent queries DataHub for:
+- **Physical Schemas**: Exact column names, data types, and nullability (e.g., from Snowflake or Hive).
+- **Compliance & Privacy Tags**: Identifying which fields contain Highly Sensitive PII.
+- **Business Glossary**: Understanding the logical relationships between isolated tables across the enterprise.
+
+### 2. How Did DataHub Shape Our Code Generation?
+- **Zero-Hallucination Modeling**: Every generated TeaQL model and Rust/Java entity directly corresponds to a DataHub dataset. The AI is restricted from inventing arbitrary fields, ensuring the code aligns perfectly with the actual data warehouse.
+- **Shift-Left Security**: When DataHub flags a field (e.g., `payment_account`) as PII or highly sensitive in its properties, the code generator intercepts this metadata and automatically injects cryptographic masking and audit logging rules directly into the underlying domain libraries.
+- **Enterprise Context Mapping**: By leveraging DataHub's Business Glossary, the agent successfully maps disparate physical tables into unified relational software models (e.g., linking a payment transaction to a user account).
+- **Closed-Loop Data Lineage**: Our stream-processing applications (`rust-app-console`) utilize data quality constraints derived from DataHub, and upon successful batch execution, they report the operational data lineage back to DataHub.
+
 ## Module Responsibilities
 
 - **Rust APP Console**: Designed for streaming data processing. It utilizes `execute for stream` to read data streams for batch processing.
