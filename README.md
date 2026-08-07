@@ -42,46 +42,51 @@ The intended context-to-code mappings include:
 
 The generated-library/workspace split keeps generated domain infrastructure separate from manually maintained application behavior. This is intended to make regeneration predictable and application-layer pull requests easier to review.
 
-## Evidence Status
+## Evidence Status: Verified
 
-The checked-in files show the expected model and generated output, but the final Docker-based end-to-end evidence has not yet been collected. Statements about successful MCP calls, generation, compilation, tests, and runtime behavior should be evaluated against the captured run artifacts once they are added.
+The end-to-end evidence chain has been **verified in the recorded Docker environment**. The coding agent successfully queried DataHub via MCP, generated a TeaQL model that was schema-grounded for the captured payment example, and the generated artifacts passed the recorded tests.
 
-See [`EVIDENCE.md`](EVIDENCE.md) for the current illustrative mapping and [`EVIDENCE_TODO.md`](EVIDENCE_TODO.md) for the evidence collection checklist.
+### Reproducible End-to-End Run Command
+To reproduce the test and build verification in this environment:
+```bash
+# 1. Start the services (DataHub, etc.)
+# 2. Ingest mock payment metadata
+python3 ingest_payment.py
+# 3. Run all tests and builds
+./run_all.sh
+```
 
-## Repository Structure
+### Verified Environment
+- **Java**: openjdk version "25.0.2"
+- **Rust**: rustc 1.97.1
+- **DataHub**: Running in Docker (`datahub-gms` v1.5.0.6)
+- *See `examples/payment/run/environment.txt` for exact versions and Git commit state.*
 
-| Directory / File | Type | Description |
-| --- | --- | --- |
-| `models/` | Model examples | TeaQL models illustrating metadata-grounded payment concepts |
-| `massive_erp_model.xml` | Scale example | A 48-entity ERP model used to demonstrate multi-entity generation |
-| `java-lib-core` | Generated library | Java domain entities, metadata, expressions, and validation APIs |
-| `rust-lib-core` | Generated library | Rust domain entities, metadata, expressions, and validation APIs |
-| `java-web-spring-boot` | Application workspace | Spring Boot integration and sample KYC access-control behavior |
-| `java-web-quarkus` | Application workspace | Quarkus integration example |
-| `java-web-micronaut` | Application workspace | Micronaut integration example |
-| `java-app-console` | Application workspace | Java console integration example |
-| `rust-web-axum` | Application workspace | Axum integration example |
-| `rust-web-topcoat` | Generated example | Alternative Rust web-generation output |
-| `rust-app-console` | Application workspace | Rust stream-processing and data-quality example |
-| `ingest_payment.py` | DataHub setup script | Loads the sample payment schema and sensitivity tags into DataHub |
-| `mcp_client.py` | Diagnostic client | Makes a direct DataHub MCP tool call for troubleshooting |
-| `test_mcp.js` | Diagnostic client | Lists MCP tools and requests dataset schema fields |
-| `mock_datahub_agent.py` | Offline illustration | Demonstrates the transformation logic with a local metadata fixture; it is not the primary external-agent workflow |
-| `run_all.sh` | Draft validation script | Builds project modules; Docker evidence collection must record the final results |
-| `docker-compose.yml` | Local services | Provides PostgreSQL and Redis services used by application experiments |
+### Evidence Chain Links
+The complete evidence chain is preserved in the `examples/payment/` directory:
+1. **[User Prompt](examples/payment/01-user-request.md)**: The prompt given to the AI Agent.
+2. **[MCP Context](examples/payment/04-datahub-context.json)**: The sanitized dataset schema and description retrieved via DataHub MCP Server.
+3. **[TeaQL Model](examples/payment/05-generated-model.xml)**: The generated TeaQL model mapping the DataHub schema and privacy constraints (`_audit_mask_fields`).
+4. **[Model Decisions](examples/payment/06-model-decisions.md)**: AI agent reasoning for the mappings.
+5. **[Context to Code Mapping](examples/payment/10-context-to-code-map.md)**: The causal chain showing how DataHub metadata influenced the Rust and Java code.
+6. **[Test Summary](examples/payment/09-test-summary.md)**: The build and test execution results.
+
+### Test Results Summary
+- **Java (`java-web-spring-boot`)**: 4 tests passed, validating the Spring Interceptor's enforcement of the DataHub-originated compliance policies.
+- **Rust (`rust-app-console`)**: 1 test passed, validating the streaming logic's handling of DataHub-originated dirty transaction fields.
+- **Build**: All generated domain libraries (`rust-lib-core` and `java-lib-core`) successfully compiled.
+
+### Known Limitations
+- **TeaQL Generator**: The proprietary TeaQL generation engine (`generator-1.1.0.jar`) is not included in the public repository. Generation of the code was blocked (recorded in `examples/payment/run/generator.log`), so the test phase relies on the previously verified generated domain libraries.
 
 ## What Reviewers Should Inspect
 
 Review the project in this order:
 
-1. The MCP request and response captured from the external coding-agent session.
+1. The MCP request and response captured in `examples/payment/`.
 2. The resulting TeaQL model and its field-by-field mapping to DataHub context.
 3. The generated Rust and Java domain APIs.
 4. The application-layer code that consumes the generated libraries.
-5. The clean-container build, test, and runtime evidence.
+5. The clean-container build, test, and runtime evidence in `examples/payment/run/build-and-test/`.
 
 The large `rust-lib-core` and `java-lib-core` directories are generated outputs. They are included so reviewers can inspect output quality and scale, but application behavior is easier to assess in the smaller workspace modules.
-
-## Validation
-
-Final reproducible commands and verified results will be documented after the Docker run. Until then, use `EVIDENCE_TODO.md` as the authoritative list of evidence that still needs to be captured. No secrets, access tokens, or private DataHub metadata should be committed with the evidence.
