@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "datahub": {
+      "command": "python3",
+      "args": ["-m", "mcp_server_datahub"],
+      "env": {
+        "DATAHUB_GMS_URL": "http://localhost:8080"
+      }
+    }
+  }
+}

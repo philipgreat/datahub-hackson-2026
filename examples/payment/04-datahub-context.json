@@ -1,0 +1,62 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "[{\"urn\":\"urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)\",\"name\":\"payment_transactions\",\"platform\":{\"urn\":\"urn:li:dataPlatform:snowflake\",\"name\":\"snowflake\"},\"properties\":{\"name\":\"payment_transactions\",\"description\":\"\u3010\u9ed1\u5ba2\u677e\u4e13\u7528\u3011\u4f01\u4e1a\u6838\u5fc3\u652f\u4ed8\u6d41\u6c34\u8868\u3002\u5305\u542b\u9ad8\u5ea6\u654f\u611f\u7684\u7528\u6237\u652f\u4ed8\u8d26\u53f7\u4fe1\u606f\uff0c\u5fc5\u987b\u63a5\u5165\u5ba1\u8ba1\u4e0e\u8131\u654f\u6a21\u5757\u3002\"},\"health\":[{\"type\":\"INCIDENTS\",\"status\":\"PASS\"}],\"schemaMetadata\":{\"name\":\"payment_transactions\",\"platformUrn\":\"urn:li:dataPlatform:snowflake\",\"fields\":[{\"fieldPath\":\"payment_account\",\"nativeDataType\":\"VARCHAR\",\"description\":\"Linked user account ID\",\"nullable\":false,\"tags\":[]},{\"fieldPath\":\"currency_code\",\"nativeDataType\":\"VARCHAR\",\"description\":\"Currency (e.g. USD, CNY)\",\"nullable\":false},{\"fieldPath\":\"payment_method\",\"nativeDataType\":\"VARCHAR\",\"description\":\"Method used (e.g. CREDIT_CARD)\",\"nullable\":false},{\"fieldPath\":\"transaction_amount\",\"nativeDataType\":\"DECIMAL\",\"description\":\"Total transaction amount\",\"nullable\":false}]}}]"
+    }
+  ],
+  "structuredContent": {
+    "result": [
+      {
+        "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)",
+        "name": "payment_transactions",
+        "platform": {
+          "urn": "urn:li:dataPlatform:snowflake",
+          "name": "snowflake"
+        },
+        "properties": {
+          "name": "payment_transactions",
+          "description": "\u3010\u9ed1\u5ba2\u677e\u4e13\u7528\u3011\u4f01\u4e1a\u6838\u5fc3\u652f\u4ed8\u6d41\u6c34\u8868\u3002\u5305\u542b\u9ad8\u5ea6\u654f\u611f\u7684\u7528\u6237\u652f\u4ed8\u8d26\u53f7\u4fe1\u606f\uff0c\u5fc5\u987b\u63a5\u5165\u5ba1\u8ba1\u4e0e\u8131\u654f\u6a21\u5757\u3002"
+        },
+        "health": [
+          {
+            "type": "INCIDENTS",
+            "status": "PASS"
+          }
+        ],
+        "schemaMetadata": {
+          "name": "payment_transactions",
+          "platformUrn": "urn:li:dataPlatform:snowflake",
+          "fields": [
+            {
+              "fieldPath": "payment_account",
+              "nativeDataType": "VARCHAR",
+              "description": "Linked user account ID",
+              "nullable": false,
+              "tags": []
+            },
+            {
+              "fieldPath": "currency_code",
+              "nativeDataType": "VARCHAR",
+              "description": "Currency (e.g. USD, CNY)",
+              "nullable": false
+            },
+            {
+              "fieldPath": "payment_method",
+              "nativeDataType": "VARCHAR",
+              "description": "Method used (e.g. CREDIT_CARD)",
+              "nullable": false
+            },
+            {
+              "fieldPath": "transaction_amount",
+              "nativeDataType": "DECIMAL",
+              "description": "Total transaction amount",
+              "nullable": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "isError": false
+}

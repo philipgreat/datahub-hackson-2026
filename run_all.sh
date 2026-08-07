@@ -1,31 +1,36 @@
 #!/bin/bash
 set -e
-CLASSPATH="/home/philip/githome/teaql-code-gen/generator/target/generator-1.1.0.jar"
-MODELS="/home/philip/githome/datahub-hackson-2026/massive_erp_model.xml"
 
-declare -a frameworks=("java-lib-core" "java-web-spring-boot" "java-web-quarkus" "java-web-micronaut" "java-app-console" "rust-lib-core" "rust-web-axum" "rust-web-topcoat")
+# The generator jar is intentionally skipped since it's not present in this docker image.
+# We will use the already-generated domain code.
 
-echo "Generating and testing..." > build.log
+declare -a frameworks=("java-lib-core" "java-web-spring-boot" "java-web-quarkus" "java-web-micronaut" "rust-lib-core" "rust-app-console" "rust-web-axum" "rust-web-topcoat")
+
+LOG_DIR="examples/payment/run/build-and-test"
+mkdir -p "$LOG_DIR"
+BUILD_LOG="$LOG_DIR/run_all.log"
+
+echo "Generating and testing..." > "$BUILD_LOG"
 
 for fw in "${frameworks[@]}"; do
-    echo "=======================================" | tee -a build.log
-    echo "Testing $fw (Skipping generator since jar is missing)" | tee -a build.log
-    # java -cp $CLASSPATH -Dloader.main=com.skynet.codegenerator.LocalGenerator org.springframework.boot.loader.PropertiesLauncher "$fw" "$fw" "$MODELS" >> build.log 2>&1
+    echo "=======================================" | tee -a "$BUILD_LOG"
+    echo "Testing $fw (Skipping generator since jar is missing)" | tee -a "$BUILD_LOG"
     
     if [[ "$fw" == java* ]]; then
-        echo "Running $fw tests" | tee -a build.log
+        echo "Running $fw tests" | tee -a "$BUILD_LOG"
         if [[ "$fw" == *-lib-* ]]; then
-            (cd "$fw/lib" && mvn clean install -DskipTests >> ../../build.log 2>&1)
+            (cd "$fw/lib" && mvn clean test >> "../../$BUILD_LOG" 2>&1)
         else
-            (cd "$fw" && mvn clean install -DskipTests >> ../build.log 2>&1)
+            (cd "$fw" && mvn clean test >> "../$BUILD_LOG" 2>&1)
         fi
     else
-        echo "Running $fw tests" | tee -a build.log
+        echo "Running $fw tests" | tee -a "$BUILD_LOG"
         if [[ "$fw" == *-lib-* ]]; then
-            (cd "$fw/lib" && cargo build >> ../../build.log 2>&1)
+            (cd "$fw/lib" && cargo test >> "../../$BUILD_LOG" 2>&1)
         else
-            (cd "$fw" && cargo test >> ../build.log 2>&1)
+            (cd "$fw" && cargo test >> "../$BUILD_LOG" 2>&1)
         fi
     fi
-    echo "$fw DONE." | tee -a build.log
+    echo "$fw DONE." | tee -a "$BUILD_LOG"
 done
+

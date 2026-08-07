@@ -1,0 +1,1 @@
+{"timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")", "tool": "get_entities", "arguments": {"urns": ["urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)"]}}
