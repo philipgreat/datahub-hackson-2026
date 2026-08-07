@@ -207,7 +207,7 @@ examples/payment/
 2. **真实的 DataHub MCP 交互**：通过 `mcp_client.py` 执行 `get_entities`，获取并保存了真实的 `payment_transactions` 表的数据模式、敏感说明。所有内容已脱敏，并写入 `03-mcp-tool-calls.jsonl` 及 `04-datahub-context.json`。
 3. **基于 MCP 约束自动建模**：捕获 MCP 提供的一段高度敏感上下文（“包含高度敏感的用户支付账号信息”），并在生成的 TeaQL 中据此映射了 `_audit_mask_fields="payment_account"`。所有决策已写入 `05-generated-model.xml` 和 `06-model-decisions.md`。
 4. **使用在线服务生成代码**：在代码生成环节，我们未使用传统的 `generator-1.1.0.jar` 进行编译，而是按照 `teaql-agent-kit` 的最佳实践，通过 `mvn io.teaql:teaql-maven-plugin` 和 `cargo teaql` 直接请求了在线代码生成服务。我们成功将包含 PII 映射的模型生成了目标 Rust 和 Java 库，代码已保存在 `07-generated-code` 并在 `08-generated.diff` 中存根。
-5. **编译测试及构建链路追踪**：`run_all.sh` 被彻底更新并执行。验证了在已有生成结果前提下，生成的 Rust 核心域模型（`rust-lib-core`）和 Java Spring Boot 后台是如何保障 DataHub 指导下的业务规范的（详见 `09-test-summary.md` 和 `10-context-to-code-map.md`）。
+5. **编译测试及构建链路追踪**：`run_all.sh` 被更新并执行，我们验证了在线生成的 `java-lib-core` 和 `rust-lib-core` 能原生编译通过。同时对于全量 ERP 样本库执行了集成测试。需要澄清的是，动态掩码等运行时策略对于本次新生成的 `payment-service` 暂未编写配套测试代码（Runtime Policy Pending），目前的测试通过证据（`09-test-summary.md`）是针对仓库自带的 ERP 库，而非新生成的单一付款库。
 6. **说明文档全面更新**：`README.md` 与 `EVIDENCE.md` 中曾经存在的夸大和待验证术语（"flawless", "illustrative", "expected"）被清除，全部替换为更克制、基于客观证据的描述。
 
 ### 修改了哪些代码或脚本
