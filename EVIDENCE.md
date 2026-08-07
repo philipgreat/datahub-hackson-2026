@@ -1,9 +1,11 @@
-# Hackathon Demo Evidence: DataHub MCP to TeaQL Code Generation
+# Illustrative Evidence Mapping: DataHub MCP to TeaQL Code Generation
 
-This document provides the raw evidence of our Metadata-Aware Code Generation workflow. It demonstrates how the AI Agent queries the DataHub MCP Server for enterprise semantic context before writing any TeaQL models.
+> **Evidence status:** The payloads below illustrate the intended metadata-to-code mapping. They are not yet the raw output of the final Docker run. Replace or supplement them with the sanitized artifacts listed in [`EVIDENCE_TODO.md`](EVIDENCE_TODO.md) before describing the workflow as verified.
 
-## 1. The MCP Request (Agent asking for Schema)
-Before generating the code, the Agent calls the `get_entities` tool from the DataHub MCP Server to fetch the exact schema and privacy tags for `prod.finance.payment_transactions`.
+This project uses the DataHub MCP Server from an external coding agent. The coding agent queries DataHub before writing a TeaQL model; the generated Rust and Java applications are outputs of that development workflow and do not call MCP at runtime.
+
+## 1. Expected MCP Request (Agent Asking for Schema)
+During the recorded run, the coding agent should call the `get_entities` tool from the DataHub MCP Server to fetch the schema and privacy tags for `prod.finance.payment_transactions`.
 
 **Agent JSON-RPC Call:**
 ```json
@@ -20,8 +22,8 @@ Before generating the code, the Agent calls the `get_entities` tool from the Dat
 }
 ```
 
-## 2. The MCP Response (DataHub Source of Truth)
-The DataHub MCP Server returns the precise schema from Snowflake. Note the specific fields and the description highlighting that it contains highly sensitive PII.
+## 2. Illustrative MCP Response
+The following fixture represents the DataHub context expected by this example. The final evidence must contain the sanitized response captured from DataHub in Docker.
 
 **DataHub MCP Response:**
 ```json
@@ -67,10 +69,11 @@ The DataHub MCP Server returns the precise schema from Snowflake. Note the speci
 }
 ```
 
-## 3. The Resulting TeaQL Model (Generated Code)
-Based *strictly* on the above JSON, the Agent writes the TeaQL KSML model. 
-- **Anti-Hallucination**: The Agent did NOT create random fields like `payment_status` or `reference_id`. It stuck exactly to the 4 fields returned by DataHub.
-- **Shift-Left Governance**: Because the MCP context warned about sensitive user accounts (`payment_account`), the Agent automatically injected the `_audit_mask_fields="payment_account"` policy into the TeaQL model, ensuring the backend Rust application will cryptographically mask this field in logs and read operations.
+## 3. Expected TeaQL Model
+Given the captured context, the coding agent is expected to write the following TeaQL KSML model.
+
+- **Schema grounding**: Business fields should correspond to fields returned by DataHub. The final run must record and explain any transformation or additional framework field.
+- **Shift-left governance**: The PII context should cause the agent to add `_audit_mask_fields="payment_account"`. Runtime masking behavior must be demonstrated by a test before it is claimed as verified.
 
 **Generated `models/payment.xml`:**
 ```xml
@@ -86,13 +89,13 @@ Based *strictly* on the above JSON, the Agent writes the TeaQL KSML model.
                        update_time="updateTime()"/>
 ```
 
-## 4. Multi-Entity Graph & Glossary Mapping (Advanced Evidence)
-To prove the Agent doesn't just read single tables but understands the entire Enterprise Data Mesh, we instructed it to scan for related concepts.
+## 4. Multi-Entity Graph and Glossary Mapping to Verify
+The final coding-agent run should scan for related datasets and glossary terms and preserve the MCP calls that support the following mapping.
 
-**DataHub MCP Discovery:**
-- The Agent discovered the `fct_users_created` dataset in DataHub.
-- The Agent discovered a related Glossary Term: `CustomerAccount`.
-- The Agent mapped these physical and logical entities together into a robust relational TeaQL model, automatically generating a 1:1 mapping based on the schema returned by MCP.
+**Expected DataHub MCP discovery:**
+- The agent finds the `fct_users_created` dataset in DataHub.
+- The agent finds the related glossary term `CustomerAccount`.
+- The agent uses captured schema and glossary context to justify the relationship in the TeaQL model.
 
 **Evidence of One-to-One Mapping:**
 
@@ -100,22 +103,24 @@ To prove the Agent doesn't just read single tables but understands the entire En
 | :--- | :--- | :--- |
 | **Dataset**: `prod.finance.payment_transactions` | `<payment_transaction>` | Entity mapped 1:1. |
 | **Field**: `transaction_amount` (DECIMAL) | `transaction_amount="150.00"` | Numeric validation enforced by TeaQL. |
-| **Field**: `payment_account` (PII Tagged) | `_audit_mask_fields="payment_account"` | **CRITICAL:** AI intercepted the privacy tag and applied cryptography/audit logging. |
+| **Field**: `payment_account` (PII Tagged) | `_audit_mask_fields="payment_account"` | Expected policy mapping; runtime behavior still requires a test. |
 | **Dataset**: `fct_users_created` (Hive) | `<user_account>` | Physical table identified and modeled as core entity. |
-| **Field**: `user_name` (boolean) | `user_name="boolean()"` | **CRITICAL:** AI strictly adhered to the schema (even identifying that the Hive sample data had a quirky 'boolean' type for user_name), proving NO hallucination occurred! |
+| **Field**: `user_name` (boolean) | `user_name="boolean()"` | Expected adherence to the captured schema, including its unusual type. |
 | **Glossary Term**: `CustomerAccount` | `user_account="user_account()"` in `payment_account` | AI logically linked the `payment_account` to the newly created `user_account` to satisfy the Business Glossary requirement. |
 
-## Conclusion
-This document is absolute proof that the AI Agent is **Metadata-Aware**. 
-By utilizing the DataHub MCP Server, the Agent:
-1. Rejects hallucinated schema fields.
-2. Identifies and enforces PII Privacy Rules at the source code level (Shift-Left Governance).
-3. Connects isolated physical tables (`fct_users_created`, `payment_transactions`) via logical enterprise Glossary Terms (`CustomerAccount`).
+## Verification Goal
 
-It executes a flawless handoff from **Enterprise Data Context (DataHub)** to **Production Software Generation (TeaQL)**.
+The Docker run should establish that the coding-agent workflow:
 
-## 5. Massive ERP Code Generation Statistics (48 Interrelated Entities)
-To prove the enterprise scalability of the Agent, we generated a massive 48-entity ERP system representing an entire company's operations. The model yielded **over 270,000 lines of fully compiled and tested code**, with a perfectly decoupled architecture where 99% of the heavy lifting is encapsulated in the core library, keeping the web frameworks incredibly lightweight.
+1. Reads schema fields from DataHub rather than inventing them.
+2. Translates captured PII metadata into an explicit TeaQL policy.
+3. Uses captured glossary or relationship context to connect physical datasets.
+4. Generates code that builds and passes the recorded tests.
+
+Until those artifacts are captured, this document is a review guide rather than proof of a successful run.
+
+## 5. Checked-In ERP Generation Sample (48 Interrelated Entities)
+The repository includes a 48-entity ERP model and large generated Rust and Java samples. File and line counts demonstrate output scale only; the clean-container build and test status must be captured separately.
 
 | Microservice Framework / Layer | File Count | Lines of Code | Description |
 | :--- | :--- | :--- | :--- |
@@ -126,4 +131,4 @@ To prove the enterprise scalability of the Agent, we generated a massive 48-enti
 | `java-web-micronaut` (App) | 4 | 189 | Micronaut Ultra-Low Memory Server |
 | `java-app-console` (App) | 3 | 174 | Java Command Line Application |
 | `rust-web-axum` (App) | 3 | 65 | Rust Axum High Performance Web Service |
-| **Total Unique Artifacts** | **593** | **270,906** | Fully tested, domain-driven, and ready for production |
+| **Total Unique Artifacts** | **593** | **270,906** | Checked-in generation sample; Docker verification pending |
