@@ -1,13 +1,14 @@
-Commit SHA: 06a11027d7bdda7d79e1f59b67eb6274666129cc
----
-Java Version: openjdk version "25.0.2" 2026-01-20
-Maven Version: Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
-Rust Version: rustc 1.97.1 (8bab26f4f 2026-07-14)
-Cargo Version: cargo 1.97.1 (c980f4866 2026-06-30)
-Python Version: Python 3.10.12
----
-Git Status:
- M run_all.sh
-?? examples/payment/
-?? initial_sha.txt
-?? initial_status.txt
+82f5e0efd30f414d8d9a6a499babd8ac78a61a3b
+Linux canada-mini-host 6.8.0-124-generic #124~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 21:05:19 UTC  x86_64 x86_64 x86_64 GNU/Linux
+openjdk version "25.0.2" 2026-01-20
+OpenJDK Runtime Environment GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01)
+OpenJDK 64-Bit Server VM GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01, mixed mode, sharing)
+Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
+Maven home: /home/philip/.sdkman/candidates/maven/current
+Java version: 25.0.2, vendor: GraalVM Community, runtime: /home/philip/.sdkman/candidates/java/25.0.2-graalce
+Default locale: zh_CN, platform encoding: UTF-8
+OS name: "linux", version: "6.8.0-124-generic", arch: "amd64", family: "unix"
+cargo 1.97.1 (c980f4866 2026-06-30)
+Python 3.10.12
+ M EVIDENCE.md
+ M examples/payment/run/environment.txt
