@@ -18,17 +18,21 @@ for fw in "${frameworks[@]}"; do
     
     if [[ "$fw" == java* ]]; then
         echo "Running $fw tests" | tee -a "$BUILD_LOG"
-        if [[ "$fw" == *-lib-* ]]; then
+        if [ -f "$fw/pom.xml" ]; then
+            (cd "$fw" && mvn clean test >> "../$BUILD_LOG" 2>&1)
+        elif [ -f "$fw/lib/pom.xml" ]; then
             (cd "$fw/lib" && mvn clean test >> "../../$BUILD_LOG" 2>&1)
         else
-            (cd "$fw" && mvn clean test >> "../$BUILD_LOG" 2>&1)
+            echo "Warning: No pom.xml found for $fw" | tee -a "$BUILD_LOG"
         fi
     else
         echo "Running $fw tests" | tee -a "$BUILD_LOG"
-        if [[ "$fw" == *-lib-* ]]; then
+        if [ -f "$fw/Cargo.toml" ]; then
+            (cd "$fw" && cargo test >> "../$BUILD_LOG" 2>&1)
+        elif [ -f "$fw/lib/Cargo.toml" ]; then
             (cd "$fw/lib" && cargo test >> "../../$BUILD_LOG" 2>&1)
         else
-            (cd "$fw" && cargo test >> "../$BUILD_LOG" 2>&1)
+            echo "Warning: No Cargo.toml found for $fw" | tee -a "$BUILD_LOG"
         fi
     fi
     echo "$fw DONE." | tee -a "$BUILD_LOG"

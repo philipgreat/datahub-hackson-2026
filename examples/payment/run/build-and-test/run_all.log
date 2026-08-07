@@ -46,8 +46,8 @@ psystem/Q.java使用或覆盖了已过时的 API。
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  7.962 s
-[INFO] Finished at: 2026-08-08T03:17:03+08:00
+[INFO] Total time:  7.646 s
+[INFO] Finished at: 2026-08-08T03:32:19+08:00
 [INFO] ------------------------------------------------------------------------
 java-lib-core DONE.
 =======================================
@@ -84,7 +84,7 @@ Running java-web-spring-boot tests
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running com.example.enterpriseerpsystem.KycAuthInterceptorTest
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.192 s -- in com.example.enterpriseerpsystem.KycAuthInterceptorTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.217 s -- in com.example.enterpriseerpsystem.KycAuthInterceptorTest
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -93,8 +93,8 @@ Running java-web-spring-boot tests
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.013 s
-[INFO] Finished at: 2026-08-08T03:17:09+08:00
+[INFO] Total time:  3.457 s
+[INFO] Finished at: 2026-08-08T03:32:24+08:00
 [INFO] ------------------------------------------------------------------------
 java-web-spring-boot DONE.
 =======================================
@@ -128,8 +128,8 @@ Running java-web-quarkus tests
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.365 s
-[INFO] Finished at: 2026-08-08T03:17:14+08:00
+[INFO] Total time:  3.054 s
+[INFO] Finished at: 2026-08-08T03:32:28+08:00
 [INFO] ------------------------------------------------------------------------
 java-web-quarkus DONE.
 =======================================
@@ -164,8 +164,8 @@ Running java-web-micronaut tests
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  3.589 s
-[INFO] Finished at: 2026-08-08T03:17:19+08:00
+[INFO] Total time:  2.960 s
+[INFO] Finished at: 2026-08-08T03:32:33+08:00
 [INFO] ------------------------------------------------------------------------
 java-web-micronaut DONE.
 =======================================
@@ -212,7 +212,7 @@ rust-app-console DONE.
 =======================================
 Testing rust-web-axum (Skipping generator since jar is missing)
 Running rust-web-axum tests
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.09s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.08s
      Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core_web_axum-d0747dba8c493918)
 
 running 0 tests
@@ -235,8 +235,25 @@ rust-web-axum DONE.
 =======================================
 Testing rust-web-topcoat (Skipping generator since jar is missing)
 Running rust-web-topcoat tests
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.11s
-     Running unittests src/main.rs (/home/philip/shared-cargo-target/debug/deps/bandwidth-40f5ada4ceea4a4a)
+    Updating crates.io index
+     Locking 112 packages to latest compatible versions
+      Adding teaql-tool-core v1.0.0 (available: v2.0.0)
+   Compiling libsqlite3-sys v0.38.1
+   Compiling teaql-core v4.2.5
+   Compiling rusqlite v0.40.1
+   Compiling teaql-data-service v4.2.5
+   Compiling teaql-sql v4.2.5
+   Compiling teaql-runtime v4.2.5
+   Compiling teaql-provider-sqlite v4.2.5
+   Compiling enterprise-erp-system-core v0.1.0 (/home/philip/githome/datahub-hackson-2026/rust-web-topcoat/lib)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 33.56s
+     Running unittests src/lib.rs (/home/philip/shared-cargo-target/debug/deps/enterprise_erp_system_core-fde4bc18b99a060c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests enterprise_erp_system_core
 
 running 0 tests
 
