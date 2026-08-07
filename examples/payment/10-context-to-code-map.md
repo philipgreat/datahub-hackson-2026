@@ -18,13 +18,5 @@ The AI Agent intelligently interpreted this privacy constraint and injected the 
 ### C. Generated Domain Libraries
 The proprietary TeaQL engine generated the domain representations in `java-lib-core` and `rust-lib-core`, propagating this masking rule into the statically-typed domain.
 
-### D. Verified Runtime Behavior
-1. **Rust (`rust-app-console`)**:
-   The stream processor strictly adheres to the masking requirements. When processing transactions, it successfully sanitizes the PII:
-   ```rust
-   // From tests::test_process_stream_data_quality
-   ✅ Processed valid transaction, masking account info: *****
-   ```
-
-2. **Java (`java-web-spring-boot`)**:
-   The `KycAuthInterceptorTest` integration test enforces strict access control policies on any endpoint handling these payment entities, successfully verifying `403 Forbidden` for unverified requests and `200 OK` for compliant, masked requests.
+### D. Verified Runtime Behavior (Pending)
+While the generated `java-lib-core` and `rust-lib-core` successfully encapsulate the `_audit_mask_fields` constraints natively via the TeaQL code generation step, specific runtime tests for the newly generated `payment-service` have not yet been implemented (Runtime Policy Pending). However, the parallel massive ERP application in this repository successfully passes its test suite leveraging the exact same TeaQL code generation architecture.

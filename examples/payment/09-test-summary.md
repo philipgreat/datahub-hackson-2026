@@ -17,5 +17,6 @@ This document summarizes the test outcomes for the generated and extended projec
 - **Significance**: Confirms that the streaming logic correctly interprets missing or dirty transaction fields, executing data quality filters before reporting back.
 
 ## Notes
-- `rust-lib-core` and `java-lib-core` are purely entity bindings with no isolated unit tests; they were verified during compilation.
+- The tests described above are executed against the massive ERP sample application present in the repository, which uses the exact same TeaQL generation workflow.
+- For the newly generated `payment-service` (produced during this MCP workflow), tests are currently pending; we have verified that the generated `rust-lib-core` and `java-lib-core` compile correctly natively (`cargo check` and `mvn compile`).
 - `java-web-quarkus`, `java-web-micronaut`, `rust-web-axum`, `rust-web-topcoat` compiled successfully but currently contain no active unit tests in this focused demo scope.
