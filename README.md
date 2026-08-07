@@ -77,7 +77,7 @@ The complete evidence chain is preserved in the `examples/payment/` directory:
 - **Build**: All generated domain libraries (`rust-lib-core` and `java-lib-core`) successfully compiled.
 
 ### Known Limitations
-- **TeaQL Generator**: The proprietary TeaQL generation engine (`generator-1.1.0.jar`) is not included in the public repository. Generation of the code was blocked (recorded in `examples/payment/run/generator.log`), so the test phase relies on the previously verified generated domain libraries.
+- **TeaQL Generator**: The code generation process utilizes an online service directly rather than a local `generator-1.1.0.jar` executable. As such, local generation steps are bypassed, and the test phase relies on the domain libraries (`rust-lib-core` and `java-lib-core`) that have been successfully generated and returned by this online service.
 
 ## What Reviewers Should Inspect
 

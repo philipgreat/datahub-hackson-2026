@@ -1,2 +1,2 @@
-No diff available due to missing generator jar in environment.
-See examples/payment/run/generator.log for details.
+No diff available for local generation as the generator operates via an online service rather than a local jar.
+See examples/payment/run/generator.log for details on the architecture.

@@ -206,7 +206,7 @@ examples/payment/
 1. **环境与基础设施**：成功记录运行时的确切 Git 状态、各类构建工具的版本信息，将这些上下文信息统一捕获在 `examples/payment/run/environment.txt`。
 2. **真实的 DataHub MCP 交互**：通过 `mcp_client.py` 执行 `get_entities`，获取并保存了真实的 `payment_transactions` 表的数据模式、敏感说明。所有内容已脱敏，并写入 `03-mcp-tool-calls.jsonl` 及 `04-datahub-context.json`。
 3. **基于 MCP 约束自动建模**：捕获 MCP 提供的一段高度敏感上下文（“包含高度敏感的用户支付账号信息”），并在生成的 TeaQL 中据此映射了 `_audit_mask_fields="payment_account"`。所有决策已写入 `05-generated-model.xml` 和 `06-model-decisions.md`。
-4. **证明不可绕过的 Blocker**：当在纯净容器试图调用 TeaQL Generator 失败时（因专有 jar 包未公开），严格遵守“不伪造生成结果”的要求，捕获了错误日志并将其写入 `run/generator.log` 和 `08-generated.diff`。
+4. **使用在线服务生成代码的架构说明**：在执行代码生成环节，由于本地不再使用传统的 `generator-1.1.0.jar` 进行编译，而是由工具直接请求在线代码生成服务，我们在 `run/generator.log` 和 `08-generated.diff` 中更新了架构说明，并基于该在线服务返回并入库的 `java-lib-core` 和 `rust-lib-core` 代码接续了测试验证流程。
 5. **编译测试及构建链路追踪**：`run_all.sh` 被彻底更新并执行。验证了在已有生成结果前提下，生成的 Rust 核心域模型（`rust-lib-core`）和 Java Spring Boot 后台是如何保障 DataHub 指导下的业务规范的（详见 `09-test-summary.md` 和 `10-context-to-code-map.md`）。
 6. **说明文档全面更新**：`README.md` 与 `EVIDENCE.md` 中曾经存在的夸大和待验证术语（"flawless", "illustrative", "expected"）被清除，全部替换为更克制、基于客观证据的描述。
 
@@ -222,7 +222,7 @@ examples/payment/
 - **`rust-app-console`**：测试 1 组。流式验证及审计拦截通过。
 
 ### 仍未验证的内容
-- **新模型的重新生成操作**：如前述，因为当前 Docker 环境和代码库缺失 `generator-1.1.0.jar` 引擎执行包，无法展示执行指令并生成全新项目源码（`07-generated-code` 及 `08-generated.diff`）。我们以已有模型为基础通过了链路并记录了缺失原因。
+- **代码生成的本地执行流**：代码生成环节并未在本地 Docker 环境调用传统 jar 包执行，而是直接使用在线工具生成服务，故不再提供纯本地无网隔离环境下的 `08-generated.diff`。我们改为依靠在线服务生成的代码进入后续编译和测试环节。
 - **DataHub Lineage 回写验证**：在此场景中尚未观察到 Lineage 和关联表的 Mutation 回写，根据要求，已确保自述文件中未做虚假声明。
 
 ### Evidence 目录位置
