@@ -1,1756 +1,354 @@
-diff --git a/examples/payment/07-generated-code/java-lib-core/domain.zip b/examples/payment/07-generated-code/java-lib-core/domain.zip
-index 496503c..98007d8 100644
-Binary files a/examples/payment/07-generated-code/java-lib-core/domain.zip and b/examples/payment/07-generated-code/java-lib-core/domain.zip differ
-diff --git a/examples/payment/07-generated-code/java/lib/pom.xml b/examples/payment/07-generated-code/java/lib/pom.xml
-deleted file mode 100644
-index a4e1ccc..0000000
---- a/examples/payment/07-generated-code/java/lib/pom.xml
-+++ /dev/null
-@@ -1,107 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project xmlns="http://maven.apache.org/POM/4.0.0"
--         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
--         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
--  <modelVersion>4.0.0</modelVersion>
--
--  <groupId>com.example</groupId>
--  <artifactId>payment-system-core</artifactId>
--  <version>0.0.1-SNAPSHOT</version>
--  <packaging>jar</packaging>
--
--  <properties>
--    <java.version>21</java.version>
--    <spring-boot.version>4.1.0</spring-boot.version>
--    <teaql.version>1.526-RELEASE</teaql.version>
--    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
--    <maven.compiler.parameters>true</maven.compiler.parameters>
--  </properties>
--
--  <repositories>
--    <repository>
--      <id>teaql</id>
--      <url>https://maven.teaql.io/repository/maven-releases/</url>
--    </repository>
--  </repositories>
--
--  <dependencyManagement>
--    <dependencies>
--      <dependency>
--        <groupId>org.springframework.boot</groupId>
--        <artifactId>spring-boot-dependencies</artifactId>
--        <version>${spring-boot.version}</version>
--        <type>pom</type>
--        <scope>import</scope>
--      </dependency>
--    </dependencies>
--  </dependencyManagement>
--
--  <dependencies>
--    <dependency>
--      <groupId>org.springframework.boot</groupId>
--      <artifactId>spring-boot-autoconfigure</artifactId>
--    </dependency>
--    <dependency>
--      <groupId>org.springframework.boot</groupId>
--      <artifactId>spring-boot-starter-web</artifactId>
--    </dependency>
--    <dependency>
--      <groupId>org.springframework</groupId>
--      <artifactId>spring-tx</artifactId>
--    </dependency>
--        <dependency>
--          <groupId>io.teaql</groupId>
--          <artifactId>teaql-sqlite</artifactId>
--          <version>1.526-RELEASE</version>
--        </dependency>
--    <dependency>
--      <groupId>io.teaql</groupId>
--      <artifactId>teaql-core</artifactId>
--      <version>${teaql.version}</version>
--    </dependency>
--    <dependency>
--      <groupId>io.teaql</groupId>
--      <artifactId>teaql-runtime</artifactId>
--      <version>${teaql.version}</version>
--    </dependency>
--    <dependency>
--      <groupId>cn.hutool</groupId>
--      <artifactId>hutool-all</artifactId>
--      <version>5.8.20</version>
--    </dependency>
--  </dependencies>
--
--  <build>
--    <plugins>
--      <plugin>
--        <groupId>org.apache.maven.plugins</groupId>
--        <artifactId>maven-compiler-plugin</artifactId>
--        <version>3.12.1</version>
--        <configuration>
--          <release>${java.version}</release>
--          <parameters>${maven.compiler.parameters}</parameters>
--        </configuration>
--      </plugin>
--      <plugin>
--        <groupId>org.apache.maven.plugins</groupId>
--        <artifactId>maven-source-plugin</artifactId>
--        <version>3.3.0</version>
+Java and Rust source diff from previous checked-in output to locally regenerated output. Binary domain.zip files are covered by generated-files.sha256.
+
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/pom.xml after/java-lib-core/lib/pom.xml
+--- before/java-lib-core/lib/pom.xml	2026-08-08 03:04:16.921615362 +0800
++++ after/java-lib-core/lib/pom.xml	2026-08-08 09:44:49.115858579 +0800
+@@ -84,26 +84,6 @@
+       </plugin>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+-        <artifactId>maven-enforcer-plugin</artifactId>
+-        <version>3.5.0</version>
 -        <executions>
 -          <execution>
--            <id>attach-sources</id>
+-            <id>enforce-java-version</id>
 -            <goals>
--              <goal>jar-no-fork</goal>
+-              <goal>enforce</goal>
 -            </goals>
+-            <configuration>
+-              <rules>
+-                <requireJavaVersion>
+-                  <version>[${java.version},)</version>
+-                </requireJavaVersion>
+-              </rules>
+-            </configuration>
 -          </execution>
 -        </executions>
 -      </plugin>
--    </plugins>
--  </build>
--
--  <distributionManagement>
--    <repository>
--      <id>target-repo</id>
--      <url>https://maven.teaql.io/repository/maven-releases/</url>
--    </repository>
--  </distributionManagement>
--</project>
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/BaseServiceConfiguration.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/BaseServiceConfiguration.java
-deleted file mode 100644
-index e69de29..0000000
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Checkers.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Checkers.java
-deleted file mode 100644
-index e69de29..0000000
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Constants.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Constants.java
-deleted file mode 100644
-index dfb457b..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Constants.java
-+++ /dev/null
-@@ -1,9 +0,0 @@
--
--package com.example.paymentsystem;
--
--import com.example.paymentsystem.paymenttransaction.PaymentTransaction;
--
--public interface Constants  {
--  public static final long PAYMENT_TRANSACTION_ID = 1l;
--  public static final PaymentTransaction PAYMENT_TRANSACTION = PaymentTransaction.refer(PAYMENT_TRANSACTION_ID);
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/E.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/E.java
-deleted file mode 100644
-index df19521..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/E.java
-+++ /dev/null
-@@ -1,12 +0,0 @@
--
--package com.example.paymentsystem;
--
--import com.example.paymentsystem.paymenttransaction.PaymentTransaction;
--import com.example.paymentsystem.paymenttransaction.PaymentTransactionExpression;
--import io.teaql.core.value.ValueExpression;
--
--public class E  {
--  public static PaymentTransactionExpression<PaymentTransaction, PaymentTransaction, PaymentTransaction> paymentTransaction(PaymentTransaction paymentTransaction){
--      return new PaymentTransactionExpression(new ValueExpression(paymentTransaction));
--  }
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/EntityMetaRegistry.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/EntityMetaRegistry.java
-deleted file mode 100644
-index 4add46e..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/EntityMetaRegistry.java
-+++ /dev/null
-@@ -1,189 +0,0 @@
--
--package com.example.paymentsystem;
--
--import io.teaql.core.meta.EntityDescriptor;
--import io.teaql.core.meta.EntityMetaAssembler;
--import io.teaql.core.meta.EntityMetaFactory;
--import io.teaql.core.meta.PropertyDescriptor;
--import java.math.BigDecimal;
--import java.time.LocalDateTime;
--
--public class EntityMetaRegistry implements EntityMetaAssembler {
--  private EntityMetaFactory $factory;
--
--  @Override
--  public void assemble(EntityMetaFactory factory) {
--    this.$factory = factory;
--    registerPaymentTransaction();
--  }
--  private void registerPaymentTransaction() {
--      EntityDescriptor entityDescriptor = new EntityDescriptor();
--      entityDescriptor.setType(com.example.paymentsystem.paymenttransaction.PaymentTransaction.INTERNAL_TYPE);
--      entityDescriptor.setTargetType(com.example.paymentsystem.paymenttransaction.PaymentTransaction.class);
--      entityDescriptor.setEntitySupplier(com.example.paymentsystem.paymenttransaction.PaymentTransaction::new);
--      entityDescriptor.with("name", "Payment Transaction")
--      .with("module", "Core")
--      .with("module_key", "core")
--      .with("audit_mask_fields", "payment_account");
--
--      PropertyDescriptor id = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.ID_PROPERTY, Long.class)
--      ;
--      PropertyDescriptor paymentAccount = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, String.class)
--      ;
--      PropertyDescriptor currencyCode = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY, String.class)
--      ;
--      PropertyDescriptor paymentMethod = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.PAYMENT_METHOD_PROPERTY, String.class)
--      ;
--      PropertyDescriptor transactionAmount = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY, BigDecimal.class)
--      ;
--      PropertyDescriptor createTime = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.CREATE_TIME_PROPERTY, LocalDateTime.class)
--      ;
--      PropertyDescriptor updateTime = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.UPDATE_TIME_PROPERTY, LocalDateTime.class)
--      ;
--      PropertyDescriptor version = 
--      entityDescriptor.addSimpleProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.VERSION_PROPERTY, Long.class)
--      ;
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.ID_PROPERTY).with("isPassword", "false")
--      .with("isVersion", "false")
--      .with("oracle_sqlType", "number(11)")
--      .with("javaType", "java.lang.Long")
--      .with("sqlType", "BIGINT")
--      .with("isId", "true")
--      .with("isBaseEntityField", "true")
--      .with("isBool", "false")
--      .with("isNumber", "false")
--      .with("isString", "false")
--      .with("isDate", "false")
--      .with("snowflake_sqlType", "number")
--      .with("graphqlType", "Long")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY).with("isPassword", "false")
--      .with("max", "100")
--      .with("isVersion", "false")
--      .with("javaType", "java.lang.String")
--      .with("candidates", "payment_account()")
--      .with("sqlType", "VARCHAR(<max>)")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "false")
--      .with("isString", "true")
--      .with("isDate", "false")
--      .with("graphqlType", "String")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY).with("isPassword", "false")
--      .with("max", "100")
--      .with("isVersion", "false")
--      .with("javaType", "java.lang.String")
--      .with("candidates", "USD")
--      .with("sqlType", "VARCHAR(<max>)")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "false")
--      .with("isString", "true")
--      .with("isDate", "false")
--      .with("graphqlType", "String")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.PAYMENT_METHOD_PROPERTY).with("isPassword", "false")
--      .with("max", "100")
--      .with("isVersion", "false")
--      .with("javaType", "java.lang.String")
--      .with("candidates", "payment_method()")
--      .with("sqlType", "VARCHAR(<max>)")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "false")
--      .with("isString", "true")
--      .with("isDate", "false")
--      .with("graphqlType", "String")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY).with("isPassword", "false")
--      .with("db2_sqlType", "decimal(19,7)")
--      .with("isVersion", "false")
--      .with("oracle_sqlType", "number(19,7)")
--      .with("javaType", "java.math.BigDecimal")
--      .with("candidates", "150.00")
--      .with("sqlType", "NUMERIC(19,7)")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "true")
--      .with("isString", "false")
--      .with("isDate", "false")
--      .with("graphqlType", "BigDecimal")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.CREATE_TIME_PROPERTY).with("isPassword", "false")
--      .with("isVersion", "false")
--      .with("javaType", "java.time.LocalDateTime")
--      .with("candidates", "createTime()")
--      .with("sqlType", "TIMESTAMP")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "false")
--      .with("mssql_sqlType", "dateTime")
--      .with("isDateTime", "true")
--      .with("createFunction", "now")
--      .with("isDate", "true")
--      .with("isString", "false")
--      .with("graphqlType", "LocalTime")
--      .with("isTime", "true")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.UPDATE_TIME_PROPERTY).with("isPassword", "false")
--      .with("isVersion", "false")
--      .with("updateFunction", "now")
--      .with("javaType", "java.time.LocalDateTime")
--      .with("candidates", "updateTime()")
--      .with("sqlType", "TIMESTAMP")
--      .with("isId", "false")
--      .with("isBool", "false")
--      .with("isBaseEntityField", "false")
--      .with("isNumber", "false")
--      .with("mssql_sqlType", "dateTime")
--      .with("isDateTime", "true")
--      .with("createFunction", "now")
--      .with("isDate", "true")
--      .with("isString", "false")
--      .with("graphqlType", "LocalTime")
--      .with("isTime", "true")
--      .with("isText", "false");
--
--      entityDescriptor.findProperty(com.example.paymentsystem.paymenttransaction.PaymentTransaction.VERSION_PROPERTY).with("isPassword", "false")
--      .with("isVersion", "true")
--      .with("oracle_sqlType", "number(11)")
--      .with("javaType", "java.lang.Long")
--      .with("sqlType", "BIGINT")
--      .with("isId", "false")
--      .with("isBaseEntityField", "true")
--      .with("isBool", "false")
--      .with("isNumber", "false")
--      .with("isString", "false")
--      .with("isDate", "false")
--      .with("snowflake_sqlType", "number")
--      .with("graphqlType", "Long")
--      .with("isTime", "false")
--      .with("isText", "false");
--
--      $factory.register(entityDescriptor);
--  }
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/PaymentSystemUserContext.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/PaymentSystemUserContext.java
-deleted file mode 100644
-index 3b735dd..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/PaymentSystemUserContext.java
-+++ /dev/null
-@@ -1,10 +0,0 @@
--
--package com.example.paymentsystem;
--
--import io.teaql.core.UserContext;
--public interface PaymentSystemUserContext extends UserContext{
--
--
--
--
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Q.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Q.java
-deleted file mode 100644
-index 0c866ec..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Q.java
-+++ /dev/null
-@@ -1,15 +0,0 @@
--
--package com.example.paymentsystem;
--
--import io.teaql.core.criteria.Operator;
--
--public class Q  {
--  public static com.example.paymentsystem.paymenttransaction.PaymentTransactionRequest<com.example.paymentsystem.paymenttransaction.PaymentTransaction> paymentTransactions(){
--      return new com.example.paymentsystem.paymenttransaction.PaymentTransactionRequest(com.example.paymentsystem.paymenttransaction.PaymentTransaction.class).selectSelf().withVersion(Operator.GREATER_THAN, 0l);
--  }
--  public static com.example.paymentsystem.paymenttransaction.PaymentTransactionRequest<com.example.paymentsystem.paymenttransaction.PaymentTransaction> paymentTransactionsWithMinimalFields(){
--      return new com.example.paymentsystem.paymenttransaction.PaymentTransactionRequest(com.example.paymentsystem.paymenttransaction.PaymentTransaction.class).withVersion(Operator.GREATER_THAN, 0l);
--  }
--
--
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Repositories.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/Repositories.java
-deleted file mode 100644
-index e69de29..0000000
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransaction.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransaction.java
-deleted file mode 100644
-index 8f2a931..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransaction.java
-+++ /dev/null
-@@ -1,164 +0,0 @@
--
--package com.example.paymentsystem.paymenttransaction;
--
--import io.teaql.core.Audited;
--import io.teaql.core.BaseEntity;
--import io.teaql.core.EntityStatus;
--import io.teaql.core.FrameworkInternal;
--import io.teaql.core.RemoteInput;
--import java.math.BigDecimal;
--import java.time.LocalDateTime;
--import java.util.Objects;
--
--/**
-- * [TEAQL AI WARNING]
-- * TeaQL was explicitly designed to PREVENT AI hallucinations and random guessing.
-- * DO NOT GUESS METHOD NAMES!
-- * The methods listed below are the ONLY valid ways to interact with this entity.
-- * If you encounter compilation errors (e.g., method not found), DO NOT guess another method name.
-- * Read the method signatures in this file before proceeding.
-- */
--public class PaymentTransaction extends BaseEntity implements RemoteInput {
--    public static String INTERNAL_TYPE = "PaymentTransaction";
--
--    public static final String PAYMENT_ACCOUNT_PROPERTY = "paymentAccount";
--    public static final String CURRENCY_CODE_PROPERTY = "currencyCode";
--    public static final String PAYMENT_METHOD_PROPERTY = "paymentMethod";
--    public static final String TRANSACTION_AMOUNT_PROPERTY = "transactionAmount";
--    public static final String CREATE_TIME_PROPERTY = "createTime";
--    public static final String UPDATE_TIME_PROPERTY = "updateTime";
--    private String paymentAccount;
--    private String currencyCode;
--    private String paymentMethod;
--    private BigDecimal transactionAmount;
--    private LocalDateTime createTime;
--    private LocalDateTime updateTime;
--
--    public String getPaymentAccount(){
--        return this.paymentAccount;
--    }
--    public String getCurrencyCode(){
--        return this.currencyCode;
--    }
--    public String getPaymentMethod(){
--        return this.paymentMethod;
--    }
--    public BigDecimal getTransactionAmount(){
--        return this.transactionAmount;
--    }
--    public LocalDateTime getCreateTime(){
--        return this.createTime;
--    }
--    public LocalDateTime getUpdateTime(){
--        return this.updateTime;
--    }
--    public PaymentTransaction updatePaymentAccount(String paymentAccount){
--        paymentAccount = (paymentAccount == null ? null : paymentAccount.trim());
--        if(Objects.equals(this.paymentAccount, paymentAccount)){
--            return this;
--        }
--        handleUpdate(PAYMENT_ACCOUNT_PROPERTY, getPaymentAccount(), paymentAccount);
--        this.paymentAccount = paymentAccount;
--        return this;
--    }
--    public PaymentTransaction updateCurrencyCode(String currencyCode){
--        currencyCode = (currencyCode == null ? null : currencyCode.trim());
--        if(Objects.equals(this.currencyCode, currencyCode)){
--            return this;
--        }
--        handleUpdate(CURRENCY_CODE_PROPERTY, getCurrencyCode(), currencyCode);
--        this.currencyCode = currencyCode;
--        return this;
--    }
--    public PaymentTransaction updatePaymentMethod(String paymentMethod){
--        paymentMethod = (paymentMethod == null ? null : paymentMethod.trim());
--        if(Objects.equals(this.paymentMethod, paymentMethod)){
--            return this;
--        }
--        handleUpdate(PAYMENT_METHOD_PROPERTY, getPaymentMethod(), paymentMethod);
--        this.paymentMethod = paymentMethod;
--        return this;
--    }
--    public PaymentTransaction updateTransactionAmount(BigDecimal transactionAmount){
--        if(Objects.equals(this.transactionAmount, transactionAmount)){
--            return this;
--        }
--        handleUpdate(TRANSACTION_AMOUNT_PROPERTY, getTransactionAmount(), transactionAmount);
--        this.transactionAmount = transactionAmount;
--        return this;
--    }
--    public PaymentTransaction updateCreateTime(LocalDateTime createTime){
--        if(Objects.equals(this.createTime, createTime)){
--            return this;
--        }
--        handleUpdate(CREATE_TIME_PROPERTY, getCreateTime(), createTime);
--        this.createTime = createTime;
--        return this;
--    }
--    public PaymentTransaction updateUpdateTime(LocalDateTime updateTime){
--        if(Objects.equals(this.updateTime, updateTime)){
--            return this;
--        }
--        handleUpdate(UPDATE_TIME_PROPERTY, getUpdateTime(), updateTime);
--        this.updateTime = updateTime;
--        return this;
--    }
--
--    public static PaymentTransaction refer(Long id){
--        PaymentTransaction refer = new PaymentTransaction();
--        refer.__internalSet("id", id);
--        refer.set$status(EntityStatus.REFER);
--        return refer;
--    }
--    @Override
--    public String typeName(){
--        return INTERNAL_TYPE;
--    }
--
--    public PaymentTransaction comment(String comment){
--        this.setComment(comment);
--        return this;
--    }
--
--    @Override
--    @SuppressWarnings("unchecked")
--    public Audited<PaymentTransaction> auditAs(String action) {
--        return super.auditAs(action);
--    }
--
--    // ===== Framework Internal: generated switch dispatch =====
--    @Override
--    @FrameworkInternal
--    public void __internalSet(String property, Object value) {
--        switch (property) {
--            case "paymentAccount": this.paymentAccount = (value == null ? null : ((String)value).trim()); break;
--
--            case "currencyCode": this.currencyCode = (value == null ? null : ((String)value).trim()); break;
--
--            case "paymentMethod": this.paymentMethod = (value == null ? null : ((String)value).trim()); break;
--
--            case "transactionAmount": this.transactionAmount = (BigDecimal) value; break;
--
--            case "createTime": this.createTime = (LocalDateTime) value; break;
--
--            case "updateTime": this.updateTime = (LocalDateTime) value; break;
--
--            default: super.__internalSet(property, value);
--        }
--    }
--
--    @Override
--    @FrameworkInternal
--    public Object __internalGet(String property) {
--        switch (property) {
--            case "paymentAccount": return this.paymentAccount;
--            case "currencyCode": return this.currencyCode;
--            case "paymentMethod": return this.paymentMethod;
--            case "transactionAmount": return this.transactionAmount;
--            case "createTime": return this.createTime;
--            case "updateTime": return this.updateTime;
--            default: return super.__internalGet(property);
--        }
--    }
--
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionChecker.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionChecker.java
-deleted file mode 100644
-index a72e992..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionChecker.java
-+++ /dev/null
-@@ -1,86 +0,0 @@
--
--package com.example.paymentsystem.paymenttransaction;
--
--import io.teaql.core.UserContext;
--import io.teaql.core.checker.Checker;
--import io.teaql.core.checker.ObjectLocation;
--import java.math.BigDecimal;
--import java.time.LocalDateTime;
--
--public class PaymentTransactionChecker implements Checker<PaymentTransaction>{
--
--    public String type(){
--        return PaymentTransaction.INTERNAL_TYPE;
--    }
--
--    public void checkAndFix(UserContext _ctx, PaymentTransaction paymentTransaction, ObjectLocation _parentLocation){
--        if(needCheck(_ctx, paymentTransaction)){
--            markAsChecked(_ctx, paymentTransaction);
--            doCheck(_ctx, paymentTransaction, _parentLocation);
--        }
--    }
--
--    public void doCheck(UserContext _ctx, PaymentTransaction paymentTransaction, ObjectLocation _parentLocation){
--      if((paymentTransaction == null)){
--         return;
--      }
--      if(paymentTransaction.newItem()){
--        if(paymentTransaction.getCreateTime() == null){
--           paymentTransaction.updateCreateTime(java.time.LocalDateTime.now());
--        }if(paymentTransaction.getUpdateTime() == null){
--           paymentTransaction.updateUpdateTime(java.time.LocalDateTime.now());
--        }
--      }else if(paymentTransaction.updateItem()){
--        paymentTransaction.updateUpdateTime(java.time.LocalDateTime.now());
--      }
--      checkPaymentAccount(_ctx, paymentTransaction.getProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY), newLocation(_parentLocation, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY));
--      checkCurrencyCode(_ctx, paymentTransaction.getProperty(PaymentTransaction.CURRENCY_CODE_PROPERTY), newLocation(_parentLocation, PaymentTransaction.CURRENCY_CODE_PROPERTY));
--      checkPaymentMethod(_ctx, paymentTransaction.getProperty(PaymentTransaction.PAYMENT_METHOD_PROPERTY), newLocation(_parentLocation, PaymentTransaction.PAYMENT_METHOD_PROPERTY));
--      checkTransactionAmount(_ctx, paymentTransaction.getProperty(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY), newLocation(_parentLocation, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--      checkCreateTime(_ctx, paymentTransaction.getProperty(PaymentTransaction.CREATE_TIME_PROPERTY), newLocation(_parentLocation, PaymentTransaction.CREATE_TIME_PROPERTY));
--      checkUpdateTime(_ctx, paymentTransaction.getProperty(PaymentTransaction.UPDATE_TIME_PROPERTY), newLocation(_parentLocation, PaymentTransaction.UPDATE_TIME_PROPERTY));
--    }
--
--    public void checkPaymentAccount(UserContext _ctx, String paymentAccount, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, paymentAccount);
--    if((paymentAccount == null)){
--        return;
--    }
--    maxStringCheck(_ctx, _parentLocation, 100, paymentAccount);
--
--    }
--    public void checkCurrencyCode(UserContext _ctx, String currencyCode, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, currencyCode);
--    if((currencyCode == null)){
--        return;
--    }
--    maxStringCheck(_ctx, _parentLocation, 100, currencyCode);
--
--    }
--    public void checkPaymentMethod(UserContext _ctx, String paymentMethod, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, paymentMethod);
--    if((paymentMethod == null)){
--        return;
--    }
--    maxStringCheck(_ctx, _parentLocation, 100, paymentMethod);
--
--    }
--    public void checkTransactionAmount(UserContext _ctx, BigDecimal transactionAmount, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, transactionAmount);
--    if((transactionAmount == null)){
--        return;
--    }
--    }
--    public void checkCreateTime(UserContext _ctx, LocalDateTime createTime, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, createTime);
--    if((createTime == null)){
--        return;
--    }
--    }
--    public void checkUpdateTime(UserContext _ctx, LocalDateTime updateTime, ObjectLocation _parentLocation){
--    requiredCheck(_ctx, _parentLocation, updateTime);
--    if((updateTime == null)){
--        return;
--    }
--    }
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionExpression.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionExpression.java
-deleted file mode 100644
-index 4822d7c..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionExpression.java
-+++ /dev/null
-@@ -1,80 +0,0 @@
--
--package com.example.paymentsystem.paymenttransaction;
--
--import io.teaql.core.UserContext;
--import io.teaql.core.value.BaseEntityExpression;
--import io.teaql.core.value.Expression;
--import io.teaql.core.value.ExpressionAdaptor;
--import java.math.BigDecimal;
--import java.time.LocalDateTime;
--import java.util.function.Function;
--
--public class PaymentTransactionExpression<T, E, U extends PaymentTransaction> extends ExpressionAdaptor<T, E, U> implements BaseEntityExpression<T, U> {
--    public PaymentTransactionExpression(Expression<T, U> expression){
--        super(expression);
--    }
--
--    public PaymentTransactionExpression(Expression<T, E> expression, Function<E, U> function){
--        super(expression, function);
--    }
--
--     public PaymentTransactionExpression<T, U, U> updateId(Long id){
--        return new PaymentTransactionExpression(this, $it -> {((PaymentTransaction)$it).__internalSet("id", id); return this;});
--     }
--
--     public PaymentTransactionExpression<T, U, U> save(UserContext userContext){
--        return new PaymentTransactionExpression(this, $it -> ((PaymentTransaction)$it).auditAs("Saved by Expression").save(userContext));
--     }
--
--     public PaymentTransactionExpression<T, U, U> save(String intent, UserContext userContext){
--        return new PaymentTransactionExpression(this, $it -> ((PaymentTransaction)$it).auditAs(intent).save(userContext));
--     }
--
--     public boolean isNull() {
--        return resolve() == null;
--     }
--
--
--    public Expression<T, String> getPaymentAccount(){
--       return apply(PaymentTransaction::getPaymentAccount);
--    }
--    public PaymentTransactionExpression<T, U, U> updatePaymentAccount(String paymentAccount){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updatePaymentAccount(paymentAccount));
--    }
--
--    public Expression<T, String> getCurrencyCode(){
--       return apply(PaymentTransaction::getCurrencyCode);
--    }
--    public PaymentTransactionExpression<T, U, U> updateCurrencyCode(String currencyCode){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updateCurrencyCode(currencyCode));
--    }
--
--    public Expression<T, String> getPaymentMethod(){
--       return apply(PaymentTransaction::getPaymentMethod);
--    }
--    public PaymentTransactionExpression<T, U, U> updatePaymentMethod(String paymentMethod){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updatePaymentMethod(paymentMethod));
--    }
--
--    public Expression<T, BigDecimal> getTransactionAmount(){
--       return apply(PaymentTransaction::getTransactionAmount);
--    }
--    public PaymentTransactionExpression<T, U, U> updateTransactionAmount(BigDecimal transactionAmount){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updateTransactionAmount(transactionAmount));
--    }
--
--    public Expression<T, LocalDateTime> getCreateTime(){
--       return apply(PaymentTransaction::getCreateTime);
--    }
--    public PaymentTransactionExpression<T, U, U> updateCreateTime(LocalDateTime createTime){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updateCreateTime(createTime));
--    }
--
--    public Expression<T, LocalDateTime> getUpdateTime(){
--       return apply(PaymentTransaction::getUpdateTime);
--    }
--    public PaymentTransactionExpression<T, U, U> updateUpdateTime(LocalDateTime updateTime){
--       return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updateUpdateTime(updateTime));
--    }
--
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionListExpression.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionListExpression.java
-deleted file mode 100644
-index cd31c82..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionListExpression.java
-+++ /dev/null
-@@ -1,25 +0,0 @@
--
--package com.example.paymentsystem.paymenttransaction;
--
--import io.teaql.core.SmartList;
--import io.teaql.core.value.Expression;
--import io.teaql.core.value.SmartListExpression;
--import java.util.function.Function;
--
--public class PaymentTransactionListExpression<T, E, U extends PaymentTransaction> extends SmartListExpression<T, E, U> {
--    public PaymentTransactionListExpression(Expression<T, SmartList<U>> expression){
--        super(expression);
--    }
--
--    public PaymentTransactionListExpression(Expression<T, E> expression, Function<E, SmartList<U>> function){
--        super(expression, function);
--    }
--
--    public PaymentTransactionExpression<T, U, U> first() {
--       return new PaymentTransactionExpression(super.first());
--    }
--
--    public PaymentTransactionExpression<T, U, U> get(int index) {
--      return new PaymentTransactionExpression(super.get(index));
--    }
--}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionRequest.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionRequest.java
-deleted file mode 100644
-index 2ece012..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/paymenttransaction/PaymentTransactionRequest.java
-+++ /dev/null
-@@ -1,1020 +0,0 @@
--
--package com.example.paymentsystem.paymenttransaction;
--
--import io.teaql.core.AggrFunction;
--import io.teaql.core.BaseRequest;
--import io.teaql.core.PropertyReference;
--import io.teaql.core.SearchCriteria;
--import io.teaql.core.criteria.Operator;
--import io.teaql.core.criteria.TwoOperatorCriteria;
--import java.math.BigDecimal;
--import java.time.LocalDateTime;
--import java.util.Date;
--
--public class PaymentTransactionRequest<T extends PaymentTransaction> extends BaseRequest<T> {
--
--    /**
--     * @deprecated AI agents and business code must use the generated Q facade
--     *             instead of constructing request builders directly.
--     */
--    @Deprecated
--    public PaymentTransactionRequest(Class<T> returnType){
--        super(returnType);
--        selectId();
--        selectVersion();
--    }
--
--    public PaymentTransactionRequest<T> comment(String comment){
--         super.internalComment(comment);
--         return this;
--    }
--
--    // purpose() 继承自 BaseRequest，返回 ExecutableRequest（终结方法）
--
--    public PaymentTransactionRequest<T> returnType(Class<? extends T> returnType){
--        super.setReturnType(returnType);
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> enableAggregationCache(long cacheExpiredMillis){
--        super.enableAggregationCache();
--        super.aggregateCacheTime(cacheExpiredMillis);
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> enableAggregationCache(){
--        return enableAggregationCache(0l);
--    }
--
--
--    public PaymentTransactionRequest<T> propagateAggregationCache(long cacheExpiredMillis){
--        super.propagateAggregationCache(cacheExpiredMillis);
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> appendSearchCriteria(SearchCriteria searchCriteria){
--        return (PaymentTransactionRequest<T>)super.appendSearchCriteria(searchCriteria);
--    }
--
--    public PaymentTransactionRequest<T> filter(String property1, Operator operator, String property2){
--        return appendSearchCriteria(new TwoOperatorCriteria(operator, new PropertyReference(property1), new PropertyReference(property2)));
--    }
--
--
--    public PaymentTransactionRequest<T> matchingAnyOf(PaymentTransactionRequest paymentTransaction){
--        super.internalMatchAny(paymentTransaction);
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> enhanceChildrenIfNeeded(){
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> withDeletedRows(){
--        super.withDeletedRows();
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> deletedRowsOnly(){
--        super.deletedRowsOnly();
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> selectSelf(){
--        super.selectSelf();
--        return selectId().selectPaymentAccount().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
--    }
--
--    public PaymentTransactionRequest<T> selectSelfFields(){
--        return selectSelf();
--    }
--
--    public PaymentTransactionRequest<T> selectAll(){
--        super.selectAll();
--        return selectId().selectPaymentAccount().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
--    }
--
--    public PaymentTransactionRequest<T> selectChildren(){
--        super.selectAny();
--        return selectId().selectPaymentAccount().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
--    }
--
--
--    public PaymentTransactionRequest<T> selectId(){
--       selectProperty(PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the id with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  id) to fetch id property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectId(){
--       unselectProperty(PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
+-      <plugin>
+-        <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-source-plugin</artifactId>
+         <version>3.3.0</version>
+         <executions>
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/Constants.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/Constants.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/Constants.java	2026-08-08 03:04:16.920615359 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/Constants.java	2026-08-08 09:44:49.115858579 +0800
+@@ -1,9 +1,12 @@
+ 
+ package com.example.paymentservice;
+ 
++import com.example.paymentservice.paymenttransaction.PaymentTransaction;
+ import com.example.paymentservice.useraccount.UserAccount;
+ 
+ public interface Constants  {
+   public static final long USER_ACCOUNT_ID = 1l;
+   public static final UserAccount USER_ACCOUNT = UserAccount.refer(USER_ACCOUNT_ID);
++  public static final long PAYMENT_TRANSACTION_ID = 1l;
++  public static final PaymentTransaction PAYMENT_TRANSACTION = PaymentTransaction.refer(PAYMENT_TRANSACTION_ID);
+ }
+\ 文件末尾没有换行符
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java	2026-08-08 03:04:16.923615366 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java	2026-08-08 09:44:49.114858576 +0800
+@@ -142,7 +142,7 @@
+       entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.ID_PROPERTY, Long.class)
+       ;
+       PropertyDescriptor paymentAccount = 
+-      entityDescriptor.addObjectProperty($factory, com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, com.example.paymentservice.useraccount.UserAccount.INTERNAL_TYPE, com.example.paymentservice.useraccount.UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, com.example.paymentservice.useraccount.UserAccount.class)
++      entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, String.class)
+       ;
+       PropertyDescriptor currencyCode = 
+       entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY, String.class)
+@@ -178,11 +178,27 @@
+       .with("isTime", "false")
+       .with("isText", "false");
+ 
++      entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY).with("isPassword", "false")
++      .with("max", "100")
++      .with("isVersion", "false")
++      .with("javaType", "java.lang.String")
++      .with("candidates", "string()")
++      .with("sqlType", "VARCHAR(<max>)")
++      .with("isId", "false")
++      .with("isBool", "false")
++      .with("isBaseEntityField", "false")
++      .with("isNumber", "false")
++      .with("isString", "true")
++      .with("isDate", "false")
++      .with("graphqlType", "String")
++      .with("isTime", "false")
++      .with("isText", "false");
+ 
+       entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY).with("isPassword", "false")
+       .with("max", "100")
+       .with("isVersion", "false")
+       .with("javaType", "java.lang.String")
++      .with("candidates", "string()")
+       .with("sqlType", "VARCHAR(<max>)")
+       .with("isId", "false")
+       .with("isBool", "false")
+@@ -198,6 +214,7 @@
+       .with("max", "100")
+       .with("isVersion", "false")
+       .with("javaType", "java.lang.String")
++      .with("candidates", "string()")
+       .with("sqlType", "VARCHAR(<max>)")
+       .with("isId", "false")
+       .with("isBool", "false")
+@@ -214,6 +231,7 @@
+       .with("isVersion", "false")
+       .with("oracle_sqlType", "number(19,7)")
+       .with("javaType", "java.math.BigDecimal")
++      .with("candidates", "150.00")
+       .with("sqlType", "NUMERIC(19,7)")
+       .with("isId", "false")
+       .with("isBool", "false")
+@@ -228,6 +246,7 @@
+       entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CREATE_TIME_PROPERTY).with("isPassword", "false")
+       .with("isVersion", "false")
+       .with("javaType", "java.time.LocalDateTime")
++      .with("candidates", "createTime()")
+       .with("sqlType", "TIMESTAMP")
+       .with("isId", "false")
+       .with("isBool", "false")
+@@ -246,6 +265,7 @@
+       .with("isVersion", "false")
+       .with("updateFunction", "now")
+       .with("javaType", "java.time.LocalDateTime")
++      .with("candidates", "updateTime()")
+       .with("sqlType", "TIMESTAMP")
+       .with("isId", "false")
+       .with("isBool", "false")
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransaction.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransaction.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransaction.java	2026-08-08 03:04:16.922615364 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransaction.java	2026-08-08 09:44:49.114858576 +0800
+@@ -1,7 +1,6 @@
+ 
+ package com.example.paymentservice.paymenttransaction;
+ 
+-import com.example.paymentservice.useraccount.UserAccount;
+ import io.teaql.core.Audited;
+ import io.teaql.core.BaseEntity;
+ import io.teaql.core.EntityStatus;
+@@ -28,14 +27,14 @@
+     public static final String TRANSACTION_AMOUNT_PROPERTY = "transactionAmount";
+     public static final String CREATE_TIME_PROPERTY = "createTime";
+     public static final String UPDATE_TIME_PROPERTY = "updateTime";
+-    private UserAccount paymentAccount;
++    private String paymentAccount;
+     private String currencyCode;
+     private String paymentMethod;
+     private BigDecimal transactionAmount;
+     private LocalDateTime createTime;
+     private LocalDateTime updateTime;
+ 
+-    public UserAccount getPaymentAccount(){
++    public String getPaymentAccount(){
+         return this.paymentAccount;
+     }
+     public String getCurrencyCode(){
+@@ -53,7 +52,8 @@
+     public LocalDateTime getUpdateTime(){
+         return this.updateTime;
+     }
+-    public PaymentTransaction updatePaymentAccount(UserAccount paymentAccount){
++    public PaymentTransaction updatePaymentAccount(String paymentAccount){
++        paymentAccount = (paymentAccount == null ? null : paymentAccount.trim());
+         if(Objects.equals(this.paymentAccount, paymentAccount)){
+             return this;
+         }
+@@ -131,7 +131,7 @@
+     @FrameworkInternal
+     public void __internalSet(String property, Object value) {
+         switch (property) {
+-            case "paymentAccount": this.paymentAccount = (UserAccount) value; break;
++            case "paymentAccount": this.paymentAccount = (value == null ? null : ((String)value).trim()); break;
+ 
+             case "currencyCode": this.currencyCode = (value == null ? null : ((String)value).trim()); break;
+ 
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionChecker.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionChecker.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionChecker.java	2026-08-08 03:04:16.921615362 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionChecker.java	2026-08-08 09:44:49.115858579 +0800
+@@ -1,8 +1,6 @@
+ 
+ package com.example.paymentservice.paymenttransaction;
+ 
+-import com.example.paymentservice.useraccount.UserAccount;
+-import com.example.paymentservice.useraccount.UserAccountChecker;
+ import io.teaql.core.UserContext;
+ import io.teaql.core.checker.Checker;
+ import io.teaql.core.checker.ObjectLocation;
+@@ -43,12 +41,13 @@
+       checkUpdateTime(_ctx, paymentTransaction.getProperty(PaymentTransaction.UPDATE_TIME_PROPERTY), newLocation(_parentLocation, PaymentTransaction.UPDATE_TIME_PROPERTY));
+     }
+ 
+-    public void checkPaymentAccount(UserContext _ctx, UserAccount paymentAccount, ObjectLocation _parentLocation){
++    public void checkPaymentAccount(UserContext _ctx, String paymentAccount, ObjectLocation _parentLocation){
+     requiredCheck(_ctx, _parentLocation, paymentAccount);
+     if((paymentAccount == null)){
+         return;
+     }
+-    new UserAccountChecker().checkAndFix(_ctx, paymentAccount, _parentLocation);
++    maxStringCheck(_ctx, _parentLocation, 100, paymentAccount);
++
+     }
+     public void checkCurrencyCode(UserContext _ctx, String currencyCode, ObjectLocation _parentLocation){
+     requiredCheck(_ctx, _parentLocation, currencyCode);
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionExpression.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionExpression.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionExpression.java	2026-08-08 03:04:16.923615366 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionExpression.java	2026-08-08 09:44:49.115858579 +0800
+@@ -1,8 +1,6 @@
+ 
+ package com.example.paymentservice.paymenttransaction;
+ 
+-import com.example.paymentservice.useraccount.UserAccount;
+-import com.example.paymentservice.useraccount.UserAccountExpression;
+ import io.teaql.core.UserContext;
+ import io.teaql.core.value.BaseEntityExpression;
+ import io.teaql.core.value.Expression;
+@@ -37,11 +35,10 @@
+      }
+ 
+ 
+-    public UserAccountExpression<T, U, UserAccount> getPaymentAccount(){
+-       return new UserAccountExpression(this, $it ->  ((PaymentTransaction)$it).getPaymentAccount());
++    public Expression<T, String> getPaymentAccount(){
++       return apply(PaymentTransaction::getPaymentAccount);
+     }
+-
+-    public PaymentTransactionExpression<T, U, U> updatePaymentAccount(UserAccount paymentAccount){
++    public PaymentTransactionExpression<T, U, U> updatePaymentAccount(String paymentAccount){
+        return new PaymentTransactionExpression(this, $it ->  ((PaymentTransaction)$it).updatePaymentAccount(paymentAccount));
+     }
+ 
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionRequest.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionRequest.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionRequest.java	2026-08-08 03:04:16.922615364 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionRequest.java	2026-08-08 09:44:49.113858572 +0800
+@@ -1,14 +1,10 @@
+ 
+ package com.example.paymentservice.paymenttransaction;
+ 
+-import com.example.paymentservice.Q;
+-import com.example.paymentservice.useraccount.UserAccount;
+-import com.example.paymentservice.useraccount.UserAccountRequest;
+ import io.teaql.core.AggrFunction;
+ import io.teaql.core.BaseRequest;
+ import io.teaql.core.PropertyReference;
+ import io.teaql.core.SearchCriteria;
+-import io.teaql.core.SubQuerySearchCriteria;
+ import io.teaql.core.criteria.Operator;
+ import io.teaql.core.criteria.TwoOperatorCriteria;
+ import java.math.BigDecimal;
+@@ -86,7 +82,7 @@
+ 
+     public PaymentTransactionRequest<T> selectSelf(){
+         super.selectSelf();
+-        return selectId().selectPaymentAccountIdOnly().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
++        return selectId().selectPaymentAccount().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
+     }
+ 
+     public PaymentTransactionRequest<T> selectSelfFields(){
+@@ -121,20 +117,18 @@
+        unselectProperty(PaymentTransaction.ID_PROPERTY);
+        return this;
+     }
+-    public PaymentTransactionRequest<T> selectPaymentAccountIdOnly(){
++    public PaymentTransactionRequest<T> selectPaymentAccount(){
+        selectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+        return this;
+     }
+ 
 -    public PaymentTransactionRequest<T> selectPaymentAccount(){
+-        return selectPaymentAccountWith(Q.userAccounts().unlimited().selectSelf());
+-    }
++    /**
++     * fill the paymentAccount with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  paymentAccount) to fetch paymentAccount property.
++     * @param rawSqlSegment  customized rawSqlSegment
++     */
++
++
+ 
+-    public PaymentTransactionRequest<T> selectPaymentAccountWith(UserAccountRequest paymentAccount){
 -       selectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+-       enhanceRelation(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount);
 -       return this;
 -    }
--
--    /**
--     * fill the paymentAccount with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  paymentAccount) to fetch paymentAccount property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectPaymentAccount(){
--       unselectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectCurrencyCode(){
--       selectProperty(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the currencyCode with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  currencyCode) to fetch currencyCode property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectCurrencyCode(){
--       unselectProperty(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectPaymentMethod(){
--       selectProperty(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the paymentMethod with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  paymentMethod) to fetch paymentMethod property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectPaymentMethod(){
--       unselectProperty(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectTransactionAmount(){
--       selectProperty(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the transactionAmount with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  transactionAmount) to fetch transactionAmount property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--    /**
--     * fill the transactionAmount with customized aggrFunction, TEAQL uses ({aggrFunction}(transactionAmount) AS transactionAmount to fetch transactionAmount property.
--     * @param aggrFunction  aggrFunction
--     */
--    public PaymentTransactionRequest<T> selectTransactionAmount(AggrFunction aggrFunction){
--       selectProperty(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY, aggrFunction);
--       return this;
--    }
--
--
--    public PaymentTransactionRequest<T> unselectTransactionAmount(){
--       unselectProperty(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectCreateTime(){
--       selectProperty(PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the createTime with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  createTime) to fetch createTime property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectCreateTime(){
--       unselectProperty(PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectUpdateTime(){
--       selectProperty(PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the updateTime with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  updateTime) to fetch updateTime property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectUpdateTime(){
--       unselectProperty(PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> selectVersion(){
--       selectProperty(PaymentTransaction.VERSION_PROPERTY);
--       return this;
--    }
--
--    /**
--     * fill the version with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  version) to fetch version property.
--     * @param rawSqlSegment  customized rawSqlSegment
--     */
--
--
--
--
--    public PaymentTransactionRequest<T> unselectVersion(){
--       unselectProperty(PaymentTransaction.VERSION_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> withId(Operator operator, Object... values){
--       return appendSearchCriteria(createIdCriteria(operator, values));
--    }
--
--    public SearchCriteria createIdCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.ID_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withIdIs(Long id){
--       return withId(Operator.EQUAL, id);
--    }
--    public PaymentTransactionRequest<T> withIdIn(Long... id){
--       return withId(Operator.EQUAL, (Object[])id);
--    }
--
--
--
--    public PaymentTransactionRequest<T> filterByPaymentAccount(String... paymentAccount){
--      if (paymentAccount == null || paymentAccount.length == 0) {
--        throw new IllegalArgumentException("filterByPaymentAccount parameter paymentAccount cannot be empty");
+ 
+     public PaymentTransactionRequest<T> unselectPaymentAccount(){
+        unselectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+@@ -268,7 +262,7 @@
+ 
+ 
+ 
+-    public PaymentTransactionRequest<T> filterByPaymentAccount(UserAccount... paymentAccount){
++    public PaymentTransactionRequest<T> filterByPaymentAccount(String... paymentAccount){
+       if (paymentAccount == null || paymentAccount.length == 0) {
+         throw new IllegalArgumentException("filterByPaymentAccount parameter paymentAccount cannot be empty");
+       }
+@@ -291,16 +285,46 @@
+         return createBasicSearchCriteria(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, operator, values);
+     }
+ 
+-    public PaymentTransactionRequest<T> filterByPaymentAccount(Long paymentAccount){
+-      if(paymentAccount == null){
+-         return this;
 -      }
--      return appendSearchCriteria(createPaymentAccountCriteria(Operator.EQUAL, (Object[])paymentAccount));
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccount(Operator operator, Object... values){
--       return appendSearchCriteria(createPaymentAccountCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountIsUnknown(){
--       return withPaymentAccount(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountIsKnown(){
--       return withPaymentAccount(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createPaymentAccountCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountGreaterThan(String paymentAccount){
--       return withPaymentAccount(Operator.GREATER_THAN, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountGreaterThanOrEqualTo(String paymentAccount){
--       return withPaymentAccount(Operator.GREATER_THAN_OR_EQUAL, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountLessThan(String paymentAccount){
--       return withPaymentAccount(Operator.LESS_THAN, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountLessThanOrEqualTo(String paymentAccount){
--       return withPaymentAccount(Operator.LESS_THAN_OR_EQUAL, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountBetween(String startOfPaymentAccount, String endOfPaymentAccount){
--       return withPaymentAccount(Operator.BETWEEN, startOfPaymentAccount, endOfPaymentAccount);
--    }
--    public PaymentTransactionRequest<T> withPaymentAccountStartingWith(String paymentAccount){
--       return withPaymentAccount(Operator.BEGIN_WITH, paymentAccount);
--    }
--    public PaymentTransactionRequest<T> withPaymentAccountContaining(String paymentAccount){
--       return withPaymentAccount(Operator.CONTAIN, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountEndingWith(String paymentAccount){
--       return withPaymentAccount(Operator.END_WITH, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountIs(String paymentAccount){
--       return withPaymentAccount(Operator.EQUAL, paymentAccount);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentAccountSoundingLike(String paymentAccount){
--       return withPaymentAccount(Operator.SOUNDS_LIKE, paymentAccount);
--    }
--
--
--
--    public PaymentTransactionRequest<T> filterByCurrencyCode(String... currencyCode){
--      if (currencyCode == null || currencyCode.length == 0) {
--        throw new IllegalArgumentException("filterByCurrencyCode parameter currencyCode cannot be empty");
--      }
--      return appendSearchCriteria(createCurrencyCodeCriteria(Operator.EQUAL, (Object[])currencyCode));
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCode(Operator operator, Object... values){
--       return appendSearchCriteria(createCurrencyCodeCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeIsUnknown(){
--       return withCurrencyCode(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeIsKnown(){
--       return withCurrencyCode(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createCurrencyCodeCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.CURRENCY_CODE_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeGreaterThan(String currencyCode){
--       return withCurrencyCode(Operator.GREATER_THAN, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeGreaterThanOrEqualTo(String currencyCode){
--       return withCurrencyCode(Operator.GREATER_THAN_OR_EQUAL, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeLessThan(String currencyCode){
--       return withCurrencyCode(Operator.LESS_THAN, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeLessThanOrEqualTo(String currencyCode){
--       return withCurrencyCode(Operator.LESS_THAN_OR_EQUAL, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeBetween(String startOfCurrencyCode, String endOfCurrencyCode){
--       return withCurrencyCode(Operator.BETWEEN, startOfCurrencyCode, endOfCurrencyCode);
--    }
--    public PaymentTransactionRequest<T> withCurrencyCodeStartingWith(String currencyCode){
--       return withCurrencyCode(Operator.BEGIN_WITH, currencyCode);
--    }
--    public PaymentTransactionRequest<T> withCurrencyCodeContaining(String currencyCode){
--       return withCurrencyCode(Operator.CONTAIN, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeEndingWith(String currencyCode){
--       return withCurrencyCode(Operator.END_WITH, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeIs(String currencyCode){
--       return withCurrencyCode(Operator.EQUAL, currencyCode);
--    }
--
--    public PaymentTransactionRequest<T> withCurrencyCodeSoundingLike(String currencyCode){
--       return withCurrencyCode(Operator.SOUNDS_LIKE, currencyCode);
--    }
--
--
--
--    public PaymentTransactionRequest<T> filterByPaymentMethod(String... paymentMethod){
--      if (paymentMethod == null || paymentMethod.length == 0) {
--        throw new IllegalArgumentException("filterByPaymentMethod parameter paymentMethod cannot be empty");
--      }
--      return appendSearchCriteria(createPaymentMethodCriteria(Operator.EQUAL, (Object[])paymentMethod));
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethod(Operator operator, Object... values){
--       return appendSearchCriteria(createPaymentMethodCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodIsUnknown(){
--       return withPaymentMethod(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodIsKnown(){
--       return withPaymentMethod(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createPaymentMethodCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.PAYMENT_METHOD_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodGreaterThan(String paymentMethod){
--       return withPaymentMethod(Operator.GREATER_THAN, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodGreaterThanOrEqualTo(String paymentMethod){
--       return withPaymentMethod(Operator.GREATER_THAN_OR_EQUAL, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodLessThan(String paymentMethod){
--       return withPaymentMethod(Operator.LESS_THAN, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodLessThanOrEqualTo(String paymentMethod){
--       return withPaymentMethod(Operator.LESS_THAN_OR_EQUAL, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodBetween(String startOfPaymentMethod, String endOfPaymentMethod){
--       return withPaymentMethod(Operator.BETWEEN, startOfPaymentMethod, endOfPaymentMethod);
--    }
--    public PaymentTransactionRequest<T> withPaymentMethodStartingWith(String paymentMethod){
--       return withPaymentMethod(Operator.BEGIN_WITH, paymentMethod);
--    }
--    public PaymentTransactionRequest<T> withPaymentMethodContaining(String paymentMethod){
--       return withPaymentMethod(Operator.CONTAIN, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodEndingWith(String paymentMethod){
--       return withPaymentMethod(Operator.END_WITH, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodIs(String paymentMethod){
--       return withPaymentMethod(Operator.EQUAL, paymentMethod);
--    }
--
--    public PaymentTransactionRequest<T> withPaymentMethodSoundingLike(String paymentMethod){
--       return withPaymentMethod(Operator.SOUNDS_LIKE, paymentMethod);
--    }
--
--
--
--    public PaymentTransactionRequest<T> filterByTransactionAmount(BigDecimal... transactionAmount){
--      if (transactionAmount == null || transactionAmount.length == 0) {
--        throw new IllegalArgumentException("filterByTransactionAmount parameter transactionAmount cannot be empty");
--      }
--      return appendSearchCriteria(createTransactionAmountCriteria(Operator.EQUAL, (Object[])transactionAmount));
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmount(Operator operator, Object... values){
--       return appendSearchCriteria(createTransactionAmountCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountIsUnknown(){
--       return withTransactionAmount(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountIsKnown(){
--       return withTransactionAmount(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createTransactionAmountCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountGreaterThan(BigDecimal transactionAmount){
--       return withTransactionAmount(Operator.GREATER_THAN, transactionAmount);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountGreaterThanOrEqualTo(BigDecimal transactionAmount){
--       return withTransactionAmount(Operator.GREATER_THAN_OR_EQUAL, transactionAmount);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountLessThan(BigDecimal transactionAmount){
--       return withTransactionAmount(Operator.LESS_THAN, transactionAmount);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountLessThanOrEqualTo(BigDecimal transactionAmount){
--       return withTransactionAmount(Operator.LESS_THAN_OR_EQUAL, transactionAmount);
--    }
--
--    public PaymentTransactionRequest<T> withTransactionAmountBetween(BigDecimal startOfTransactionAmount, BigDecimal endOfTransactionAmount){
--       return withTransactionAmount(Operator.BETWEEN, startOfTransactionAmount, endOfTransactionAmount);
--    }
--
--
--
--    public PaymentTransactionRequest<T> filterByCreateTime(LocalDateTime... createTime){
--      if (createTime == null || createTime.length == 0) {
--        throw new IllegalArgumentException("filterByCreateTime parameter createTime cannot be empty");
--      }
--      return appendSearchCriteria(createCreateTimeCriteria(Operator.EQUAL, (Object[])createTime));
--    }
--
--    public PaymentTransactionRequest<T> withCreateTime(Operator operator, Object... values){
--       return appendSearchCriteria(createCreateTimeCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeIsUnknown(){
--       return withCreateTime(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeIsKnown(){
--       return withCreateTime(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createCreateTimeCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.CREATE_TIME_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeGreaterThan(LocalDateTime createTime){
--       return withCreateTime(Operator.GREATER_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeGreaterThanOrEqualTo(LocalDateTime createTime){
--       return withCreateTime(Operator.GREATER_THAN_OR_EQUAL, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeLessThan(LocalDateTime createTime){
--       return withCreateTime(Operator.LESS_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeLessThanOrEqualTo(LocalDateTime createTime){
--       return withCreateTime(Operator.LESS_THAN_OR_EQUAL, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeBetween(LocalDateTime startOfCreateTime, LocalDateTime endOfCreateTime){
--       return withCreateTime(Operator.BETWEEN, startOfCreateTime, endOfCreateTime);
--    }
--    public PaymentTransactionRequest<T> withCreateTimeBefore(LocalDateTime createTime){
--       return withCreateTime(Operator.LESS_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeBefore(Date createTime){
--       return withCreateTime(Operator.LESS_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeAfter(LocalDateTime createTime){
--       return withCreateTime(Operator.GREATER_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeAfter(Date createTime){
--       return withCreateTime(Operator.GREATER_THAN, createTime);
--    }
--
--    public PaymentTransactionRequest<T> withCreateTimeBetween(Date startOfCreateTime, Date endOfCreateTime){
--       return withCreateTime(Operator.BETWEEN, startOfCreateTime, endOfCreateTime);
--    }
--
--
--
--
--    public PaymentTransactionRequest<T> filterByUpdateTime(LocalDateTime... updateTime){
--      if (updateTime == null || updateTime.length == 0) {
--        throw new IllegalArgumentException("filterByUpdateTime parameter updateTime cannot be empty");
--      }
--      return appendSearchCriteria(createUpdateTimeCriteria(Operator.EQUAL, (Object[])updateTime));
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTime(Operator operator, Object... values){
--       return appendSearchCriteria(createUpdateTimeCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeIsUnknown(){
--       return withUpdateTime(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeIsKnown(){
--       return withUpdateTime(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createUpdateTimeCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.UPDATE_TIME_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeGreaterThan(LocalDateTime updateTime){
--       return withUpdateTime(Operator.GREATER_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeGreaterThanOrEqualTo(LocalDateTime updateTime){
--       return withUpdateTime(Operator.GREATER_THAN_OR_EQUAL, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeLessThan(LocalDateTime updateTime){
--       return withUpdateTime(Operator.LESS_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeLessThanOrEqualTo(LocalDateTime updateTime){
--       return withUpdateTime(Operator.LESS_THAN_OR_EQUAL, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeBetween(LocalDateTime startOfUpdateTime, LocalDateTime endOfUpdateTime){
--       return withUpdateTime(Operator.BETWEEN, startOfUpdateTime, endOfUpdateTime);
--    }
--    public PaymentTransactionRequest<T> withUpdateTimeBefore(LocalDateTime updateTime){
--       return withUpdateTime(Operator.LESS_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeBefore(Date updateTime){
--       return withUpdateTime(Operator.LESS_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeAfter(LocalDateTime updateTime){
--       return withUpdateTime(Operator.GREATER_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeAfter(Date updateTime){
--       return withUpdateTime(Operator.GREATER_THAN, updateTime);
--    }
--
--    public PaymentTransactionRequest<T> withUpdateTimeBetween(Date startOfUpdateTime, Date endOfUpdateTime){
--       return withUpdateTime(Operator.BETWEEN, startOfUpdateTime, endOfUpdateTime);
--    }
--
--
--
--
--    public PaymentTransactionRequest<T> filterByVersion(Long... version){
--      if (version == null || version.length == 0) {
--        throw new IllegalArgumentException("filterByVersion parameter version cannot be empty");
--      }
--      return appendSearchCriteria(createVersionCriteria(Operator.EQUAL, (Object[])version));
--    }
--
--    public PaymentTransactionRequest<T> withVersion(Operator operator, Object... values){
--       return appendSearchCriteria(createVersionCriteria(operator, values));
--    }
--
--    public PaymentTransactionRequest<T> withVersionIsUnknown(){
--       return withVersion(Operator.IS_NULL);
--    }
--
--    public PaymentTransactionRequest<T> withVersionIsKnown(){
--       return withVersion(Operator.IS_NOT_NULL);
--    }
--
--    public SearchCriteria createVersionCriteria(Operator operator, Object... values) {
--        return createBasicSearchCriteria(PaymentTransaction.VERSION_PROPERTY, operator, values);
--    }
--
--    public PaymentTransactionRequest<T> withVersionGreaterThan(Long version){
--       return withVersion(Operator.GREATER_THAN, version);
--    }
--
--    public PaymentTransactionRequest<T> withVersionGreaterThanOrEqualTo(Long version){
--       return withVersion(Operator.GREATER_THAN_OR_EQUAL, version);
--    }
--
--    public PaymentTransactionRequest<T> withVersionLessThan(Long version){
--       return withVersion(Operator.LESS_THAN, version);
--    }
--
--    public PaymentTransactionRequest<T> withVersionLessThanOrEqualTo(Long version){
--       return withVersion(Operator.LESS_THAN_OR_EQUAL, version);
--    }
--
--    public PaymentTransactionRequest<T> withVersionBetween(Long startOfVersion, Long endOfVersion){
--       return withVersion(Operator.BETWEEN, startOfVersion, endOfVersion);
--    }
--
--
--    public PaymentTransactionRequest<T> count(){
--        super.count();
--        return this;
--    }
--    public PaymentTransactionRequest<T> countAs(String retName){
--        super.count(retName);
--        return this;
--    }
--    public PaymentTransactionRequest minTransactionAmount(){
--        return minTransactionAmountAs(prefix("minOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest minTransactionAmountAs(String retName){
--        super.min(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest maxTransactionAmount(){
--        return maxTransactionAmountAs(prefix("maxOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest maxTransactionAmountAs(String retName){
--        super.max(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest sumTransactionAmount(){
--        return sumTransactionAmountAs(prefix("sumOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest sumTransactionAmountAs(String retName){
--        super.sum(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest avgTransactionAmount(){
--        return avgTransactionAmountAs(prefix("avgOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest avgTransactionAmountAs(String retName){
--        super.avg(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest standardDeviationTransactionAmount(){
--        return standardDeviationTransactionAmountAs(prefix("standardDeviationOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest standardDeviationTransactionAmountAs(String retName){
--        super.standardDeviation(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest squareRootOfPopulationStandardDeviationTransactionAmount(){
--        return squareRootOfPopulationStandardDeviationTransactionAmountAs(prefix("squareRootOfPopulationStandardDeviationOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest squareRootOfPopulationStandardDeviationTransactionAmountAs(String retName){
--        super.squareRootOfPopulationStandardDeviation(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest sampleVarianceTransactionAmount(){
--        return sampleVarianceTransactionAmountAs(prefix("sampleVarianceOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest sampleVarianceTransactionAmountAs(String retName){
--        super.sampleVariance(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--    public PaymentTransactionRequest samplePopulationVarianceTransactionAmount(){
--        return samplePopulationVarianceTransactionAmountAs(prefix("samplePopulationVarianceOf",PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY));
--    }
--
--    public PaymentTransactionRequest samplePopulationVarianceTransactionAmountAs(String retName){
--        super.samplePopulationVariance(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--        return this;
--    }
--
--    public PaymentTransactionRequest<T> groupById(){
--       groupBy(PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByIdAs(String retName){
--       groupBy(retName, PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByIdWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.ID_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentAccount(){
--       groupBy(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentAccountAs(String retName){
--       groupBy(retName, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentAccountWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCurrencyCode(){
--       groupBy(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCurrencyCodeAs(String retName){
--       groupBy(retName, PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCurrencyCodeWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.CURRENCY_CODE_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentMethod(){
--       groupBy(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentMethodAs(String retName){
--       groupBy(retName, PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByPaymentMethodWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.PAYMENT_METHOD_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByTransactionAmount(){
--       groupBy(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByTransactionAmountAs(String retName){
--       groupBy(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByTransactionAmountWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCreateTime(){
--       groupBy(PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCreateTimeAs(String retName){
--       groupBy(retName, PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByCreateTimeWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.CREATE_TIME_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByUpdateTime(){
--       groupBy(PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByUpdateTimeAs(String retName){
--       groupBy(retName, PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByUpdateTimeWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.UPDATE_TIME_PROPERTY, function);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByVersion(){
--       groupBy(PaymentTransaction.VERSION_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByVersionAs(String retName){
--       groupBy(retName, PaymentTransaction.VERSION_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> groupByVersionWithFunction(String retName, AggrFunction function){
--       groupBy(retName, PaymentTransaction.VERSION_PROPERTY, function);
--       return this;
--    }
--
--
--
--    public PaymentTransactionRequest<T> orderByIdAscending(){
--       addOrderByAscending(PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByIdDescending(){
--       addOrderByDescending(PaymentTransaction.ID_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByPaymentAccountAscending(){
--       addOrderByAscending(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByPaymentAccountDescending(){
--       addOrderByDescending(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByPaymentAccountAscendingUsingGBK(){
--       addOrderByAscendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByPaymentAccountDescendingUsingGBK(){
--       addOrderByDescendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByCurrencyCodeAscending(){
--       addOrderByAscending(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByCurrencyCodeDescending(){
--       addOrderByDescending(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByCurrencyCodeAscendingUsingGBK(){
--       addOrderByAscendingUsingGBK(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByCurrencyCodeDescendingUsingGBK(){
--       addOrderByDescendingUsingGBK(PaymentTransaction.CURRENCY_CODE_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByPaymentMethodAscending(){
--       addOrderByAscending(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByPaymentMethodDescending(){
--       addOrderByDescending(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByPaymentMethodAscendingUsingGBK(){
--       addOrderByAscendingUsingGBK(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByPaymentMethodDescendingUsingGBK(){
--       addOrderByDescendingUsingGBK(PaymentTransaction.PAYMENT_METHOD_PROPERTY);
--       return this;
--    }
--    public PaymentTransactionRequest<T> orderByTransactionAmountAscending(){
--       addOrderByAscending(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByTransactionAmountDescending(){
--       addOrderByDescending(PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByCreateTimeAscending(){
--       addOrderByAscending(PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByCreateTimeDescending(){
--       addOrderByDescending(PaymentTransaction.CREATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByUpdateTimeAscending(){
--       addOrderByAscending(PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByUpdateTimeDescending(){
--       addOrderByDescending(PaymentTransaction.UPDATE_TIME_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByVersionAscending(){
--       addOrderByAscending(PaymentTransaction.VERSION_PROPERTY);
--       return this;
--    }
--
--    public PaymentTransactionRequest<T> orderByVersionDescending(){
--       addOrderByDescending(PaymentTransaction.VERSION_PROPERTY);
+-      return withPaymentAccount(Operator.EQUAL, paymentAccount);
++    public PaymentTransactionRequest<T> withPaymentAccountGreaterThan(String paymentAccount){
++       return withPaymentAccount(Operator.GREATER_THAN, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountGreaterThanOrEqualTo(String paymentAccount){
++       return withPaymentAccount(Operator.GREATER_THAN_OR_EQUAL, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountLessThan(String paymentAccount){
++       return withPaymentAccount(Operator.LESS_THAN, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountLessThanOrEqualTo(String paymentAccount){
++       return withPaymentAccount(Operator.LESS_THAN_OR_EQUAL, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountBetween(String startOfPaymentAccount, String endOfPaymentAccount){
++       return withPaymentAccount(Operator.BETWEEN, startOfPaymentAccount, endOfPaymentAccount);
++    }
++    public PaymentTransactionRequest<T> withPaymentAccountStartingWith(String paymentAccount){
++       return withPaymentAccount(Operator.BEGIN_WITH, paymentAccount);
+     }
+-    public PaymentTransactionRequest<T> withPaymentAccountMatching(UserAccountRequest paymentAccount){
+-       return appendSearchCriteria(new SubQuerySearchCriteria(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount, UserAccount.ID_PROPERTY));
++    public PaymentTransactionRequest<T> withPaymentAccountContaining(String paymentAccount){
++       return withPaymentAccount(Operator.CONTAIN, paymentAccount);
+     }
+ 
++    public PaymentTransactionRequest<T> withPaymentAccountEndingWith(String paymentAccount){
++       return withPaymentAccount(Operator.END_WITH, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountIs(String paymentAccount){
++       return withPaymentAccount(Operator.EQUAL, paymentAccount);
++    }
++
++    public PaymentTransactionRequest<T> withPaymentAccountSoundingLike(String paymentAccount){
++       return withPaymentAccount(Operator.SOUNDS_LIKE, paymentAccount);
++    }
++
++
++
+     public PaymentTransactionRequest<T> filterByCurrencyCode(String... currencyCode){
+       if (currencyCode == null || currencyCode.length == 0) {
+         throw new IllegalArgumentException("filterByCurrencyCode parameter currencyCode cannot be empty");
+@@ -718,21 +742,6 @@
+         super.samplePopulationVariance(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
+         return this;
+     }
+-    public PaymentTransactionRequest<T> groupByPaymentAccountWithDetails(){
+-       return groupByPaymentAccountWithDetails(Q.userAccounts().unlimited());
+-    }
+-
+-    public PaymentTransactionRequest<T> groupByPaymentAccountWithDetails(UserAccountRequest subRequest){
+-       aggregate(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, subRequest);
 -       return this;
 -    }
 -
@@ -1758,64 +356,1730 @@ index 2ece012..0000000
 -
 -
 -
--    /**
--     * get topN records
--     * @param topN  records number
--     */
--    public PaymentTransactionRequest<T> top(int topN) {
--        super.top(topN);
--        return this;
+-
+-
+ 
+     public PaymentTransactionRequest<T> groupById(){
+        groupBy(PaymentTransaction.ID_PROPERTY);
+@@ -748,10 +757,7 @@
+        groupBy(retName, PaymentTransaction.ID_PROPERTY, function);
+        return this;
+     }
+-    public PaymentTransactionRequest<T> groupByPaymentAccountWith(UserAccountRequest subRequest){
+-       groupBy(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, subRequest);
+-       return this;
+-    }
++
+     public PaymentTransactionRequest<T> groupByPaymentAccount(){
+        groupBy(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+        return this;
+@@ -878,7 +884,15 @@
+        addOrderByDescending(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+        return this;
+     }
++    public PaymentTransactionRequest<T> orderByPaymentAccountAscendingUsingGBK(){
++       addOrderByAscendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
++       return this;
++    }
+ 
++    public PaymentTransactionRequest<T> orderByPaymentAccountDescendingUsingGBK(){
++       addOrderByDescendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
++       return this;
++    }
+     public PaymentTransactionRequest<T> orderByCurrencyCodeAscending(){
+        addOrderByAscending(PaymentTransaction.CURRENCY_CODE_PROPERTY);
+        return this;
+@@ -956,30 +970,9 @@
+     }
+ 
+ 
+-    public UserAccountRequest rollUpToPaymentAccount(){
+-       UserAccountRequest paymentAccount = Q.userAccounts().unlimited();
+-       this.withPaymentAccountMatching(paymentAccount)
+-           .groupByPaymentAccountWith(paymentAccount);
+-       return paymentAccount;
 -    }
 -
--    /**
--     * get records from offset(inclusive) to offset+size(exclusive)
--     * @param offset record offset
--     * @param size records number
--     */
--    public PaymentTransactionRequest<T> offset(int offset, int size) {
--        super.offset(offset, size);
--        return this;
--    }
 -
--    /**
--     * retrieve all records
--     */
--    public PaymentTransactionRequest<T> unlimited() {
--        super.unlimited();
--        return this;
--    }
+ 
+ 
+ 
 -
--    /**
--     * get records of one page
--     * @param pageNumber page number(1-based)
--     * @param pageSize page size
--     */
--    public PaymentTransactionRequest<T> page(int pageNumber, int pageSize) {
--        int offset = (pageNumber - 1) * pageSize;
--        return offset(offset, pageSize);
+-
+-
+-   public PaymentTransactionRequest<T> facetByPaymentAccountAs(String facetName, UserAccountRequest paymentAccount){
+-       return facetByPaymentAccountAs(facetName, paymentAccount, true);
 -   }
 -
--    /**
--     * get records of one page, default page size is 10
--     * @param pageNumber page number(1-based)
--     */
--    public PaymentTransactionRequest<T> page(int pageNumber) {
--        return page(pageNumber, 10);
+-   public PaymentTransactionRequest<T> facetByPaymentAccountAs(String facetName, UserAccountRequest paymentAccount, boolean includeAllFacets){
+-       addFacet(facetName, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount, includeAllFacets);
+-       return this;
 -   }
+-
+-
+     /**
+      * get topN records
+      * @param topN  records number
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java	2026-08-08 03:04:16.921615362 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java	2026-08-08 09:44:49.114858576 +0800
+@@ -1,13 +1,11 @@
+ 
+ package com.example.paymentservice.useraccount;
+ 
+-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
+ import io.teaql.core.Audited;
+ import io.teaql.core.BaseEntity;
+ import io.teaql.core.EntityStatus;
+ import io.teaql.core.FrameworkInternal;
+ import io.teaql.core.RemoteInput;
+-import io.teaql.core.SmartList;
+ import java.time.LocalDateTime;
+ import java.util.Objects;
+ 
+@@ -25,11 +23,9 @@
+     public static final String USER_NAME_PROPERTY = "userName";
+     public static final String CREATE_TIME_PROPERTY = "createTime";
+     public static final String UPDATE_TIME_PROPERTY = "updateTime";
+-    public static final String PAYMENT_TRANSACTION_LIST_PROPERTY = "paymentTransactionList";
+     private String userName;
+     private LocalDateTime createTime;
+     private LocalDateTime updateTime;
+-    private SmartList<PaymentTransaction> paymentTransactionList;
+ 
+     public String getUserName(){
+         return this.userName;
+@@ -40,9 +36,6 @@
+     public LocalDateTime getUpdateTime(){
+         return this.updateTime;
+     }
+-    public SmartList<PaymentTransaction> getPaymentTransactionList(){
+-        return this.paymentTransactionList;
+-    }
+     public UserAccount updateUserName(String userName){
+         userName = (userName == null ? null : userName.trim());
+         if(Objects.equals(this.userName, userName)){
+@@ -68,19 +61,6 @@
+         this.updateTime = updateTime;
+         return this;
+     }
+-    public UserAccount addPaymentTransaction(PaymentTransaction paymentTransaction){
+-        if (paymentTransaction == null){
+-            return this;
+-        }
+-
+-        if(null == this.paymentTransactionList){
+-            this.paymentTransactionList = new SmartList<>();
+-        }
+-
+-        this.paymentTransactionList.add(paymentTransaction);
+-        paymentTransaction.cacheRelation(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, this);
+-        return this;
+-    }
+ 
+     public static UserAccount refer(Long id){
+         UserAccount refer = new UserAccount();
+@@ -115,7 +95,6 @@
+ 
+             case "updateTime": this.updateTime = (LocalDateTime) value; break;
+ 
+-            case "paymentTransactionList": this.paymentTransactionList = (SmartList<PaymentTransaction>) value; break;
+             default: super.__internalSet(property, value);
+         }
+     }
+@@ -127,7 +106,6 @@
+             case "userName": return this.userName;
+             case "createTime": return this.createTime;
+             case "updateTime": return this.updateTime;
+-            case "paymentTransactionList": return this.paymentTransactionList;
+             default: return super.__internalGet(property);
+         }
+     }
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountChecker.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountChecker.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountChecker.java	2026-08-08 03:04:16.921615362 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountChecker.java	2026-08-08 09:44:49.115858579 +0800
+@@ -1,8 +1,6 @@
+ 
+ package com.example.paymentservice.useraccount;
+ 
+-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
+-import com.example.paymentservice.paymenttransaction.PaymentTransactionChecker;
+ import io.teaql.core.UserContext;
+ import io.teaql.core.checker.Checker;
+ import io.teaql.core.checker.ObjectLocation;
+@@ -37,10 +35,6 @@
+       checkUserName(_ctx, userAccount.getProperty(UserAccount.USER_NAME_PROPERTY), newLocation(_parentLocation, UserAccount.USER_NAME_PROPERTY));
+       checkCreateTime(_ctx, userAccount.getProperty(UserAccount.CREATE_TIME_PROPERTY), newLocation(_parentLocation, UserAccount.CREATE_TIME_PROPERTY));
+       checkUpdateTime(_ctx, userAccount.getProperty(UserAccount.UPDATE_TIME_PROPERTY), newLocation(_parentLocation, UserAccount.UPDATE_TIME_PROPERTY));
+-      for(int i = 0; userAccount.getPaymentTransactionList() != null && i < userAccount.getPaymentTransactionList().size(); i++){
+-         PaymentTransaction paymentTransaction = userAccount.getPaymentTransactionList().get(i);
+-         new PaymentTransactionChecker().checkAndFix(_ctx, paymentTransaction, newLocation(_parentLocation, UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, i));
+-      }
+     }
+ 
+     public void checkUserName(UserContext _ctx, String userName, ObjectLocation _parentLocation){
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountExpression.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountExpression.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountExpression.java	2026-08-08 03:04:16.923615366 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountExpression.java	2026-08-08 09:44:49.115858579 +0800
+@@ -1,8 +1,6 @@
+ 
+ package com.example.paymentservice.useraccount;
+ 
+-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
+-import com.example.paymentservice.paymenttransaction.PaymentTransactionListExpression;
+ import io.teaql.core.UserContext;
+ import io.teaql.core.value.BaseEntityExpression;
+ import io.teaql.core.value.Expression;
+@@ -57,10 +55,4 @@
+        return new UserAccountExpression(this, $it ->  ((UserAccount)$it).updateUpdateTime(updateTime));
+     }
+ 
+-    public PaymentTransactionListExpression<T, U, PaymentTransaction> getPaymentTransactionList(){
+-        return new PaymentTransactionListExpression(this, $it ->  ((UserAccount)$it).getPaymentTransactionList());
+-    }
+-    public UserAccountExpression<T, U, U> addPaymentTransaction(PaymentTransaction paymentTransaction){
+-       return new UserAccountExpression(this, $it ->  ((UserAccount)$it).addPaymentTransaction(paymentTransaction));
+-    }
+ }
+\ 文件末尾没有换行符
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountRequest.java after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountRequest.java
+--- before/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountRequest.java	2026-08-08 03:04:16.922615364 +0800
++++ after/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountRequest.java	2026-08-08 09:44:49.113858572 +0800
+@@ -1,14 +1,10 @@
+ 
+ package com.example.paymentservice.useraccount;
+ 
+-import com.example.paymentservice.Q;
+-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
+-import com.example.paymentservice.paymenttransaction.PaymentTransactionRequest;
+ import io.teaql.core.AggrFunction;
+ import io.teaql.core.BaseRequest;
+ import io.teaql.core.PropertyReference;
+ import io.teaql.core.SearchCriteria;
+-import io.teaql.core.SubQuerySearchCriteria;
+ import io.teaql.core.criteria.Operator;
+ import io.teaql.core.criteria.TwoOperatorCriteria;
+ import java.time.LocalDateTime;
+@@ -99,7 +95,6 @@
+ 
+     public UserAccountRequest<T> selectChildren(){
+         super.selectAny();
+-        selectPaymentTransactionList();
+         return selectId().selectUserName().selectCreateTime().selectUpdateTime().selectVersion();
+     }
+ 
+@@ -189,14 +184,6 @@
+        unselectProperty(UserAccount.VERSION_PROPERTY);
+        return this;
+     }
+-    public UserAccountRequest<T> selectPaymentTransactionList(){
+-       return selectPaymentTransactionListWith(Q.paymentTransactions().selectSelf());
+-    }
+-
+-    public UserAccountRequest<T> selectPaymentTransactionListWith(PaymentTransactionRequest paymentTransactionList){
+-       enhanceRelation(UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, paymentTransactionList);
+-       return this;
+-    }
+ 
+     public UserAccountRequest<T> withId(Operator operator, Object... values){
+        return appendSearchCriteria(createIdCriteria(operator, values));
+@@ -451,21 +438,6 @@
+        return withVersion(Operator.BETWEEN, startOfVersion, endOfVersion);
+     }
+ 
+-    public UserAccountRequest<T> withPaymentTransactionListMatching(PaymentTransactionRequest paymentTransactionRequest){
+-        return appendSearchCriteria(new SubQuerySearchCriteria(UserAccount.ID_PROPERTY, paymentTransactionRequest, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY));
+-    }
+-
+-    public UserAccountRequest<T> withoutPaymentTransactionListMatching(PaymentTransactionRequest paymentTransactionRequest){
+-        return appendSearchCriteria(SearchCriteria.not(new SubQuerySearchCriteria(UserAccount.ID_PROPERTY, paymentTransactionRequest, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY)));
+-    }
+-
+-    public UserAccountRequest<T> havePaymentTransactions(){
+-        return withPaymentTransactionListMatching(Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> haveNoPaymentTransactions(){
+-        return withoutPaymentTransactionListMatching(Q.paymentTransactions().unlimited());
+-    }
+ 
+     public UserAccountRequest<T> count(){
+         super.count();
+@@ -475,10 +447,6 @@
+         super.count(retName);
+         return this;
+     }
+-    public UserAccountRequest<T> groupByPaymentTransactionsWithDetails(PaymentTransactionRequest subRequest){
+-       aggregate(UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, subRequest);
+-       return this;
+-    }
+ 
+     public UserAccountRequest<T> groupById(){
+        groupBy(UserAccount.ID_PROPERTY);
+@@ -616,118 +584,6 @@
+     }
+ 
+ 
+-    public UserAccountRequest<T> statsFromPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-       return statsFromPaymentTransactionsAs(name, subRequest, false);
+-    }
+-
+-    public UserAccountRequest<T> statsFromPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest, boolean singleResult){
+-       subRequest.setPartitionProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+-       addAggregateDynamicProperty(name, subRequest, singleResult);
+-       return this;
+-    }
+-
+-    public UserAccountRequest<T> statsFromPaymentTransactions(PaymentTransactionRequest subRequest){
+-       return statsFromPaymentTransactionsAs(REFINEMENTS, subRequest);
+-    }
+-    public UserAccountRequest<T> countPaymentTransactions(){
+-        return countPaymentTransactionsAs("Count");
+-    }
+-
+-    public UserAccountRequest<T> countPaymentTransactionsAs(String name){
+-        return countPaymentTransactionsWith(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> countPaymentTransactionsWith(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.count(), true);
+-    }
+-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactions(){
+-        return minTransactionAmountOfPaymentTransactionsAs("minTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactionsAs(String name){
+-        return minTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.minTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactions(){
+-        return maxTransactionAmountOfPaymentTransactionsAs("maxTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactionsAs(String name){
+-        return maxTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.maxTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactions(){
+-        return sumTransactionAmountOfPaymentTransactionsAs("sumTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactionsAs(String name){
+-        return sumTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.sumTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactions(){
+-        return avgTransactionAmountOfPaymentTransactionsAs("avgTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactionsAs(String name){
+-        return avgTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.avgTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactions(){
+-        return standardDeviationTransactionAmountOfPaymentTransactionsAs("stdDevTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactionsAs(String name){
+-        return standardDeviationTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.standardDeviationTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactions(){
+-        return squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs("stdDevPopTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(String name){
+-        return squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.squareRootOfPopulationStandardDeviationTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactions(){
+-        return sampleVarianceTransactionAmountOfPaymentTransactionsAs("varSampTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactionsAs(String name){
+-        return sampleVarianceTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.sampleVarianceTransactionAmount(), true);
+-    }
+-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactions(){
+-        return samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs("varPopTransactionAmountOfPaymentTransactions");
+-    }
+-
+-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(String name){
+-        return samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
+-    }
+-
+-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
+-        return statsFromPaymentTransactionsAs(name, subRequest.samplePopulationVarianceTransactionAmount(), true);
+-    }
+ 
+ 
+ 
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/Cargo.toml after/rust-lib-core/lib/Cargo.toml
+--- before/rust-lib-core/lib/Cargo.toml	2026-08-08 03:04:17.973617884 +0800
++++ after/rust-lib-core/lib/Cargo.toml	2026-08-08 09:45:35.428015338 +0800
+@@ -3,7 +3,6 @@
+ name = "payment-service-core"
+ version = "0.1.0"
+ edition = "2021"
+-rust-version = "1.97"
+ description = "Generated TeaQL service crate for payment-service"
+ license = "MIT OR Apache-2.0"
+ 
+@@ -13,12 +12,12 @@
+ rust_decimal = { version = "1", features = ["serde"] }
+ serde = { version = "1", features = ["derive"] }
+ serde_json = "1"
+-teaql-core = "4.2.5"
+-teaql-macros = "4.2.5"
+-teaql-runtime = "4.2.5"
+-teaql-sql = "4.2.5"
+-teaql-data-service = "4.2.5"
++teaql-core = "4.2.3"
++teaql-macros = "4.2.3"
++teaql-runtime = "4.2.3"
++teaql-sql = "4.2.3"
++teaql-data-service = "4.2.3"
+ teaql-tool-core = "1.0.0"
+-teaql-provider-sqlite = "4.2.5"
++teaql-provider-sqlite = "4.2.3"
+ rusqlite = { version = "0.40", features = ["bundled", "chrono", "column_decltype"] }
+ tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/e.rs after/rust-lib-core/lib/src/e.rs
+--- before/rust-lib-core/lib/src/e.rs	2026-08-08 03:04:17.972617881 +0800
++++ after/rust-lib-core/lib/src/e.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -107,30 +107,15 @@
+         self.resolve().expect("Value was legitimately null in database!")
+     }
+ 
+-    /// Returns `default_value` only when the expression is loaded and null.
+-    ///
+-    /// # Panics
+-    ///
+-    /// Panics when a required field or relation is `NotLoaded`.
+-    pub fn or_if_null(self, default_value: T) -> T {
++    pub fn or_else(self, default_value: T) -> T {
+         self.eval().unwrap_or(default_value)
+     }
+ 
+-    /// Lazily computes a fallback only when the expression is loaded and null.
+-    ///
+-    /// # Panics
+-    ///
+-    /// Panics when a required field or relation is `NotLoaded`.
+-    pub fn or_else_if_null(self, default_fn: impl FnOnce() -> T) -> T {
++    pub fn or_else_with(self, default_fn: impl FnOnce() -> T) -> T {
+         self.eval().unwrap_or_else(default_fn)
+     }
+ 
+-    /// Returns `T::default()` only when the expression is loaded and null.
+-    ///
+-    /// # Panics
+-    ///
+-    /// Panics when a required field or relation is `NotLoaded`.
+-    pub fn or_default_if_null(self) -> T where T: Default {
++    pub fn or_default(self) -> T where T: Default {
+         self.eval().unwrap_or_default()
+     }
+ }
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/payment_transaction/checker.rs after/rust-lib-core/lib/src/payment_transaction/checker.rs
+--- before/rust-lib-core/lib/src/payment_transaction/checker.rs	2026-08-08 03:04:17.972617881 +0800
++++ after/rust-lib-core/lib/src/payment_transaction/checker.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -122,6 +122,15 @@
+         location: &ObjectLocation,
+         results: &mut CheckResults,
+     ) {
++        if status == CheckObjectStatus::Create && entity.changed_create_time().is_none() {
++            entity.update_create_time(teaql_core::time::Timestamp::now());
++        }
++
++        if status == CheckObjectStatus::Update && entity.changed_update_time().is_none() {
++            entity.update_update_time(teaql_core::time::Timestamp::now());
++        }
++
++
+         self.logic
+             .check_and_fix_payment_transaction(ctx, entity, status, location, results);
+     }
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/payment_transaction/entity.rs after/rust-lib-core/lib/src/payment_transaction/entity.rs
+--- before/rust-lib-core/lib/src/payment_transaction/entity.rs	2026-08-08 03:04:17.974617886 +0800
++++ after/rust-lib-core/lib/src/payment_transaction/entity.rs	2026-08-08 09:45:35.428015338 +0800
+@@ -17,6 +17,9 @@
+     id: u64,
+ 
+ // @source 05-generated-model.xml:24
++    payment_account: String,
++
++// @source 05-generated-model.xml:24
+     currency_code: String,
+ 
+ // @source 05-generated-model.xml:24
+@@ -32,12 +35,6 @@
+     update_time: teaql_core::time::Timestamp,
+ #[teaql(version)]
+     version: i64,
+-// @source 05-generated-model.xml:24
+-#[teaql(column = "payment_account")]
+-    payment_account_id: u64,
+-// @source 05-generated-model.xml:24
+-#[teaql(relation(target = "UserAccount", local_key = "payment_account_id", foreign_key = "id"))]
+-    payment_account: Option<crate::UserAccount>,
+     #[teaql(dynamic)]
+     dynamic: BTreeMap<String, teaql_core::Value>,
+     #[teaql(skip)]
+@@ -56,14 +53,13 @@
+     pub(crate) fn runtime_new(root: teaql_runtime::EntityRoot) -> Self {
+         Self {
+             id: 0_u64,
++            payment_account: String::new(),
+             currency_code: String::new(),
+             payment_method: String::new(),
+             transaction_amount: rust_decimal::Decimal::ZERO,
+             create_time: teaql_core::time::Timestamp::now(),
+             update_time: teaql_core::time::Timestamp::now(),
+             version: 0_i64,
+-            payment_account_id: 0_u64,
+-            payment_account: None,
+             dynamic: BTreeMap::new(),
+             root,
+             __load_state: teaql_core::eval::LoadState::FullyLoaded,
+@@ -76,9 +72,6 @@
+ 
+     pub fn attach_root_recursive(&mut self, root: teaql_runtime::EntityRoot) {
+         self.root = root.clone();
+-        if let Some(entity) = &mut self.payment_account {
+-            entity.attach_root_recursive(root.clone());
+-        }
+     }
+ 
+     pub fn is_loaded(&self, field_or_relation: &str) -> bool {
+@@ -111,6 +104,28 @@
+                     teaql_core::eval::EvalResult::Value(self.id())
+                 }}
+ 
++    pub fn payment_account(&self) -> String {
++        self.changed_payment_account().and_then(|value| value.try_text().map(|value| value.to_owned())).unwrap_or_else(|| self.payment_account.clone())
++    }
++
++    pub fn update_payment_account(&mut self, value: impl Into<teaql_core::Value>) -> &mut Self {
++        let value = value.into();
++        self.payment_account = value.try_text().map(|value| value.trim().to_owned()).unwrap_or_else(|| self.payment_account.clone());
++        self.root.set(self.entity_key(), "payment_account", value);
++        self
++    }
++
++    pub fn changed_payment_account(&self) -> Option<teaql_core::Value> {
++        self.root.get(&self.entity_key(), "payment_account")
++    }
++
++    pub fn eval_payment_account(&self) -> teaql_core::eval::EvalResult<String> {
++        if !self.is_loaded("payment_account") {
++                    teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account".to_string(), attempted_path: "payment_account".to_string() }
++                } else {
++                    teaql_core::eval::EvalResult::Value(self.payment_account())
++                }}
++
+     pub fn currency_code(&self) -> String {
+         self.changed_currency_code().and_then(|value| value.try_text().map(|value| value.to_owned())).unwrap_or_else(|| self.currency_code.clone())
+     }
+@@ -242,41 +257,6 @@
+                 } else {
+                     teaql_core::eval::EvalResult::Value(self.version())
+                 }}
+-    pub fn payment_account_id(&self) -> u64 {
+-        self.changed_payment_account_id().and_then(|value| value.try_u64()).unwrap_or(self.payment_account_id)
+-    }
+-
+-    pub fn update_payment_account_id(&mut self, value: impl Into<teaql_core::Value>) -> &mut Self {
+-        let value = value.into();
+-        self.payment_account_id = value.try_u64().unwrap_or(self.payment_account_id.clone());
+-        self.root.set(self.entity_key(), "payment_account_id", value);
+-        self
+-    }
+-
+-    pub fn changed_payment_account_id(&self) -> Option<teaql_core::Value> {
+-        self.root.get(&self.entity_key(), "payment_account_id")
+-    }
+-
+-    pub fn eval_payment_account_id(&self) -> teaql_core::eval::EvalResult<u64> {
+-        if !self.is_loaded("payment_account_id") {
+-                    teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account_id".to_string(), attempted_path: "payment_account_id".to_string() }
+-                } else {
+-                    teaql_core::eval::EvalResult::Value(self.payment_account_id())
+-                }}
+-    pub fn payment_account(&self) -> Option<&crate::UserAccount> {
+-        self.payment_account.as_ref()
+-    }
+-
+-    pub fn eval_payment_account(&self) -> teaql_core::eval::EvalResult<&crate::UserAccount> {
+-        if !self.is_loaded("payment_account") {
+-            teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account".to_string(), attempted_path: "payment_account".to_string() }
+-        } else {
+-            match &self.payment_account {
+-                Some(v) => teaql_core::eval::EvalResult::Value(v),
+-                None => teaql_core::eval::EvalResult::Null,
+-            }
+-        }
+-    }
+ 
+     pub fn mark_as_delete(&mut self) -> &mut Self {
+         self.root.mark_as_delete(self.entity_key());
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/payment_transaction/expression.rs after/rust-lib-core/lib/src/payment_transaction/expression.rs
+--- before/rust-lib-core/lib/src/payment_transaction/expression.rs	2026-08-08 03:04:17.972617881 +0800
++++ after/rust-lib-core/lib/src/payment_transaction/expression.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -32,6 +32,11 @@
+         crate::ValueExpression::new(next, self.root_desc.clone())
+     }
+ 
++    pub fn get_payment_account(self) -> crate::ValueExpression<'a, String> {
++        let next = self.result.and_then("payment_account", |entity| entity.eval_payment_account());
++        crate::ValueExpression::new(next, self.root_desc.clone())
++    }
++
+     pub fn get_currency_code(self) -> crate::ValueExpression<'a, String> {
+         let next = self.result.and_then("currency_code", |entity| entity.eval_currency_code());
+         crate::ValueExpression::new(next, self.root_desc.clone())
+@@ -61,14 +66,6 @@
+         let next = self.result.and_then("version", |entity| entity.eval_version());
+         crate::ValueExpression::new(next, self.root_desc.clone())
+     }
+-    pub fn get_payment_account_id(self) -> crate::ValueExpression<'a, u64> {
+-        let next = self.result.and_then("payment_account_id", |entity| entity.eval_payment_account_id());
+-        crate::ValueExpression::new(next, self.root_desc.clone())
+-    }
+-    pub fn get_payment_account(self) -> crate::UserAccountExpression<'a> {
+-        let next = self.result.and_then("payment_account", |entity| entity.eval_payment_account());
+-        crate::UserAccountExpression::new(next, self.root_desc.clone())
+-    }
+ }
+ 
+ #[derive(Clone)]
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/payment_transaction/request.rs after/rust-lib-core/lib/src/payment_transaction/request.rs
+--- before/rust-lib-core/lib/src/payment_transaction/request.rs	2026-08-08 03:04:17.973617884 +0800
++++ after/rust-lib-core/lib/src/payment_transaction/request.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -476,13 +476,13 @@
+     fn dynamic_json_self_field(field: &str) -> Option<&'static str> {
+         match field {
+             "id" => Some("id"),
++            "payment_account" => Some("payment_account"),
+             "currency_code" => Some("currency_code"),
+             "payment_method" => Some("payment_method"),
+             "transaction_amount" => Some("transaction_amount"),
+             "create_time" => Some("create_time"),
+             "update_time" => Some("update_time"),
+             "version" => Some("version"),
+-            "payment_account" | "payment_account_id" => Some("payment_account_id"),
+             _ => None,
+         }
+     }
+@@ -490,12 +490,6 @@
+     fn apply_dynamic_json_chain_filter(self, head: &str, tail: &str, value: &JsonValue) -> Self {
+         let _ = (tail, value);
+         match head {
+-            "payment_account" => {
+-                self.with_payment_account_matching(
+-                    crate::Q::user_accounts_minimal()
+-                        .apply_dynamic_json_filter(tail, value),
+-                )
+-            }
+             _ => self,
+         }
+     }
+@@ -574,13 +568,13 @@
+ 
+     pub fn select_self(mut self) -> Self {
+         self.query = self.query.project("id");
++        self.query = self.query.project("payment_account");
+         self.query = self.query.project("currency_code");
+         self.query = self.query.project("payment_method");
+         self.query = self.query.project("transaction_amount");
+         self.query = self.query.project("create_time");
+         self.query = self.query.project("update_time");
+         self.query = self.query.project("version");
+-        self.query = self.query.project("payment_account_id");
+         self
+     }
+ 
+@@ -593,9 +587,7 @@
+     }
+ 
+     pub fn select_all(self) -> Self {
+-        let mut request = self.select_self();
+-        request = request.select_payment_account();
+-        request
++        self.select_self()
+     }
+ 
+     pub fn select_children(self) -> Self {
+@@ -843,6 +835,272 @@
+     }
+ 
+ 
++    pub fn select_payment_account(mut self) -> Self {
++        self.query = self.query.project("payment_account");
++        self
++    }
++
++    pub fn project_payment_account(self) -> Self {
++        self.select_payment_account()
++    }
++
++    pub fn select_payment_account_raw(self, raw_sql_segment: impl Into<String>) -> Self {
++        self.select_payment_account_unsafe_raw(UnsafeRawSqlSegment::trusted(raw_sql_segment))
++    }
++
++    pub fn select_payment_account_unsafe_raw(mut self, raw_sql_segment: UnsafeRawSqlSegment) -> Self {
++        self.query_options
++            .raw_projections
++            .push(RawProjection::new("payment_account", raw_sql_segment));
++        self
++    }
++
++    pub fn group_by_payment_account(self) -> Self {
++        self.group_by("payment_account")
++    }
++
++    pub fn group_by_payment_account_as(self, alias: impl Into<String>) -> Self {
++        let alias = alias.into();
++        let mut request = self.group_by("payment_account");
++        request.query = request
++            .query
++            .project_expr(alias, Expr::column("payment_account"));
++        request
++    }
++
++    pub fn group_by_payment_account_with_function(
++        self,
++        alias: impl Into<String>,
++        function: AggregateFunction,
++    ) -> Self {
++        self.group_by("payment_account")
++            .aggregate_with_function("payment_account", alias, function)
++    }
++
++    pub fn count_payment_account(self) -> Self {
++        self.count_payment_account_as("payment_account_count")
++    }
++
++    pub fn count_payment_account_as(self, alias: impl Into<String>) -> Self {
++        self.aggregate_count_field("payment_account", alias)
++    }
++
++    pub fn sum_payment_account(self) -> Self {
++        self.sum_payment_account_as("sum_payment_account")
++    }
++
++    pub fn sum_payment_account_as(self, alias: impl Into<String>) -> Self {
++        self.aggregate_sum("payment_account", alias)
++    }
++
++    pub fn avg_payment_account(self) -> Self {
++        self.avg_payment_account_as("avg_payment_account")
++    }
++
++    pub fn avg_payment_account_as(self, alias: impl Into<String>) -> Self {
++        self.aggregate_avg("payment_account", alias)
++    }
++
++    pub fn min_payment_account(self) -> Self {
++        self.min_payment_account_as("min_payment_account")
++    }
++
++    pub fn min_payment_account_as(self, alias: impl Into<String>) -> Self {
++        self.aggregate_min("payment_account", alias)
++    }
++
++    pub fn max_payment_account(self) -> Self {
++        self.max_payment_account_as("max_payment_account")
++    }
++
++    pub fn max_payment_account_as(self, alias: impl Into<String>) -> Self {
++        self.aggregate_max("payment_account", alias)
++    }
++
++    pub fn unselect_payment_account(mut self) -> Self {
++        self.query.projection.retain(|field| field != "payment_account");
++        self.query_options.raw_projections.retain(|projection| projection.property_name != "payment_account");
++        self
++    }
++
++
++    pub fn with_payment_account(
++        mut self,
++        operator: FieldOperator,
++        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
++    ) -> Self {
++        self.query = self.query.and_filter(field_operator_expr(
++            "payment_account",
++            operator,
++            values.into_iter().map(Into::into).collect(),
++        ));
++        self
++    }
++
++    pub fn create_payment_account_criteria(
++        operator: FieldOperator,
++        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
++    ) -> Expr {
++        field_operator_expr(
++            "payment_account",
++            operator,
++            values.into_iter().map(Into::into).collect(),
++        )
++    }
++
++    pub fn with_payment_account_is(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::eq("payment_account", value));
++        self
++    }
++
++
++
++    pub fn with_payment_account_is_not(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::ne("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_greater_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::gt("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_greater_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::gte("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_less_than(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::lt("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_less_than_or_equal_to(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::lte("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_between(
++        mut self,
++        lower: impl Into<teaql_core::Value>,
++        upper: impl Into<teaql_core::Value>,
++    ) -> Self {
++        self.query = self.query.and_filter(Expr::between("payment_account", lower, upper));
++        self
++    }
++
++    pub fn with_payment_account_between_range<T>(mut self, range: DateRange<T>) -> Self
++    where
++        T: Into<teaql_core::Value>,
++    {
++        self.query = self.query.and_filter(Expr::between(
++            "payment_account",
++            range.start,
++            range.end,
++        ));
++        self
++    }
++
++    pub fn with_payment_account_in(
++        mut self,
++        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
++    ) -> Self {
++        self.query = self.query.and_filter(Expr::in_list(
++            "payment_account",
++            values.into_iter().map(Into::into),
++        ));
++        self
++    }
++
++    pub fn with_payment_account_not_in(
++        mut self,
++        values: impl IntoIterator<Item = impl Into<teaql_core::Value>>,
++    ) -> Self {
++        self.query = self.query.and_filter(Expr::not_in_list(
++            "payment_account",
++            values.into_iter().map(Into::into),
++        ));
++        self
++    }
++
++    pub fn with_payment_account_containing(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::contain("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_not_containing(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::not_contain("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_starting_with(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::begin_with("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_not_starting_with(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::not_begin_with("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_ending_with(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::end_with("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_not_ending_with(mut self, value: impl Into<String>) -> Self {
++        self.query = self.query.and_filter(Expr::not_end_with("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_sounding_like(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::sound_like("payment_account", value));
++        self
++    }
++    pub fn with_payment_account_before(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::lt("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_after(mut self, value: impl Into<teaql_core::Value>) -> Self {
++        self.query = self.query.and_filter(Expr::gt("payment_account", value));
++        self
++    }
++
++    pub fn with_payment_account_is_unknown(mut self) -> Self {
++        self.query = self.query.and_filter(Expr::is_null("payment_account"));
++        self
++    }
++
++
++
++    pub fn with_payment_account_is_known(mut self) -> Self {
++        self.query = self.query.and_filter(Expr::is_not_null("payment_account"));
++        self
++    }
++
++
++    pub fn order_by_payment_account_asc(mut self) -> Self {
++        self.query = self.query.order_asc("payment_account");
++        self
++    }
++
++    pub fn order_by_payment_account_desc(mut self) -> Self {
++        self.query = self.query.order_desc("payment_account");
++        self
++    }
++
++    pub fn order_by_payment_account_asc_using_gbk(mut self) -> Self {
++        self.query = self.query.order_gbk_asc("payment_account");
++        self
++    }
++
++    pub fn order_by_payment_account_desc_using_gbk(mut self) -> Self {
++        self.query = self.query.order_gbk_desc("payment_account");
++        self
++    }
++
++
+     pub fn select_currency_code(mut self) -> Self {
+         self.query = self.query.project("currency_code");
+         self
+@@ -2195,142 +2453,103 @@
+         self.query = self.query.order_gbk_desc("version");
+         self
+     }
+-    pub fn filter_by_payment_account(mut self, value: impl EntityReference) -> Self {
+-        self.query = self.query.and_filter(Expr::eq("payment_account_id", value.entity_id_value()));
+-        self
++    pub fn payment_account_is_string(self) -> Self {
++        self.with_payment_account_is("string()")
+     }
+ 
+-    pub fn with_payment_account_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.and_filter(Expr::in_subquery(
+-            "payment_account_id",
+-            <crate::UserAccount as teaql_core::TeaqlEntity>::entity_descriptor(),
+-            selection.query.clone(),
+-            "id",
+-        ));
+-        self.relation_filters.push(RelationFilter::new("payment_account", selection));
+-        self
++    pub fn with_payment_account_is_string(self) -> Self {
++        self.with_payment_account_is("string()")
+     }
+ 
+ 
+-    pub fn without_payment_account_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.and_filter(Expr::not_in_subquery(
+-            "payment_account_id",
+-            <crate::UserAccount as teaql_core::TeaqlEntity>::entity_descriptor(),
+-            selection.query.clone(),
+-            "id",
+-        ));
+-        self.relation_filters.push(RelationFilter::new("payment_account", selection));
+-        self
++
++    pub fn with_payment_account_is_not_string(self) -> Self {
++        self.with_payment_account_is_not("string()")
+     }
+ 
+ 
+-    pub fn have_payment_account(mut self) -> Self {
+-        self.query = self.query.and_filter(Expr::is_not_null("payment_account_id"));
+-        self
++
++    pub fn currency_code_is_string(self) -> Self {
++        self.with_currency_code_is("string()")
+     }
+ 
+-    pub fn have_no_payment_account(mut self) -> Self {
+-        self.query = self.query.and_filter(Expr::is_null("payment_account_id"));
+-        self
++    pub fn with_currency_code_is_string(self) -> Self {
++        self.with_currency_code_is("string()")
+     }
+ 
+ 
+-    pub fn group_by_payment_account(self) -> Self {
+-        self.group_by("payment_account_id")
++
++    pub fn with_currency_code_is_not_string(self) -> Self {
++        self.with_currency_code_is_not("string()")
+     }
+ 
+-    pub fn group_by_payment_account_as(self, alias: impl Into<String>) -> Self {
+-        let alias = alias.into();
+-        let mut request = self.group_by("payment_account_id");
+-        request.query = request
+-            .query
+-            .project_expr(alias, Expr::column("payment_account_id"));
+-        request
++
++
++    pub fn payment_method_is_string(self) -> Self {
++        self.with_payment_method_is("string()")
+     }
+ 
+-    pub fn group_by_payment_account_with_function(
+-        self,
+-        alias: impl Into<String>,
+-        function: AggregateFunction,
+-    ) -> Self {
+-        self.group_by("payment_account_id")
+-            .aggregate_with_function("payment_account_id", alias, function)
++    pub fn with_payment_method_is_string(self) -> Self {
++        self.with_payment_method_is("string()")
+     }
+ 
+-    pub fn group_by_payment_account_with(mut self, request: impl Into<QuerySelection>) -> Self {
+-        self.query = self.query.group_by("payment_account_id");
+-        self.query_options.object_group_bys.push(ObjectGroupBy::new(
+-            "payment_account",
+-            "payment_account_id",
+-            request,
+-        ));
+-        self
++
++
++    pub fn with_payment_method_is_not_string(self) -> Self {
++        self.with_payment_method_is_not("string()")
+     }
+ 
+-    pub fn group_by_payment_account_with_details(self) -> Self {
+-        self.group_by_payment_account_with_details_from(crate::Q::user_accounts().unlimited())
++
++
++    pub fn transaction_amount_is_value_150_00(self) -> Self {
++        self.with_transaction_amount_is("150.00")
+     }
+ 
+-    pub fn group_by_payment_account_with_details_from(self, request: impl Into<QuerySelection>) -> Self {
+-        self.group_by_payment_account_with(request)
++    pub fn with_transaction_amount_is_value_150_00(self) -> Self {
++        self.with_transaction_amount_is("150.00")
+     }
+ 
+ 
+-    pub fn roll_up_to_payment_account(self) -> Self {
+-        self.roll_up_to_payment_account_with(crate::Q::user_accounts().unlimited())
++
++    pub fn with_transaction_amount_is_not_value_150_00(self) -> Self {
++        self.with_transaction_amount_is_not("150.00")
+     }
+ 
+-    pub fn roll_up_to_payment_account_with(self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.with_payment_account_matching(selection.clone())
+-            .group_by_payment_account_with(selection)
++
++
++    pub fn create_time_is_create_time(self) -> Self {
++        self.with_create_time_is("createTime()")
+     }
+ 
+-    pub fn count_payment_account(self) -> Self {
+-        self.count_payment_account_as("payment_account_count")
++    pub fn with_create_time_is_create_time(self) -> Self {
++        self.with_create_time_is("createTime()")
+     }
+ 
+-    pub fn count_payment_account_as(self, alias: impl Into<String>) -> Self {
+-        self.aggregate_count_field("payment_account_id", alias)
++
++
++    pub fn with_create_time_is_not_create_time(self) -> Self {
++        self.with_create_time_is_not("createTime()")
+     }
+ 
+-    pub fn unselect_payment_account(mut self) -> Self {
+-        self.query.projection.retain(|field| field != "payment_account_id");
+-        self.query.relations.retain(|relation| relation.name != "payment_account");
+-        self
++
++
++    pub fn update_time_is_update_time(self) -> Self {
++        self.with_update_time_is("updateTime()")
+     }
+-    pub fn select_payment_account(mut self) -> Self {
+-        self.query = self.query.relation("payment_account");
+-        self
++
++    pub fn with_update_time_is_update_time(self) -> Self {
++        self.with_update_time_is("updateTime()")
+     }
+ 
+-    pub fn select_payment_account_with(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.relation_query("payment_account", selection.clone().into_query());
+-        self.relation_selections.push(RelationSelection::new("payment_account", selection));
+-        self
 -}
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/sampledata/SampleDataService.java b/examples/payment/07-generated-code/java/lib/src/main/java/com/example/paymentsystem/sampledata/SampleDataService.java
-deleted file mode 100644
-index e69de29..0000000
-diff --git a/examples/payment/07-generated-code/java/lib/src/main/resources/META-INF/services/io.teaql.core.meta.EntityMetaAssembler b/examples/payment/07-generated-code/java/lib/src/main/resources/META-INF/services/io.teaql.core.meta.EntityMetaAssembler
-deleted file mode 100644
-index 045c2da..0000000
---- a/examples/payment/07-generated-code/java/lib/src/main/resources/META-INF/services/io.teaql.core.meta.EntityMetaAssembler
-+++ /dev/null
-@@ -1,2 +0,0 @@
+ 
+-    pub fn facet_by_payment_account_as(self, facet_name: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.facet_by_payment_account_as_with_options(facet_name, request, true)
+-    }
+ 
+-    pub fn facet_by_payment_account_as_with_options(
+-        mut self,
+-        facet_name: impl Into<String>,
+-        request: impl Into<QuerySelection>,
+-        include_all_facets: bool,
+-    ) -> Self {
+-        self.query_options.facets.push(FacetRequest::new(
+-            facet_name,
+-            "payment_account",
+-            request,
+-            include_all_facets,
+-        ));
+-        self
++    pub fn with_update_time_is_not_update_time(self) -> Self {
++        self.with_update_time_is_not("updateTime()")
+     }
++
++
++
++
+ }
+ 
+ impl<R> Default for PaymentTransactionRequest<R> {
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/runtime.rs after/rust-lib-core/lib/src/runtime.rs
+--- before/rust-lib-core/lib/src/runtime.rs	2026-08-08 03:04:17.973617884 +0800
++++ after/rust-lib-core/lib/src/runtime.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -225,6 +225,15 @@
+             .value("create_time", teaql_core::time::Timestamp::now())
+             .value("update_time", teaql_core::time::Timestamp::now())
+             .value("version", 1_i64))
++        .initial_graph(teaql_runtime::GraphNode::new("PaymentTransaction")
++            .value("id", 1_u64)
++            .value("payment_account", "string()")
++            .value("currency_code", "string()")
++            .value("payment_method", "string()")
++            .value("transaction_amount", "150.00")
++            .value("create_time", teaql_core::time::Timestamp::now())
++            .value("update_time", teaql_core::time::Timestamp::now())
++            .value("version", 1_i64))
+ }
+ 
+ pub fn module_with_checkers() -> teaql_runtime::RuntimeModule {
+@@ -239,6 +248,15 @@
+             .value("create_time", teaql_core::time::Timestamp::now())
+             .value("update_time", teaql_core::time::Timestamp::now())
+             .value("version", 1_i64))
++        .initial_graph(teaql_runtime::GraphNode::new("PaymentTransaction")
++            .value("id", 1_u64)
++            .value("payment_account", "string()")
++            .value("currency_code", "string()")
++            .value("payment_method", "string()")
++            .value("transaction_amount", "150.00")
++            .value("create_time", teaql_core::time::Timestamp::now())
++            .value("update_time", teaql_core::time::Timestamp::now())
++            .value("version", 1_i64))
+ }
+ 
+ pub fn module_with_behaviors() -> teaql_runtime::RuntimeModule {
+@@ -251,6 +269,15 @@
+             .value("create_time", teaql_core::time::Timestamp::now())
+             .value("update_time", teaql_core::time::Timestamp::now())
+             .value("version", 1_i64))
++        .initial_graph(teaql_runtime::GraphNode::new("PaymentTransaction")
++            .value("id", 1_u64)
++            .value("payment_account", "string()")
++            .value("currency_code", "string()")
++            .value("payment_method", "string()")
++            .value("transaction_amount", "150.00")
++            .value("create_time", teaql_core::time::Timestamp::now())
++            .value("update_time", teaql_core::time::Timestamp::now())
++            .value("version", 1_i64))
+ }
+ 
+ pub fn module_with_behaviors_and_checkers() -> teaql_runtime::RuntimeModule {
+@@ -265,4 +292,13 @@
+             .value("create_time", teaql_core::time::Timestamp::now())
+             .value("update_time", teaql_core::time::Timestamp::now())
+             .value("version", 1_i64))
++        .initial_graph(teaql_runtime::GraphNode::new("PaymentTransaction")
++            .value("id", 1_u64)
++            .value("payment_account", "string()")
++            .value("currency_code", "string()")
++            .value("payment_method", "string()")
++            .value("transaction_amount", "150.00")
++            .value("create_time", teaql_core::time::Timestamp::now())
++            .value("update_time", teaql_core::time::Timestamp::now())
++            .value("version", 1_i64))
+ }
+\ 文件末尾没有换行符
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/sample_data.rs after/rust-lib-core/lib/src/sample_data.rs
+--- before/rust-lib-core/lib/src/sample_data.rs	2026-08-08 03:04:17.973617884 +0800
++++ after/rust-lib-core/lib/src/sample_data.rs	2026-08-08 09:45:35.428015338 +0800
+@@ -2,9 +2,9 @@
+ use std::collections::BTreeMap;
+ use crate::TeaqlRuntime;
+ use crate::Q;
+-use teaql_core::Entity as _;
+-use crate::request_support::TeaqlUserContextExt as _;
+-use crate::request_support::AuditedSave as _;
++use teaql_core::Entity;
++use crate::request_support::TeaqlUserContextExt;
++use crate::request_support::AuditedSave;
+ 
+ pub trait IntoU64 {
+     fn into_u64(self) -> u64;
+@@ -133,105 +133,42 @@
+     log::info!("Starting sample data generation. Scale: {:?}, Seed: {}", plan.scale, plan.seed);
+     let mut state = SampleDataState::new(plan);
+ 
++    load_root_payment_transactions(ctx, &mut state).await?; //depth: 0
+     load_root_user_accounts(ctx, &mut state).await?; //depth: 0
+ 
+ 
+-    ctx.user_context().transaction_data(|| async {
+-        Box::pin(generate_payment_transactions(ctx, &mut state)).await.map_err(|e| {
+-            teaql_runtime::DataServiceError::Runtime(teaql_runtime::RuntimeError::Graph(e))
+-        })
+-    }).await.map_err(|e| e.to_string())?;
 -
--com.example.paymentsystem.EntityMetaRegistry
-\ No newline at end of file
-diff --git a/examples/payment/07-generated-code/rust-lib-core/domain.zip b/examples/payment/07-generated-code/rust-lib-core/domain.zip
-index 954bc97..0d45af4 100644
-Binary files a/examples/payment/07-generated-code/rust-lib-core/domain.zip and b/examples/payment/07-generated-code/rust-lib-core/domain.zip differ
+ 
+     let report = state.into_report();
+     log::info!("Sample data generation completed successfully. Generated: {} tables, Skipped: {} tables.", report.generated.len(), report.skipped.len());
+     Ok(report)
+ }
+ 
+-async fn load_root_user_accounts<C>(
++async fn load_root_payment_transactions<C>(
+     ctx: &C,
+     state: &mut SampleDataState,
+ ) -> Result<(), String>
+ where
+     C: TeaqlRuntime + ?Sized + crate::TeaqlRepositoryProvider,
+ {
+-    let list = Q::user_accounts().purpose("Init Sample Data").execute_for_list(ctx).await.unwrap_or_default();
++    let list = Q::payment_transactions().purpose("Init Sample Data").execute_for_list(ctx).await.unwrap_or_default();
+     for item in list {
+-        state.add_reference(crate::UserAccount::ENTITY_NAME, item.id().into_u64());
++        state.add_reference(crate::PaymentTransaction::ENTITY_NAME, item.id().into_u64());
+     }
+     Ok(())
+ }
+ 
+-
+-async fn generate_payment_transactions<C>(
++async fn load_root_user_accounts<C>(
+     ctx: &C,
+     state: &mut SampleDataState,
+ ) -> Result<(), String>
+ where
+     C: TeaqlRuntime + ?Sized + crate::TeaqlRepositoryProvider,
+ {
+-        if state.ids("User Account").is_empty() {
+-            state.record_skipped(crate::PaymentTransaction::ENTITY_NAME, "Required dependency User Account is missing in reference pool".to_string());
+-            log::info!("Skipped generating Payment Transaction: Required dependency User Account is missing in reference pool.");
+-            return Ok(());
+-        }
+-
+-
+-    let object_fields_count = 0 + 1;
+-    let base_fanout = std::cmp::max(1, object_fields_count) * 20;
+-
+-    let fanout = match state.plan.scale {
+-        SampleDataScale::Tiny => base_fanout,
+-        SampleDataScale::Small => base_fanout * 5,
+-        SampleDataScale::Medium => base_fanout * 50,
+-    };
+-
+-    log::info!("Generating sample data for Payment Transaction (expected: {})...", fanout);
+-
+-    for i in 0..fanout {
+-        let mut entity = Q::payment_transactions().purpose("Init Sample Data").new_entity(ctx);
+-        let mut used_refs = std::collections::HashSet::new();
+-
+-                if let Some(ref_id) = state.pick_unused_id("User Account", i as usize, &used_refs) {
+-                    entity.update_payment_account_id(ref_id);
+-                    used_refs.insert(ref_id);
+-                } else {
+-                    // Optional relation was missing in reference pool
+-                }
+-                entity.update_currency_code(format!("{} {}", "string()", i + 1));
+-
+-                entity.update_payment_method(format!("{} {}", "string()", i + 1));
+-
+-                {
+-                    let max_val: u64 = "150.00".parse().unwrap_or(1000);
+-                    let rand_val = (i as u64 + state.plan.seed) % max_val.max(1) + 1;
+-                    entity.update_transaction_amount(rand_val as i64);
+-                }
+-
+-                {
+-                    let days = ((i as u64 + state.plan.seed) % (365 * 3)) as i64;
+-                    let past = chrono::Utc::now().naive_utc() - chrono::Duration::try_days(days).unwrap_or_default();
+-                    entity.update_create_time(past.format("%Y-%m-%d").to_string());
+-                }
+-
+-                {
+-                    let days = ((i as u64 + state.plan.seed) % (365 * 3)) as i64;
+-                    let past = chrono::Utc::now().naive_utc() - chrono::Duration::try_days(days).unwrap_or_default();
+-                    entity.update_update_time(past.format("%Y-%m-%d").to_string());
+-                }
+-
+-
+-
+-entity.audit_as("Init Sample Data").save(ctx).await.map_err(|e| e.to_string())?;
+-
+-        state.record_generated(crate::PaymentTransaction::ENTITY_NAME);
+-
+-        if i % 20 == 0 {
+-            log::info!("Generating Payment Transaction: {}/{}", i, fanout);
+-        }
+-
++    let list = Q::user_accounts().purpose("Init Sample Data").execute_for_list(ctx).await.unwrap_or_default();
++    for item in list {
++        state.add_reference(crate::UserAccount::ENTITY_NAME, item.id().into_u64());
+     }
+-
+-    log::info!("Successfully generated sample records for Payment Transaction.");
+     Ok(())
+ }
++
++
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/user_account/checker.rs after/rust-lib-core/lib/src/user_account/checker.rs
+--- before/rust-lib-core/lib/src/user_account/checker.rs	2026-08-08 03:04:17.972617881 +0800
++++ after/rust-lib-core/lib/src/user_account/checker.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -122,6 +122,15 @@
+         location: &ObjectLocation,
+         results: &mut CheckResults,
+     ) {
++        if status == CheckObjectStatus::Create && entity.changed_create_time().is_none() {
++            entity.update_create_time(teaql_core::time::Timestamp::now());
++        }
++
++        if status == CheckObjectStatus::Update && entity.changed_update_time().is_none() {
++            entity.update_update_time(teaql_core::time::Timestamp::now());
++        }
++
++
+         self.logic
+             .check_and_fix_user_account(ctx, entity, status, location, results);
+     }
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/user_account/entity.rs after/rust-lib-core/lib/src/user_account/entity.rs
+--- before/rust-lib-core/lib/src/user_account/entity.rs	2026-08-08 03:04:17.974617886 +0800
++++ after/rust-lib-core/lib/src/user_account/entity.rs	2026-08-08 09:45:35.428015338 +0800
+@@ -2,7 +2,6 @@
+ // ⛔ AI agents: DO NOT read this file for API discovery. Instead run: cargo teaql --input modeling/MODEL.xml rust-assist-query/user_account
+ use std::collections::BTreeMap;
+ 
+-use teaql_core::SmartList;
+ use teaql_macros::TeaqlEntity;
+ 
+ /// [TEAQL AI WARNING]
+@@ -27,8 +26,6 @@
+     update_time: teaql_core::time::Timestamp,
+ #[teaql(version)]
+     version: i64,
+-#[teaql(relation(target = "PaymentTransaction", local_key = "id", foreign_key = "payment_account_id", many))]
+-    payment_transaction_list: SmartList<crate::PaymentTransaction>,
+     #[teaql(dynamic)]
+     dynamic: BTreeMap<String, teaql_core::Value>,
+     #[teaql(skip)]
+@@ -51,7 +48,6 @@
+             create_time: teaql_core::time::Timestamp::now(),
+             update_time: teaql_core::time::Timestamp::now(),
+             version: 0_i64,
+-            payment_transaction_list: Default::default(),
+             dynamic: BTreeMap::new(),
+             root,
+             __load_state: teaql_core::eval::LoadState::FullyLoaded,
+@@ -64,9 +60,6 @@
+ 
+     pub fn attach_root_recursive(&mut self, root: teaql_runtime::EntityRoot) {
+         self.root = root.clone();
+-        for entity in &mut self.payment_transaction_list {
+-            entity.attach_root_recursive(root.clone());
+-        }
+     }
+ 
+     pub fn is_loaded(&self, field_or_relation: &str) -> bool {
+@@ -186,21 +179,6 @@
+                 } else {
+                     teaql_core::eval::EvalResult::Value(self.version())
+                 }}
+-    pub fn payment_transaction_list(&self) -> &SmartList<crate::PaymentTransaction> {
+-        &self.payment_transaction_list
+-    }
+-
+-    pub fn payment_transaction_list_mut(&mut self) -> &mut SmartList<crate::PaymentTransaction> {
+-        &mut self.payment_transaction_list
+-    }
+-
+-    pub fn eval_payment_transaction_list(&self) -> teaql_core::eval::EvalResult<&SmartList<crate::PaymentTransaction>> {
+-        if !self.is_loaded("payment_transaction_list") {
+-            teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_transaction_list".to_string(), attempted_path: "payment_transaction_list".to_string() }
+-        } else {
+-            teaql_core::eval::EvalResult::Value(&self.payment_transaction_list)
+-        }
+-    }
+ 
+     pub fn mark_as_delete(&mut self) -> &mut Self {
+         self.root.mark_as_delete(self.entity_key());
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/user_account/expression.rs after/rust-lib-core/lib/src/user_account/expression.rs
+--- before/rust-lib-core/lib/src/user_account/expression.rs	2026-08-08 03:04:17.972617881 +0800
++++ after/rust-lib-core/lib/src/user_account/expression.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -51,10 +51,6 @@
+         let next = self.result.and_then("version", |entity| entity.eval_version());
+         crate::ValueExpression::new(next, self.root_desc.clone())
+     }
+-    pub fn get_payment_transaction_list(self) -> crate::PaymentTransactionListExpression<'a> {
+-        let next = self.result.and_then("payment_transaction_list", |entity| entity.eval_payment_transaction_list());
+-        crate::PaymentTransactionListExpression::new(next, self.root_desc.clone())
+-    }
+ }
+ 
+ #[derive(Clone)]
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/src/user_account/request.rs after/rust-lib-core/lib/src/user_account/request.rs
+--- before/rust-lib-core/lib/src/user_account/request.rs	2026-08-08 03:04:17.973617884 +0800
++++ after/rust-lib-core/lib/src/user_account/request.rs	2026-08-08 09:45:35.429015341 +0800
+@@ -487,12 +487,6 @@
+     fn apply_dynamic_json_chain_filter(self, head: &str, tail: &str, value: &JsonValue) -> Self {
+         let _ = (tail, value);
+         match head {
+-            "payment_transaction_list" => {
+-                self.with_payment_transaction_list_matching(
+-                    crate::Q::payment_transactions_minimal()
+-                        .apply_dynamic_json_filter(tail, value),
+-                )
+-            }
+             _ => self,
+         }
+     }
+@@ -591,9 +585,7 @@
+     }
+ 
+     pub fn select_children(self) -> Self {
+-        let mut request = self.select_all();
+-        request = request.select_payment_transaction_list();
+-        request
++        self.select_all()
+     }
+ 
+     pub fn select_any(self) -> Self {
+@@ -1696,172 +1688,6 @@
+ 
+ 
+ 
+-    pub fn have_payment_transactions(self) -> Self {
+-        self.with_payment_transaction_list_matching(SelectQuery::new("PaymentTransaction"))
+-    }
+-
+-    pub fn have_no_payment_transactions(self) -> Self {
+-        self.without_payment_transaction_list_matching(SelectQuery::new("PaymentTransaction"))
+-    }
+-
+-    pub fn with_payment_transaction_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.and_filter(Expr::in_subquery(
+-            "id",
+-            <crate::PaymentTransaction as teaql_core::TeaqlEntity>::entity_descriptor(),
+-            selection.query.clone(),
+-            "payment_account_id",
+-        ));
+-        self.relation_filters.push(RelationFilter::new("payment_transaction_list", selection));
+-        self
+-    }
+-
+-    pub fn without_payment_transaction_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.and_filter(Expr::not_in_subquery(
+-            "id",
+-            <crate::PaymentTransaction as teaql_core::TeaqlEntity>::entity_descriptor(),
+-            selection.query.clone(),
+-            "payment_account_id",
+-        ));
+-        self.relation_filters.push(RelationFilter::new("payment_transaction_list", selection));
+-        self
+-    }
+-
+-    pub fn select_payment_transaction_list(mut self) -> Self {
+-        self.query = self.query.relation("payment_transaction_list");
+-        self
+-    }
+-
+-    pub fn select_payment_transaction_list_with(mut self, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query = self.query.relation_query("payment_transaction_list", selection.clone().into_query());
+-        self.relation_selections.push(RelationSelection::new("payment_transaction_list", selection));
+-        self
+-}
+-    pub fn count_payment_transactions(self) -> Self {
+-        self.count_payment_transactions_as("count_payment_transactions")
+-    }
+-
+-    pub fn count_payment_transactions_as(self, alias: impl Into<String>) -> Self {
+-        self.count_payment_transactions_with(alias, crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn count_payment_transactions_with(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query_options.relation_aggregates.push(RelationAggregate::new(
+-            "payment_transaction_list",
+-            alias,
+-            selection,
+-            true,
+-        ));
+-        self
+-    }
+-
+-    pub fn stats_from_payment_transactions(self, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as("refinements", request)
+-    }
+-
+-    pub fn stats_from_payment_transactions_as(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        let selection = request.into();
+-        self.query_options.relation_aggregates.push(RelationAggregate::new(
+-            "payment_transaction_list",
+-            alias,
+-            selection,
+-            false,
+-        ));
+-        self
+-    }
+-
+-    pub fn group_by_payment_transactions_with_details(self, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions(request)
+-    }
+-
+-
+-    pub fn sum_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.sum_transaction_amount_of_payment_transactions_as("sum_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn sum_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().sum("transaction_amount", "sum_transaction_amount"))
+-    }
+-    pub fn min_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.min_transaction_amount_of_payment_transactions_as("min_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn min_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("transaction_amount", "min_transaction_amount"))
+-    }
+-    pub fn max_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.max_transaction_amount_of_payment_transactions_as("max_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn max_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("transaction_amount", "max_transaction_amount"))
+-    }
+-    pub fn avg_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.avg_transaction_amount_of_payment_transactions_as("avg_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn avg_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().avg("transaction_amount", "avg_transaction_amount"))
+-    }
+-    pub fn standard_deviation_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.standard_deviation_transaction_amount_of_payment_transactions_as("standard_deviation_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn standard_deviation_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().stddev("transaction_amount", "stdDev_transaction_amount"))
+-    }
+-    pub fn square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions_as("square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().stddev_pop("transaction_amount", "stdDevPop_transaction_amount"))
+-    }
+-    pub fn sample_variance_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.sample_variance_transaction_amount_of_payment_transactions_as("sample_variance_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn sample_variance_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().var_samp("transaction_amount", "varSamp_transaction_amount"))
+-    }
+-    pub fn sample_population_variance_transaction_amount_of_payment_transactions(self) -> Self {
+-        self.sample_population_variance_transaction_amount_of_payment_transactions_as("sample_population_variance_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn sample_population_variance_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().var_pop("transaction_amount", "varPop_transaction_amount"))
+-    }
+-    pub fn min_create_time_of_payment_transactions(self) -> Self {
+-        self.min_create_time_of_payment_transactions_as("min_create_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn min_create_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("create_time", "min_create_time"))
+-    }
+-    pub fn max_create_time_of_payment_transactions(self) -> Self {
+-        self.max_create_time_of_payment_transactions_as("max_create_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn max_create_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("create_time", "max_create_time"))
+-    }
+-    pub fn min_update_time_of_payment_transactions(self) -> Self {
+-        self.min_update_time_of_payment_transactions_as("min_update_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn min_update_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("update_time", "min_update_time"))
+-    }
+-    pub fn max_update_time_of_payment_transactions(self) -> Self {
+-        self.max_update_time_of_payment_transactions_as("max_update_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
+-    }
+-
+-    pub fn max_update_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
+-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("update_time", "max_update_time"))
+-    }
+ }
+ 
+ impl<R> Default for UserAccountRequest<R> {
+diff -ruN '--exclude=domain.zip' '--exclude=target' before/rust-lib-core/lib/tests/runtime_masking.rs after/rust-lib-core/lib/tests/runtime_masking.rs
+--- before/rust-lib-core/lib/tests/runtime_masking.rs	1970-01-01 08:00:00.000000000 +0800
++++ after/rust-lib-core/lib/tests/runtime_masking.rs	2026-08-08 09:46:50.351267790 +0800
+@@ -0,0 +1,84 @@
++use std::sync::{Arc, Mutex};
++
++use payment_service_core::teaql_core::{Record, TeaqlEntity, Value};
++use payment_service_core::{PaymentTransaction, module};
++use teaql_runtime::{
++    RawAuditEvent, RuntimeError, SafeAuditEvent, SafeAuditEventSink, UserContext,
++};
++
++#[derive(Clone, Default)]
++struct CapturingSafeAuditSink {
++    events: Arc<Mutex<Vec<SafeAuditEvent>>>,
++}
++
++impl SafeAuditEventSink for CapturingSafeAuditSink {
++    fn on_safe_event(
++        &self,
++        _ctx: &UserContext,
++        event: &SafeAuditEvent,
++    ) -> Result<(), RuntimeError> {
++        self.events.lock().unwrap().push(event.clone());
++        Ok(())
++    }
++}
++
++#[test]
++fn generated_payment_policy_masks_the_runtime_audit_event() {
++    const SYNTHETIC_ACCOUNT: &str = "TEST-ACCOUNT-0001";
++
++    let descriptor = PaymentTransaction::entity_descriptor();
++    assert_eq!(descriptor.audit_mask_fields, vec!["payment_account"]);
++
++    let sink = CapturingSafeAuditSink::default();
++    let captured = Arc::clone(&sink.events);
++    let mut context = module().into_context();
++    context.set_custom_event_sink(sink);
++
++    let raw_event = RawAuditEvent::created(
++        "PaymentTransaction",
++        Record::from([
++            (
++                "payment_account".to_owned(),
++                Value::Text(SYNTHETIC_ACCOUNT.to_owned()),
++            ),
++            (
++                "currency_code".to_owned(),
++                Value::Text("CNY".to_owned()),
++            ),
++        ]),
++    );
++    context.send_event(raw_event).unwrap();
++
++    let events = captured.lock().unwrap();
++    assert_eq!(events.len(), 1);
++    let event = &events[0];
++
++    let account = event
++        .fields
++        .iter()
++        .find(|field| field.name == "payment_account")
++        .expect("payment_account must be present in the safe audit event");
++    let masked_value = account.value.as_deref().expect("masked value must exist");
++
++    assert!(account.masked);
++    assert_eq!(account.mask_reason.as_deref(), Some("_audit_mask_fields"));
++    assert!(!masked_value.contains(SYNTHETIC_ACCOUNT));
++
++    let currency = event
++        .fields
++        .iter()
++        .find(|field| field.name == "currency_code")
++        .expect("currency_code must be present in the safe audit event");
++    assert!(!currency.masked);
++    assert!(currency.value.as_deref().unwrap().contains("CNY"));
++
++    println!(
++        "MASKING_EVIDENCE entity={} field={} masked={} reason={} raw_present={} output={}",
++        event.entity,
++        account.name,
++        account.masked,
++        account.mask_reason.as_deref().unwrap(),
++        masked_value.contains(SYNTHETIC_ACCOUNT),
++        masked_value,
++    );
++}

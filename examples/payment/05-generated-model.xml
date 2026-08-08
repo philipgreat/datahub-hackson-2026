@@ -15,7 +15,7 @@
   <payment_transaction _name="Payment Transaction"
                        _module="Core"
                        _module_key="core"
-                       payment_account="user_account()"
+                       payment_account="string()"
                        currency_code="string()"
                        payment_method="string()"
                        transaction_amount="150.00"

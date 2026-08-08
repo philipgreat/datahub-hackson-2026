@@ -1,7 +1,6 @@
 
 package com.example.paymentservice.paymenttransaction;
 
-import com.example.paymentservice.useraccount.UserAccount;
 import io.teaql.core.Audited;
 import io.teaql.core.BaseEntity;
 import io.teaql.core.EntityStatus;
@@ -28,14 +27,14 @@ public class PaymentTransaction extends BaseEntity implements RemoteInput {
     public static final String TRANSACTION_AMOUNT_PROPERTY = "transactionAmount";
     public static final String CREATE_TIME_PROPERTY = "createTime";
     public static final String UPDATE_TIME_PROPERTY = "updateTime";
-    private UserAccount paymentAccount;
+    private String paymentAccount;
     private String currencyCode;
     private String paymentMethod;
     private BigDecimal transactionAmount;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
-    public UserAccount getPaymentAccount(){
+    public String getPaymentAccount(){
         return this.paymentAccount;
     }
     public String getCurrencyCode(){
@@ -53,7 +52,8 @@ public class PaymentTransaction extends BaseEntity implements RemoteInput {
     public LocalDateTime getUpdateTime(){
         return this.updateTime;
     }
-    public PaymentTransaction updatePaymentAccount(UserAccount paymentAccount){
+    public PaymentTransaction updatePaymentAccount(String paymentAccount){
+        paymentAccount = (paymentAccount == null ? null : paymentAccount.trim());
         if(Objects.equals(this.paymentAccount, paymentAccount)){
             return this;
         }
@@ -131,7 +131,7 @@ public class PaymentTransaction extends BaseEntity implements RemoteInput {
     @FrameworkInternal
     public void __internalSet(String property, Object value) {
         switch (property) {
-            case "paymentAccount": this.paymentAccount = (UserAccount) value; break;
+            case "paymentAccount": this.paymentAccount = (value == null ? null : ((String)value).trim()); break;
 
             case "currencyCode": this.currencyCode = (value == null ? null : ((String)value).trim()); break;
 

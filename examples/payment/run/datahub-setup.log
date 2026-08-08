@@ -1,3 +1,18 @@
-DataHub Container Status: RUNNING (Mocked via Python script in Hackathon environment)
+Script started on 2026-08-08 09:53:35+08:00 [<not executed on terminal>]
+CAPTURED_AT_UTC=2026-08-08T01:53:35Z
+COMMAND=docker ps --filter name=datahub
+3df804725df6	datahub-datahub-actions-quickstart-1	acryldata/datahub-actions:v1.5.0.6-slim	Up 4 days
+9358a778d22f	datahub-datahub-gms-quickstart-1	acryldata/datahub-gms:v1.5.0.6	Up 4 days (healthy)
+f81d3c9be963	datahub-frontend-quickstart-1	acryldata/datahub-frontend-react:v1.5.0.6	Up 4 days (healthy)
+9eb937085ec7	datahub-kafka-broker-1	confluentinc/cp-kafka:8.0.0	Up 4 days (healthy)
+b7e61c225420	datahub-mysql-1	mysql:8.2	Up 4 days (healthy)
+61d5ce06130f	datahub-opensearch-1	opensearchproject/opensearch:2.19.3	Up 7 hours (healthy)
+COMMAND=docker inspect datahub-datahub-gms-quickstart-1
+{"Status":"healthy","FailingStreak":0,"Log":[{"Start":"2026-08-08T09:53:30.813603536+08:00","End":"2026-08-08T09:53:30.856653151+08:00","ExitCode":0,"Output":""},{"Start":"2026-08-08T09:53:31.857523553+08:00","End":"2026-08-08T09:53:31.910197106+08:00","ExitCode":0,"Output":""},{"Start":"2026-08-08T09:53:32.910787692+08:00","End":"2026-08-08T09:53:32.963897058+08:00","ExitCode":0,"Output":""},{"Start":"2026-08-08T09:53:33.964299489+08:00","End":"2026-08-08T09:53:34.022257703+08:00","ExitCode":0,"Output":""},{"Start":"2026-08-08T09:53:35.022588914+08:00","End":"2026-08-08T09:53:35.068659407+08:00","ExitCode":0,"Output":""}]}
+COMMAND=curl http://localhost:8080/health
+HTTP_STATUS=200
+COMMAND=python3 ingest_payment.py
 Successfully ingested mock payment data into DataHub!
 Successfully ingested fct_users_created data into DataHub!
+
+Script done on 2026-08-08 09:53:36+08:00 [COMMAND_EXIT_CODE="0"]

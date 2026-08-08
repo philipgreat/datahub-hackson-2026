@@ -17,6 +17,9 @@ pub struct PaymentTransaction {
     id: u64,
 
 // @source 05-generated-model.xml:24
+    payment_account: String,
+
+// @source 05-generated-model.xml:24
     currency_code: String,
 
 // @source 05-generated-model.xml:24
@@ -32,12 +35,6 @@ pub struct PaymentTransaction {
     update_time: teaql_core::time::Timestamp,
 #[teaql(version)]
     version: i64,
-// @source 05-generated-model.xml:24
-#[teaql(column = "payment_account")]
-    payment_account_id: u64,
-// @source 05-generated-model.xml:24
-#[teaql(relation(target = "UserAccount", local_key = "payment_account_id", foreign_key = "id"))]
-    payment_account: Option<crate::UserAccount>,
     #[teaql(dynamic)]
     dynamic: BTreeMap<String, teaql_core::Value>,
     #[teaql(skip)]
@@ -56,14 +53,13 @@ impl PaymentTransaction {
     pub(crate) fn runtime_new(root: teaql_runtime::EntityRoot) -> Self {
         Self {
             id: 0_u64,
+            payment_account: String::new(),
             currency_code: String::new(),
             payment_method: String::new(),
             transaction_amount: rust_decimal::Decimal::ZERO,
             create_time: teaql_core::time::Timestamp::now(),
             update_time: teaql_core::time::Timestamp::now(),
             version: 0_i64,
-            payment_account_id: 0_u64,
-            payment_account: None,
             dynamic: BTreeMap::new(),
             root,
             __load_state: teaql_core::eval::LoadState::FullyLoaded,
@@ -76,9 +72,6 @@ impl PaymentTransaction {
 
     pub fn attach_root_recursive(&mut self, root: teaql_runtime::EntityRoot) {
         self.root = root.clone();
-        if let Some(entity) = &mut self.payment_account {
-            entity.attach_root_recursive(root.clone());
-        }
     }
 
     pub fn is_loaded(&self, field_or_relation: &str) -> bool {
@@ -109,6 +102,28 @@ impl PaymentTransaction {
                     teaql_core::eval::EvalResult::NotLoaded { failed_node: "id".to_string(), attempted_path: "id".to_string() }
                 } else {
                     teaql_core::eval::EvalResult::Value(self.id())
+                }}
+
+    pub fn payment_account(&self) -> String {
+        self.changed_payment_account().and_then(|value| value.try_text().map(|value| value.to_owned())).unwrap_or_else(|| self.payment_account.clone())
+    }
+
+    pub fn update_payment_account(&mut self, value: impl Into<teaql_core::Value>) -> &mut Self {
+        let value = value.into();
+        self.payment_account = value.try_text().map(|value| value.trim().to_owned()).unwrap_or_else(|| self.payment_account.clone());
+        self.root.set(self.entity_key(), "payment_account", value);
+        self
+    }
+
+    pub fn changed_payment_account(&self) -> Option<teaql_core::Value> {
+        self.root.get(&self.entity_key(), "payment_account")
+    }
+
+    pub fn eval_payment_account(&self) -> teaql_core::eval::EvalResult<String> {
+        if !self.is_loaded("payment_account") {
+                    teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account".to_string(), attempted_path: "payment_account".to_string() }
+                } else {
+                    teaql_core::eval::EvalResult::Value(self.payment_account())
                 }}
 
     pub fn currency_code(&self) -> String {
@@ -242,41 +257,6 @@ impl PaymentTransaction {
                 } else {
                     teaql_core::eval::EvalResult::Value(self.version())
                 }}
-    pub fn payment_account_id(&self) -> u64 {
-        self.changed_payment_account_id().and_then(|value| value.try_u64()).unwrap_or(self.payment_account_id)
-    }
-
-    pub fn update_payment_account_id(&mut self, value: impl Into<teaql_core::Value>) -> &mut Self {
-        let value = value.into();
-        self.payment_account_id = value.try_u64().unwrap_or(self.payment_account_id.clone());
-        self.root.set(self.entity_key(), "payment_account_id", value);
-        self
-    }
-
-    pub fn changed_payment_account_id(&self) -> Option<teaql_core::Value> {
-        self.root.get(&self.entity_key(), "payment_account_id")
-    }
-
-    pub fn eval_payment_account_id(&self) -> teaql_core::eval::EvalResult<u64> {
-        if !self.is_loaded("payment_account_id") {
-                    teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account_id".to_string(), attempted_path: "payment_account_id".to_string() }
-                } else {
-                    teaql_core::eval::EvalResult::Value(self.payment_account_id())
-                }}
-    pub fn payment_account(&self) -> Option<&crate::UserAccount> {
-        self.payment_account.as_ref()
-    }
-
-    pub fn eval_payment_account(&self) -> teaql_core::eval::EvalResult<&crate::UserAccount> {
-        if !self.is_loaded("payment_account") {
-            teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_account".to_string(), attempted_path: "payment_account".to_string() }
-        } else {
-            match &self.payment_account {
-                Some(v) => teaql_core::eval::EvalResult::Value(v),
-                None => teaql_core::eval::EvalResult::Null,
-            }
-        }
-    }
 
     pub fn mark_as_delete(&mut self) -> &mut Self {
         self.root.mark_as_delete(self.entity_key());

@@ -2,7 +2,6 @@
 // ⛔ AI agents: DO NOT read this file for API discovery. Instead run: cargo teaql --input modeling/MODEL.xml rust-assist-query/user_account
 use std::collections::BTreeMap;
 
-use teaql_core::SmartList;
 use teaql_macros::TeaqlEntity;
 
 /// [TEAQL AI WARNING]
@@ -27,8 +26,6 @@ pub struct UserAccount {
     update_time: teaql_core::time::Timestamp,
 #[teaql(version)]
     version: i64,
-#[teaql(relation(target = "PaymentTransaction", local_key = "id", foreign_key = "payment_account_id", many))]
-    payment_transaction_list: SmartList<crate::PaymentTransaction>,
     #[teaql(dynamic)]
     dynamic: BTreeMap<String, teaql_core::Value>,
     #[teaql(skip)]
@@ -51,7 +48,6 @@ impl UserAccount {
             create_time: teaql_core::time::Timestamp::now(),
             update_time: teaql_core::time::Timestamp::now(),
             version: 0_i64,
-            payment_transaction_list: Default::default(),
             dynamic: BTreeMap::new(),
             root,
             __load_state: teaql_core::eval::LoadState::FullyLoaded,
@@ -64,9 +60,6 @@ impl UserAccount {
 
     pub fn attach_root_recursive(&mut self, root: teaql_runtime::EntityRoot) {
         self.root = root.clone();
-        for entity in &mut self.payment_transaction_list {
-            entity.attach_root_recursive(root.clone());
-        }
     }
 
     pub fn is_loaded(&self, field_or_relation: &str) -> bool {
@@ -186,21 +179,6 @@ impl UserAccount {
                 } else {
                     teaql_core::eval::EvalResult::Value(self.version())
                 }}
-    pub fn payment_transaction_list(&self) -> &SmartList<crate::PaymentTransaction> {
-        &self.payment_transaction_list
-    }
-
-    pub fn payment_transaction_list_mut(&mut self) -> &mut SmartList<crate::PaymentTransaction> {
-        &mut self.payment_transaction_list
-    }
-
-    pub fn eval_payment_transaction_list(&self) -> teaql_core::eval::EvalResult<&SmartList<crate::PaymentTransaction>> {
-        if !self.is_loaded("payment_transaction_list") {
-            teaql_core::eval::EvalResult::NotLoaded { failed_node: "payment_transaction_list".to_string(), attempted_path: "payment_transaction_list".to_string() }
-        } else {
-            teaql_core::eval::EvalResult::Value(&self.payment_transaction_list)
-        }
-    }
 
     pub fn mark_as_delete(&mut self) -> &mut Self {
         self.root.mark_as_delete(self.entity_key());

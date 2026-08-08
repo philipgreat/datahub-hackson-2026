@@ -1,14 +1,10 @@
 
 package com.example.paymentservice.useraccount;
 
-import com.example.paymentservice.Q;
-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
-import com.example.paymentservice.paymenttransaction.PaymentTransactionRequest;
 import io.teaql.core.AggrFunction;
 import io.teaql.core.BaseRequest;
 import io.teaql.core.PropertyReference;
 import io.teaql.core.SearchCriteria;
-import io.teaql.core.SubQuerySearchCriteria;
 import io.teaql.core.criteria.Operator;
 import io.teaql.core.criteria.TwoOperatorCriteria;
 import java.time.LocalDateTime;
@@ -99,7 +95,6 @@ public class UserAccountRequest<T extends UserAccount> extends BaseRequest<T> {
 
     public UserAccountRequest<T> selectChildren(){
         super.selectAny();
-        selectPaymentTransactionList();
         return selectId().selectUserName().selectCreateTime().selectUpdateTime().selectVersion();
     }
 
@@ -187,14 +182,6 @@ public class UserAccountRequest<T extends UserAccount> extends BaseRequest<T> {
 
     public UserAccountRequest<T> unselectVersion(){
        unselectProperty(UserAccount.VERSION_PROPERTY);
-       return this;
-    }
-    public UserAccountRequest<T> selectPaymentTransactionList(){
-       return selectPaymentTransactionListWith(Q.paymentTransactions().selectSelf());
-    }
-
-    public UserAccountRequest<T> selectPaymentTransactionListWith(PaymentTransactionRequest paymentTransactionList){
-       enhanceRelation(UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, paymentTransactionList);
        return this;
     }
 
@@ -451,21 +438,6 @@ public class UserAccountRequest<T extends UserAccount> extends BaseRequest<T> {
        return withVersion(Operator.BETWEEN, startOfVersion, endOfVersion);
     }
 
-    public UserAccountRequest<T> withPaymentTransactionListMatching(PaymentTransactionRequest paymentTransactionRequest){
-        return appendSearchCriteria(new SubQuerySearchCriteria(UserAccount.ID_PROPERTY, paymentTransactionRequest, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY));
-    }
-
-    public UserAccountRequest<T> withoutPaymentTransactionListMatching(PaymentTransactionRequest paymentTransactionRequest){
-        return appendSearchCriteria(SearchCriteria.not(new SubQuerySearchCriteria(UserAccount.ID_PROPERTY, paymentTransactionRequest, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY)));
-    }
-
-    public UserAccountRequest<T> havePaymentTransactions(){
-        return withPaymentTransactionListMatching(Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> haveNoPaymentTransactions(){
-        return withoutPaymentTransactionListMatching(Q.paymentTransactions().unlimited());
-    }
 
     public UserAccountRequest<T> count(){
         super.count();
@@ -474,10 +446,6 @@ public class UserAccountRequest<T extends UserAccount> extends BaseRequest<T> {
     public UserAccountRequest<T> countAs(String retName){
         super.count(retName);
         return this;
-    }
-    public UserAccountRequest<T> groupByPaymentTransactionsWithDetails(PaymentTransactionRequest subRequest){
-       aggregate(UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, subRequest);
-       return this;
     }
 
     public UserAccountRequest<T> groupById(){
@@ -616,118 +584,6 @@ public class UserAccountRequest<T extends UserAccount> extends BaseRequest<T> {
     }
 
 
-    public UserAccountRequest<T> statsFromPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-       return statsFromPaymentTransactionsAs(name, subRequest, false);
-    }
-
-    public UserAccountRequest<T> statsFromPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest, boolean singleResult){
-       subRequest.setPartitionProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
-       addAggregateDynamicProperty(name, subRequest, singleResult);
-       return this;
-    }
-
-    public UserAccountRequest<T> statsFromPaymentTransactions(PaymentTransactionRequest subRequest){
-       return statsFromPaymentTransactionsAs(REFINEMENTS, subRequest);
-    }
-    public UserAccountRequest<T> countPaymentTransactions(){
-        return countPaymentTransactionsAs("Count");
-    }
-
-    public UserAccountRequest<T> countPaymentTransactionsAs(String name){
-        return countPaymentTransactionsWith(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> countPaymentTransactionsWith(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.count(), true);
-    }
-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactions(){
-        return minTransactionAmountOfPaymentTransactionsAs("minTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactionsAs(String name){
-        return minTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> minTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.minTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactions(){
-        return maxTransactionAmountOfPaymentTransactionsAs("maxTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactionsAs(String name){
-        return maxTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> maxTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.maxTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactions(){
-        return sumTransactionAmountOfPaymentTransactionsAs("sumTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactionsAs(String name){
-        return sumTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> sumTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.sumTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactions(){
-        return avgTransactionAmountOfPaymentTransactionsAs("avgTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactionsAs(String name){
-        return avgTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> avgTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.avgTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactions(){
-        return standardDeviationTransactionAmountOfPaymentTransactionsAs("stdDevTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactionsAs(String name){
-        return standardDeviationTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> standardDeviationTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.standardDeviationTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactions(){
-        return squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs("stdDevPopTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(String name){
-        return squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> squareRootOfPopulationStandardDeviationTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.squareRootOfPopulationStandardDeviationTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactions(){
-        return sampleVarianceTransactionAmountOfPaymentTransactionsAs("varSampTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactionsAs(String name){
-        return sampleVarianceTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> sampleVarianceTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.sampleVarianceTransactionAmount(), true);
-    }
-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactions(){
-        return samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs("varPopTransactionAmountOfPaymentTransactions");
-    }
-
-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(String name){
-        return samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(name, Q.paymentTransactions().unlimited());
-    }
-
-    public UserAccountRequest<T> samplePopulationVarianceTransactionAmountOfPaymentTransactionsAs(String name, PaymentTransactionRequest subRequest){
-        return statsFromPaymentTransactionsAs(name, subRequest.samplePopulationVarianceTransactionAmount(), true);
-    }
 
 
 

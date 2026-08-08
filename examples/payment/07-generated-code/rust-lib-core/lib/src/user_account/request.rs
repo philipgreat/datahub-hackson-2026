@@ -487,12 +487,6 @@ impl<R> UserAccountRequest<R> {
     fn apply_dynamic_json_chain_filter(self, head: &str, tail: &str, value: &JsonValue) -> Self {
         let _ = (tail, value);
         match head {
-            "payment_transaction_list" => {
-                self.with_payment_transaction_list_matching(
-                    crate::Q::payment_transactions_minimal()
-                        .apply_dynamic_json_filter(tail, value),
-                )
-            }
             _ => self,
         }
     }
@@ -591,9 +585,7 @@ impl<R> UserAccountRequest<R> {
     }
 
     pub fn select_children(self) -> Self {
-        let mut request = self.select_all();
-        request = request.select_payment_transaction_list();
-        request
+        self.select_all()
     }
 
     pub fn select_any(self) -> Self {
@@ -1696,172 +1688,6 @@ impl<R> UserAccountRequest<R> {
 
 
 
-    pub fn have_payment_transactions(self) -> Self {
-        self.with_payment_transaction_list_matching(SelectQuery::new("PaymentTransaction"))
-    }
-
-    pub fn have_no_payment_transactions(self) -> Self {
-        self.without_payment_transaction_list_matching(SelectQuery::new("PaymentTransaction"))
-    }
-
-    pub fn with_payment_transaction_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::in_subquery(
-            "id",
-            <crate::PaymentTransaction as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "payment_account_id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_transaction_list", selection));
-        self
-    }
-
-    pub fn without_payment_transaction_list_matching(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.and_filter(Expr::not_in_subquery(
-            "id",
-            <crate::PaymentTransaction as teaql_core::TeaqlEntity>::entity_descriptor(),
-            selection.query.clone(),
-            "payment_account_id",
-        ));
-        self.relation_filters.push(RelationFilter::new("payment_transaction_list", selection));
-        self
-    }
-
-    pub fn select_payment_transaction_list(mut self) -> Self {
-        self.query = self.query.relation("payment_transaction_list");
-        self
-    }
-
-    pub fn select_payment_transaction_list_with(mut self, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query = self.query.relation_query("payment_transaction_list", selection.clone().into_query());
-        self.relation_selections.push(RelationSelection::new("payment_transaction_list", selection));
-        self
-}
-    pub fn count_payment_transactions(self) -> Self {
-        self.count_payment_transactions_as("count_payment_transactions")
-    }
-
-    pub fn count_payment_transactions_as(self, alias: impl Into<String>) -> Self {
-        self.count_payment_transactions_with(alias, crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn count_payment_transactions_with(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query_options.relation_aggregates.push(RelationAggregate::new(
-            "payment_transaction_list",
-            alias,
-            selection,
-            true,
-        ));
-        self
-    }
-
-    pub fn stats_from_payment_transactions(self, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as("refinements", request)
-    }
-
-    pub fn stats_from_payment_transactions_as(mut self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        let selection = request.into();
-        self.query_options.relation_aggregates.push(RelationAggregate::new(
-            "payment_transaction_list",
-            alias,
-            selection,
-            false,
-        ));
-        self
-    }
-
-    pub fn group_by_payment_transactions_with_details(self, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions(request)
-    }
-
-
-    pub fn sum_transaction_amount_of_payment_transactions(self) -> Self {
-        self.sum_transaction_amount_of_payment_transactions_as("sum_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn sum_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().sum("transaction_amount", "sum_transaction_amount"))
-    }
-    pub fn min_transaction_amount_of_payment_transactions(self) -> Self {
-        self.min_transaction_amount_of_payment_transactions_as("min_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn min_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("transaction_amount", "min_transaction_amount"))
-    }
-    pub fn max_transaction_amount_of_payment_transactions(self) -> Self {
-        self.max_transaction_amount_of_payment_transactions_as("max_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn max_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("transaction_amount", "max_transaction_amount"))
-    }
-    pub fn avg_transaction_amount_of_payment_transactions(self) -> Self {
-        self.avg_transaction_amount_of_payment_transactions_as("avg_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn avg_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().avg("transaction_amount", "avg_transaction_amount"))
-    }
-    pub fn standard_deviation_transaction_amount_of_payment_transactions(self) -> Self {
-        self.standard_deviation_transaction_amount_of_payment_transactions_as("standard_deviation_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn standard_deviation_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().stddev("transaction_amount", "stdDev_transaction_amount"))
-    }
-    pub fn square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions(self) -> Self {
-        self.square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions_as("square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn square_root_of_population_standard_deviation_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().stddev_pop("transaction_amount", "stdDevPop_transaction_amount"))
-    }
-    pub fn sample_variance_transaction_amount_of_payment_transactions(self) -> Self {
-        self.sample_variance_transaction_amount_of_payment_transactions_as("sample_variance_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn sample_variance_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().var_samp("transaction_amount", "varSamp_transaction_amount"))
-    }
-    pub fn sample_population_variance_transaction_amount_of_payment_transactions(self) -> Self {
-        self.sample_population_variance_transaction_amount_of_payment_transactions_as("sample_population_variance_transaction_amount_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn sample_population_variance_transaction_amount_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().var_pop("transaction_amount", "varPop_transaction_amount"))
-    }
-    pub fn min_create_time_of_payment_transactions(self) -> Self {
-        self.min_create_time_of_payment_transactions_as("min_create_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn min_create_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("create_time", "min_create_time"))
-    }
-    pub fn max_create_time_of_payment_transactions(self) -> Self {
-        self.max_create_time_of_payment_transactions_as("max_create_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn max_create_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("create_time", "max_create_time"))
-    }
-    pub fn min_update_time_of_payment_transactions(self) -> Self {
-        self.min_update_time_of_payment_transactions_as("min_update_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn min_update_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().min("update_time", "min_update_time"))
-    }
-    pub fn max_update_time_of_payment_transactions(self) -> Self {
-        self.max_update_time_of_payment_transactions_as("max_update_time_of_payment_transactions", crate::Q::payment_transactions().unlimited())
-    }
-
-    pub fn max_update_time_of_payment_transactions_as(self, alias: impl Into<String>, request: impl Into<QuerySelection>) -> Self {
-        self.stats_from_payment_transactions_as(alias, request.into().into_query().max("update_time", "max_update_time"))
-    }
 }
 
 impl<R> Default for UserAccountRequest<R> {

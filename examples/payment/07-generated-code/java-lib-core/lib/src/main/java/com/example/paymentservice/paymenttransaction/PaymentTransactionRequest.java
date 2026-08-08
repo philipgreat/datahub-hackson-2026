@@ -1,14 +1,10 @@
 
 package com.example.paymentservice.paymenttransaction;
 
-import com.example.paymentservice.Q;
-import com.example.paymentservice.useraccount.UserAccount;
-import com.example.paymentservice.useraccount.UserAccountRequest;
 import io.teaql.core.AggrFunction;
 import io.teaql.core.BaseRequest;
 import io.teaql.core.PropertyReference;
 import io.teaql.core.SearchCriteria;
-import io.teaql.core.SubQuerySearchCriteria;
 import io.teaql.core.criteria.Operator;
 import io.teaql.core.criteria.TwoOperatorCriteria;
 import java.math.BigDecimal;
@@ -86,7 +82,7 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
 
     public PaymentTransactionRequest<T> selectSelf(){
         super.selectSelf();
-        return selectId().selectPaymentAccountIdOnly().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
+        return selectId().selectPaymentAccount().selectCurrencyCode().selectPaymentMethod().selectTransactionAmount().selectCreateTime().selectUpdateTime().selectVersion();
     }
 
     public PaymentTransactionRequest<T> selectSelfFields(){
@@ -121,20 +117,18 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
        unselectProperty(PaymentTransaction.ID_PROPERTY);
        return this;
     }
-    public PaymentTransactionRequest<T> selectPaymentAccountIdOnly(){
-       selectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
-       return this;
-    }
-
     public PaymentTransactionRequest<T> selectPaymentAccount(){
-        return selectPaymentAccountWith(Q.userAccounts().unlimited().selectSelf());
-    }
-
-    public PaymentTransactionRequest<T> selectPaymentAccountWith(UserAccountRequest paymentAccount){
        selectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
-       enhanceRelation(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount);
        return this;
     }
+
+    /**
+     * fill the paymentAccount with customized rawSqlSegment, TEAQL uses ({rawSqlSegment} AS  paymentAccount) to fetch paymentAccount property.
+     * @param rawSqlSegment  customized rawSqlSegment
+     */
+
+
+
 
     public PaymentTransactionRequest<T> unselectPaymentAccount(){
        unselectProperty(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
@@ -268,7 +262,7 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
 
 
 
-    public PaymentTransactionRequest<T> filterByPaymentAccount(UserAccount... paymentAccount){
+    public PaymentTransactionRequest<T> filterByPaymentAccount(String... paymentAccount){
       if (paymentAccount == null || paymentAccount.length == 0) {
         throw new IllegalArgumentException("filterByPaymentAccount parameter paymentAccount cannot be empty");
       }
@@ -291,15 +285,45 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
         return createBasicSearchCriteria(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, operator, values);
     }
 
-    public PaymentTransactionRequest<T> filterByPaymentAccount(Long paymentAccount){
-      if(paymentAccount == null){
-         return this;
-      }
-      return withPaymentAccount(Operator.EQUAL, paymentAccount);
+    public PaymentTransactionRequest<T> withPaymentAccountGreaterThan(String paymentAccount){
+       return withPaymentAccount(Operator.GREATER_THAN, paymentAccount);
     }
-    public PaymentTransactionRequest<T> withPaymentAccountMatching(UserAccountRequest paymentAccount){
-       return appendSearchCriteria(new SubQuerySearchCriteria(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount, UserAccount.ID_PROPERTY));
+
+    public PaymentTransactionRequest<T> withPaymentAccountGreaterThanOrEqualTo(String paymentAccount){
+       return withPaymentAccount(Operator.GREATER_THAN_OR_EQUAL, paymentAccount);
     }
+
+    public PaymentTransactionRequest<T> withPaymentAccountLessThan(String paymentAccount){
+       return withPaymentAccount(Operator.LESS_THAN, paymentAccount);
+    }
+
+    public PaymentTransactionRequest<T> withPaymentAccountLessThanOrEqualTo(String paymentAccount){
+       return withPaymentAccount(Operator.LESS_THAN_OR_EQUAL, paymentAccount);
+    }
+
+    public PaymentTransactionRequest<T> withPaymentAccountBetween(String startOfPaymentAccount, String endOfPaymentAccount){
+       return withPaymentAccount(Operator.BETWEEN, startOfPaymentAccount, endOfPaymentAccount);
+    }
+    public PaymentTransactionRequest<T> withPaymentAccountStartingWith(String paymentAccount){
+       return withPaymentAccount(Operator.BEGIN_WITH, paymentAccount);
+    }
+    public PaymentTransactionRequest<T> withPaymentAccountContaining(String paymentAccount){
+       return withPaymentAccount(Operator.CONTAIN, paymentAccount);
+    }
+
+    public PaymentTransactionRequest<T> withPaymentAccountEndingWith(String paymentAccount){
+       return withPaymentAccount(Operator.END_WITH, paymentAccount);
+    }
+
+    public PaymentTransactionRequest<T> withPaymentAccountIs(String paymentAccount){
+       return withPaymentAccount(Operator.EQUAL, paymentAccount);
+    }
+
+    public PaymentTransactionRequest<T> withPaymentAccountSoundingLike(String paymentAccount){
+       return withPaymentAccount(Operator.SOUNDS_LIKE, paymentAccount);
+    }
+
+
 
     public PaymentTransactionRequest<T> filterByCurrencyCode(String... currencyCode){
       if (currencyCode == null || currencyCode.length == 0) {
@@ -718,21 +742,6 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
         super.samplePopulationVariance(retName, PaymentTransaction.TRANSACTION_AMOUNT_PROPERTY);
         return this;
     }
-    public PaymentTransactionRequest<T> groupByPaymentAccountWithDetails(){
-       return groupByPaymentAccountWithDetails(Q.userAccounts().unlimited());
-    }
-
-    public PaymentTransactionRequest<T> groupByPaymentAccountWithDetails(UserAccountRequest subRequest){
-       aggregate(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, subRequest);
-       return this;
-    }
-
-
-
-
-
-
-
 
     public PaymentTransactionRequest<T> groupById(){
        groupBy(PaymentTransaction.ID_PROPERTY);
@@ -748,10 +757,7 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
        groupBy(retName, PaymentTransaction.ID_PROPERTY, function);
        return this;
     }
-    public PaymentTransactionRequest<T> groupByPaymentAccountWith(UserAccountRequest subRequest){
-       groupBy(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, subRequest);
-       return this;
-    }
+
     public PaymentTransactionRequest<T> groupByPaymentAccount(){
        groupBy(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
        return this;
@@ -878,7 +884,15 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
        addOrderByDescending(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
        return this;
     }
+    public PaymentTransactionRequest<T> orderByPaymentAccountAscendingUsingGBK(){
+       addOrderByAscendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+       return this;
+    }
 
+    public PaymentTransactionRequest<T> orderByPaymentAccountDescendingUsingGBK(){
+       addOrderByDescendingUsingGBK(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY);
+       return this;
+    }
     public PaymentTransactionRequest<T> orderByCurrencyCodeAscending(){
        addOrderByAscending(PaymentTransaction.CURRENCY_CODE_PROPERTY);
        return this;
@@ -956,28 +970,7 @@ public class PaymentTransactionRequest<T extends PaymentTransaction> extends Bas
     }
 
 
-    public UserAccountRequest rollUpToPaymentAccount(){
-       UserAccountRequest paymentAccount = Q.userAccounts().unlimited();
-       this.withPaymentAccountMatching(paymentAccount)
-           .groupByPaymentAccountWith(paymentAccount);
-       return paymentAccount;
-    }
 
-
-
-
-
-
-
-
-   public PaymentTransactionRequest<T> facetByPaymentAccountAs(String facetName, UserAccountRequest paymentAccount){
-       return facetByPaymentAccountAs(facetName, paymentAccount, true);
-   }
-
-   public PaymentTransactionRequest<T> facetByPaymentAccountAs(String facetName, UserAccountRequest paymentAccount, boolean includeAllFacets){
-       addFacet(facetName, PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, paymentAccount, includeAllFacets);
-       return this;
-   }
 
 
     /**

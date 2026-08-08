@@ -1,56 +1,50 @@
-# Evidence Mapping: DataHub MCP to TeaQL Code Generation
+# Verified Evidence: DataHub MCP to TeaQL Runtime Masking
 
-> **Current scope**
->
-> - MCP `get_entities`: VERIFIED
-> - TeaQL model: PARTIALLY VERIFIED
-> - Online generation: VERIFIED WITH LIMITATIONS
-> - Generated Java/Rust library compilation: VERIFIED
-> - Payment runtime masking: PENDING
-> - Cross-dataset relationship grounding: PENDING / AGENT INFERENCE
-> - Clean Docker/DataHub health: PENDING
+## Status
 
-The DataHub MCP Server is used by an external coding agent during development. Generated Rust and Java code does not call MCP at runtime.
+- DataHub container health and ingestion: **VERIFIED**
+- MCP `tools/list`, `get_entities`, and `get_lineage`: **VERIFIED**
+- Model evaluation (`Errors: 0`): **VERIFIED**
+- Java/Rust generation through loopback TeaQL service: **VERIFIED**
+- Java generated library compilation: **VERIFIED; ZERO TESTS**
+- Rust generated library compilation and safe-event masking: **VERIFIED; 1 TEST PASSED**
+- Default Rust raw trace masking: **NOT VERIFIED / OUTSIDE SAFE-EVENT CLAIM**
+- Generated-source repeatability: **VERIFIED**
+- Screenshots, public video, and invalid-schema/agent behavior: **PENDING**
 
-## 1. Captured MCP Request
+## 1. Runtime Environment
 
-The following request metadata is synchronized with `examples/payment/03-mcp-tool-calls.jsonl`:
+`examples/payment/run/environment.txt` records the evidence host, Git base commit, Java, Maven, Rust, Cargo, Python, MCP Server, local generator, and DataHub image versions. Node.js is explicitly recorded as not installed. The worktree was intentionally dirty during capture, so this run is not described as a clean-checkout run.
 
-```json
-{
-  "timestamp": "2026-08-07T19:01:27.658225Z",
-  "tool": "get_entities",
-  "arguments": {
-    "urns": [
-      "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)",
-      "urn:li:dataset:(urn:li:dataPlatform:hive,fct_users_created,PROD)"
-    ]
-  }
-}
+`examples/payment/run/datahub-setup.log` contains real `docker ps`, Docker health JSON, HTTP status `200`, and ingestion output. It replaces the earlier mocked status as the verification source.
+
+## 2. MCP Evidence
+
+`examples/payment/03-mcp-tool-calls.jsonl` contains three timestamped, sanitized records:
+
+1. `list_tools`;
+2. `get_entities` for both dataset URNs;
+3. `get_lineage` for the payment dataset.
+
+The entity call returns the payment fields and the sensitive dataset description. The captured field tag arrays are empty. The lineage result reports upstream total `0`. No captured glossary, lineage, foreign-key, or join metadata supports a relationship between `payment_account` and the separately fetched user dataset.
+
+`examples/payment/04-datahub-context.json` is mechanically derived from the sanitized `get_entities` JSONL record.
+
+## 3. Canonical Model
+
+Model SHA-256:
+
+```text
+48e44bb6dac1437cb806b1a00653b693c8c6cb4c12e87edf67afe4721a5bff64
 ```
 
-The JSONL record contains the sanitized response. Its consolidated form is stored in `examples/payment/04-datahub-context.json`.
-
-## 2. What the MCP Response Establishes
-
-The response establishes:
-
-- dataset `payment_transactions` and fields `payment_account`, `currency_code`, `payment_method`, and `transaction_amount`;
-- dataset `fct_users_created` and field `user_name`;
-- native field types and nullability;
-- a payment dataset description stating that sensitive payment-account data requires audit and masking treatment.
-
-It does **not** contain a glossary term, lineage edge, foreign key, or documented join connecting `payment_account` to `user_account`. The captured field tag arrays are empty. Accordingly, the TeaQL relation `payment_account="user_account()"` is an agent/TeaQL modeling inference, not a verified DataHub relationship.
-
-## 3. Recorded TeaQL Model
-
-The canonical model is `examples/payment/05-generated-model.xml`. Its relevant entity is:
+Relevant model fragment:
 
 ```xml
 <payment_transaction _name="Payment Transaction"
                      _module="Core"
                      _module_key="core"
-                     payment_account="user_account()"
+                     payment_account="string()"
                      currency_code="string()"
                      payment_method="string()"
                      transaction_amount="150.00"
@@ -59,52 +53,62 @@ The canonical model is `examples/payment/05-generated-model.xml`. Its relevant e
                      update_time="updateTime()"/>
 ```
 
-`create_time`, `update_time`, IDs, versions, and other base properties in generated code are TeaQL framework fields rather than DataHub business fields. `transaction_amount="150.00"` is the TeaQL decimal-model syntax selected from the captured `DECIMAL` type; it is not a captured transaction value.
+The scalar `payment_account` matches the captured `VARCHAR`. The prior unsupported `user_account()` relation was removed after `get_lineage` returned no relationship. `create_time`, `update_time`, IDs, and versions are TeaQL framework fields.
 
-## 4. Context-to-Code Mapping
+The local evaluation report in `examples/payment/run/model-eval.log` records `Errors: 0`. Its warnings concern generic sample values, independent entities, and a suggestion for `user_name`; none contradict the payment masking rule.
 
-| Captured source | Model output | Generated output | Verification boundary |
-| --- | --- | --- | --- |
-| `payment_transactions` dataset | `<payment_transaction ...>` | `PaymentTransaction` types | Entity naming recorded |
-| `transaction_amount` / `DECIMAL` | `transaction_amount="150.00"` | Numeric property APIs | Compilation verified |
-| Sensitive payment description | `_audit_mask_fields="payment_account"` | Java `audit_mask_fields` and Rust `audit_mask_fields` metadata | Metadata propagation verified; runtime masking pending |
-| Two separately fetched datasets | `payment_account="user_account()"` | Typed relation APIs | Agent inference; DataHub relationship not verified |
+## 4. Internal Generation
 
-Generated metadata can be inspected in:
+The generator ran on the evidence host at `http://127.0.0.1:18080/`, version `20260804.173835`. Both clients explicitly show this endpoint in their raw logs, so the model was not sent to `api.teaql.io` during final generation.
 
-- `examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java`
-- `examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/entity.rs`
+- Java: Maven plugin `1.1.0`, `service=java-lib-core`.
+- Rust: cargo-teaql `2.0.8`, target `rust-lib-core`.
+- Output began under a new `/tmp/payment-gen.*` directory.
+- `examples/payment/run/generated-files.sha256` records the final output manifest.
+- `examples/payment/08-generated.diff` compares the previous checked-in sources with the final locally generated sources; ZIP files are covered by checksums.
+- `examples/payment/run/repeat-generation.log` records a second empty-directory generation. Java and Rust generated sources matched after excluding archives, the handwritten Rust test, Cargo.lock, and build directories.
 
-## 5. Generation and Compilation Evidence
+## 5. Compilation and Runtime Masking
 
-`examples/payment/run/generator.log` records successful Java and Rust online generation commands and exit codes for `payment-service`. The Java section contains Maven plugin output; the Rust section is a shorter summary. The current artifacts do not prove that both output directories were empty before generation, include a model SHA-256, or demonstrate deterministic repeat generation.
+### Java
 
-The checked-in payment libraries have successful compilation records:
+`examples/payment/run/build-and-test/payment-service-java.log` records compilation of 19 Java sources and `BUILD SUCCESS`. Maven reports `No tests to run`; therefore Java runtime masking is not claimed.
 
-- Java: `examples/payment/run/build-and-test/payment-service-java.log`
-- Rust: `examples/payment/run/build-and-test/payment-service-rust.log`
+### Rust
 
-The Java log identifies the payment project and 19 compiled sources. The Rust log records only a successful dev-profile completion and exit code, so its command, manifest, crate, and timestamp remain TODO items.
+The handwritten integration test is:
 
-## 6. Runtime and ERP Evidence Boundaries
+```text
+examples/payment/07-generated-code/rust-lib-core/lib/tests/runtime_masking.rs
+```
 
-No test currently proves payment-service runtime masking. The pre-existing ERP sample tests are separate evidence:
+It exercises this chain:
 
-- Java directly instantiates a KYC interceptor; it is not a Spring MVC integration or masking test.
-- Rust tests a numeric data-quality filter; it is not a masking or lineage test.
-- `rust-web-topcoat/lib` compilation proves only that generated library, not a Topcoat web application.
+```text
+generated PaymentTransaction descriptor
+  -> RuntimeModule metadata
+  -> UserContext.send_event(RawAuditEvent)
+  -> SafeAuditEvent construction
+  -> SafeAuditEventSink
+```
 
-These ERP results cannot substitute for payment runtime policy verification.
+The raw test log contains:
 
-## 7. Unverified Items
+```text
+MASKING_EVIDENCE entity=PaymentTransaction field=payment_account masked=true reason=_audit_mask_fields raw_present=false
+test result: ok. 1 passed; 0 failed
+```
 
-The following remain in `EVIDENCE_TODO.md`:
+The test also asserts that non-sensitive `currency_code` is not masked. It uses a synthetic account value and verifies that value is absent from the safe event.
 
-- real Docker container status and DataHub health checks;
-- complete tool and image versions;
-- relationship/glossary/lineage grounding or explicit confirmation that none exists;
-- model evaluation output and model SHA-256;
-- empty-output and repeat-generation evidence;
-- complete Rust generation and compilation logs;
-- payment runtime masking/KYC tests;
-- failure-behavior tests, screenshots, and demo video.
+## 6. Raw Logger Boundary
+
+TeaQL's default raw trace logger is separate from `SafeAuditEventSink` and can contain raw mutation values. The final evidence command uses `TEAQL_AUDIT_LOG=_silent` to prevent raw trace output while testing the safe-event path. The verified claim is therefore:
+
+> Generated masking metadata is consumed by the Rust TeaQL runtime to mask `payment_account` in `SafeAuditEvent` output.
+
+It is **not** a claim that every internal or raw log sink is automatically masked.
+
+## 7. Remaining Work
+
+`EVIDENCE_TODO.md` retains the unverified items, notably clean-checkout capture, invalid-schema/agent behavior, coding-agent product/version capture, screenshots, and public video. KYC and lineage write-back are not used as substitutes for masking evidence.

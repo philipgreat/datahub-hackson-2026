@@ -1,14 +1,101 @@
-82f5e0efd30f414d8d9a6a499babd8ac78a61a3b
+Script started on 2026-08-08 09:54:30+08:00 [<not executed on terminal>]
+CAPTURED_AT_UTC=2026-08-08T01:54:30Z
+WORKSPACE=<workspace>
+GIT_COMMIT=55405cae86c46e7e6ccb7b3edb9f78f98e0d59b2
+GIT_STATUS_BEGIN
+ M examples/payment/03-mcp-tool-calls.jsonl
+ M examples/payment/05-generated-model.xml
+ M examples/payment/07-generated-code/java-lib-core/domain.zip
+ M examples/payment/07-generated-code/java-lib-core/lib/pom.xml
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Constants.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransaction.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionChecker.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionExpression.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/paymenttransaction/PaymentTransactionRequest.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountChecker.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountExpression.java
+ M examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccountRequest.java
+ M examples/payment/07-generated-code/rust-lib-core/domain.zip
+ M examples/payment/07-generated-code/rust-lib-core/lib/Cargo.toml
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/e.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/checker.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/entity.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/expression.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/request.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/runtime.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/sample_data.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/user_account/checker.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/user_account/entity.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/user_account/expression.rs
+ M examples/payment/07-generated-code/rust-lib-core/lib/src/user_account/request.rs
+ M examples/payment/run/build-and-test/payment-service-java.log
+ M examples/payment/run/build-and-test/payment-service-rust.log
+ M examples/payment/run/cargo_generate.log
+ M examples/payment/run/datahub-setup.log
+ M examples/payment/run/environment.txt
+ M examples/payment/run/maven_generate.log
+ M mcp_client.py
+?? build.log
+?? examples/payment/07-generated-code/rust-lib-core/lib/tests/
+?? examples/payment/collect_evidence.sh
+?? examples/payment/run/model-eval.log
+?? rust-web-topcoat/lib/Cargo.lock
+GIT_STATUS_END
 Linux canada-mini-host 6.8.0-124-generic #124~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 21:05:19 UTC  x86_64 x86_64 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 22.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="22.04"
+VERSION="22.04.5 LTS (Jammy Jellyfish)"
+VERSION_CODENAME=jammy
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=jammy
 openjdk version "25.0.2" 2026-01-20
 OpenJDK Runtime Environment GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01)
 OpenJDK 64-Bit Server VM GraalVM CE 25.0.2+10.1 (build 25.0.2+10-jvmci-b01, mixed mode, sharing)
-Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
-Maven home: /opt/workspace/.sdkman/candidates/maven/current
-Java version: 25.0.2, vendor: GraalVM Community, runtime: /opt/workspace/.sdkman/candidates/java/25.0.2-graalce
-Default locale: zh_CN, platform encoding: UTF-8
+[1mApache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)[m
+Maven home: /home/philip/.sdkman/candidates/maven/current
+Java version: 25.0.2, vendor: GraalVM Community, runtime: /home/philip/.sdkman/candidates/java/25.0.2-graalce
+Default locale: en, platform encoding: UTF-8
 OS name: "linux", version: "6.8.0-124-generic", arch: "amd64", family: "unix"
+[0m[0mrustc 1.97.1 (8bab26f4f 2026-07-14)
 cargo 1.97.1 (c980f4866 2026-06-30)
+teaql 2.0.8
 Python 3.10.12
- M EVIDENCE.md
- M examples/payment/run/environment.txt
+Node.js: NOT INSTALLED
+Name: mcp-server-datahub
+Version: 0.4.0
+Summary: A Model Context Protocol (MCP) server for DataHub
+Home-page: 
+Author: 
+Author-email: 
+License-Expression: Apache-2.0
+Location: /home/philip/.local/lib/python3.10/site-packages
+TEAQL_GENERATOR_ENDPOINT=http://127.0.0.1:18080/
+# TeaQL Component Versions
+
+| Component | Version |
+| --- | --- |
+| **Generator Server** | `20260804.173835` |
+| **teaql-java** | `1.526-RELEASE` |
+| **teaql-rs** | `4.2.3` |
+
+### Recent Server Commits
+
+```text
+5385950 [2026-08-04 17:12:53] fix: generate check_and_fix timestamp assignments
+8c6e1e3 [2026-08-03 12:04:33] fix: resolve No such group file bug for java-app-console target
+464b1fe [2026-08-02 23:42:51] chore: bump teaql-rs runtime version to 4.2.3
+4e8b971 [2026-08-02 23:03:43] refactor(rust): use custom Timestamp type instead of chrono::DateTime
+8a3a84a [2026-08-02 16:24:44] feat: inject DISCARD_BLOCK phase_modeling into AGENTS.md templates
+```
+DATAHUB_GMS_IMAGE_ID=sha256:4d2af90baec462b81646bef14435d1b5eb8220db8548d51a0392bde6fc6b297e
+DATAHUB_GMS_REPO_DIGEST=acryldata/datahub-gms@sha256:e4ddb32747032011f8df49dc2c10a16f139b289c8d722e7614806ede4edb2d95
+
+Script done on 2026-08-08 09:54:33+08:00 [COMMAND_EXIT_CODE="0"]

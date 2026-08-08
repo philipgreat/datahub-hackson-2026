@@ -1,36 +1,34 @@
 # Build and Test Summary
 
-This summary distinguishes the generated payment libraries from the pre-existing ERP application workspaces. It does not treat compilation, KYC, data quality, masking, and lineage as interchangeable evidence.
+## Generated Payment Java Library
 
-## Generated Payment Libraries
+- **Manifest:** `examples/payment/07-generated-code/java-lib-core/lib/pom.xml`
+- **Command:** Maven `clean test` with Java 25
+- **Result:** 19 sources compiled; `BUILD SUCCESS`
+- **Tests:** `No tests to run`
+- **Claim:** compilation only; no Java runtime masking claim
+- **Raw log:** `examples/payment/run/build-and-test/payment-service-java.log`
 
-| Target | Recorded result | Tests | Limitation |
-| --- | --- | --- | --- |
-| `examples/payment/07-generated-code/java-lib-core/lib` | Maven compiled 19 sources; exit code 0 | No payment tests recorded | Compilation only |
-| `examples/payment/07-generated-code/rust-lib-core/lib` | Cargo dev profile finished; exit code 0 | No payment tests recorded | Raw log omits command, manifest, crate, and timestamp |
+## Generated Payment Rust Library
 
-Raw logs:
+- **Manifest:** `examples/payment/07-generated-code/rust-lib-core/lib/Cargo.toml`
+- **Command:** `TEAQL_AUDIT_LOG=_silent cargo test --locked --offline -- --nocapture`
+- **Unit tests:** 0
+- **Integration tests:** 1 passed, 0 failed
+- **Test:** `tests/runtime_masking.rs`
+- **Raw log:** `examples/payment/run/build-and-test/payment-service-rust.log`
 
-- `examples/payment/run/build-and-test/payment-service-java.log`
-- `examples/payment/run/build-and-test/payment-service-rust.log`
+The integration test registers a `SafeAuditEventSink`, sends a `RawAuditEvent` through the generated module's `UserContext`, and verifies that generated `audit_mask_fields` metadata causes `payment_account` to be masked. It asserts:
 
-Payment runtime policy verification remains pending.
+- `masked == true`;
+- `mask_reason == "_audit_mask_fields"`;
+- the synthetic raw account is absent;
+- the non-sensitive `currency_code` remains unmasked.
 
-## Pre-existing ERP Java Application
+## Security Boundary
 
-- **Workspace:** `java-web-spring-boot`
-- **Test:** `com.example.enterpriseerpsystem.KycAuthInterceptorTest`
-- **Recorded result:** 4 tests, 0 failures, 0 errors, 0 skipped
-- **Scope:** direct class-instantiation checks of basic KYC header logic
-- **Not proven:** Spring MVC registration/integration, payment masking, or DataHub lineage
+The test verifies TeaQL's safe audit event path. The separate default raw trace logger is silenced with its documented `TEAQL_AUDIT_LOG=_silent` setting and is not claimed to be masked.
 
-## Pre-existing ERP Rust Console
+## Unrelated ERP Tests
 
-- **Workspace:** `rust-app-console`
-- **Recorded result:** 1 passed, 0 failed
-- **Scope:** numeric data-quality filtering of non-positive transaction amounts
-- **Not proven:** masking, KYC, or DataHub lineage
-
-## Other ERP Workspaces
-
-The recorded `run_all.log` shows compilation with zero tests for several Java/Rust workspaces. For `rust-web-topcoat`, only `rust-web-topcoat/lib` was compiled; no Topcoat web application manifest was present or verified.
+Pre-existing ERP KYC and numeric data-quality tests are not used as evidence for payment masking, Spring MVC integration, or DataHub lineage.

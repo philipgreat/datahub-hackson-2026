@@ -51,10 +51,6 @@ impl<'a> UserAccountExpression<'a> {
         let next = self.result.and_then("version", |entity| entity.eval_version());
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
-    pub fn get_payment_transaction_list(self) -> crate::PaymentTransactionListExpression<'a> {
-        let next = self.result.and_then("payment_transaction_list", |entity| entity.eval_payment_transaction_list());
-        crate::PaymentTransactionListExpression::new(next, self.root_desc.clone())
-    }
 }
 
 #[derive(Clone)]

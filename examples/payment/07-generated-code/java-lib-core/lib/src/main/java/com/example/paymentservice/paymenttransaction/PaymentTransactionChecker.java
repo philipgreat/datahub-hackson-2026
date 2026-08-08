@@ -1,8 +1,6 @@
 
 package com.example.paymentservice.paymenttransaction;
 
-import com.example.paymentservice.useraccount.UserAccount;
-import com.example.paymentservice.useraccount.UserAccountChecker;
 import io.teaql.core.UserContext;
 import io.teaql.core.checker.Checker;
 import io.teaql.core.checker.ObjectLocation;
@@ -43,12 +41,13 @@ public class PaymentTransactionChecker implements Checker<PaymentTransaction>{
       checkUpdateTime(_ctx, paymentTransaction.getProperty(PaymentTransaction.UPDATE_TIME_PROPERTY), newLocation(_parentLocation, PaymentTransaction.UPDATE_TIME_PROPERTY));
     }
 
-    public void checkPaymentAccount(UserContext _ctx, UserAccount paymentAccount, ObjectLocation _parentLocation){
+    public void checkPaymentAccount(UserContext _ctx, String paymentAccount, ObjectLocation _parentLocation){
     requiredCheck(_ctx, _parentLocation, paymentAccount);
     if((paymentAccount == null)){
         return;
     }
-    new UserAccountChecker().checkAndFix(_ctx, paymentAccount, _parentLocation);
+    maxStringCheck(_ctx, _parentLocation, 100, paymentAccount);
+
     }
     public void checkCurrencyCode(UserContext _ctx, String currencyCode, ObjectLocation _parentLocation){
     requiredCheck(_ctx, _parentLocation, currencyCode);

@@ -142,7 +142,7 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.ID_PROPERTY, Long.class)
       ;
       PropertyDescriptor paymentAccount = 
-      entityDescriptor.addObjectProperty($factory, com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, com.example.paymentservice.useraccount.UserAccount.INTERNAL_TYPE, com.example.paymentservice.useraccount.UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, com.example.paymentservice.useraccount.UserAccount.class)
+      entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, String.class)
       ;
       PropertyDescriptor currencyCode = 
       entityDescriptor.addSimpleProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY, String.class)
@@ -178,11 +178,27 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       .with("isTime", "false")
       .with("isText", "false");
 
+      entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY).with("isPassword", "false")
+      .with("max", "100")
+      .with("isVersion", "false")
+      .with("javaType", "java.lang.String")
+      .with("candidates", "string()")
+      .with("sqlType", "VARCHAR(<max>)")
+      .with("isId", "false")
+      .with("isBool", "false")
+      .with("isBaseEntityField", "false")
+      .with("isNumber", "false")
+      .with("isString", "true")
+      .with("isDate", "false")
+      .with("graphqlType", "String")
+      .with("isTime", "false")
+      .with("isText", "false");
 
       entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CURRENCY_CODE_PROPERTY).with("isPassword", "false")
       .with("max", "100")
       .with("isVersion", "false")
       .with("javaType", "java.lang.String")
+      .with("candidates", "string()")
       .with("sqlType", "VARCHAR(<max>)")
       .with("isId", "false")
       .with("isBool", "false")
@@ -198,6 +214,7 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       .with("max", "100")
       .with("isVersion", "false")
       .with("javaType", "java.lang.String")
+      .with("candidates", "string()")
       .with("sqlType", "VARCHAR(<max>)")
       .with("isId", "false")
       .with("isBool", "false")
@@ -214,6 +231,7 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       .with("isVersion", "false")
       .with("oracle_sqlType", "number(19,7)")
       .with("javaType", "java.math.BigDecimal")
+      .with("candidates", "150.00")
       .with("sqlType", "NUMERIC(19,7)")
       .with("isId", "false")
       .with("isBool", "false")
@@ -228,6 +246,7 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       entityDescriptor.findProperty(com.example.paymentservice.paymenttransaction.PaymentTransaction.CREATE_TIME_PROPERTY).with("isPassword", "false")
       .with("isVersion", "false")
       .with("javaType", "java.time.LocalDateTime")
+      .with("candidates", "createTime()")
       .with("sqlType", "TIMESTAMP")
       .with("isId", "false")
       .with("isBool", "false")
@@ -246,6 +265,7 @@ public class EntityMetaRegistry implements EntityMetaAssembler {
       .with("isVersion", "false")
       .with("updateFunction", "now")
       .with("javaType", "java.time.LocalDateTime")
+      .with("candidates", "updateTime()")
       .with("sqlType", "TIMESTAMP")
       .with("isId", "false")
       .with("isBool", "false")

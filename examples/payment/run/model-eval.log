@@ -1,0 +1,74 @@
+Script started on 2026-08-08 09:43:44+08:00 [<not executed on terminal>]
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m------------------< [0;36morg.apache.maven:standalone-pom[0;1m >-------------------[m
+[[1;34mINFO[m] [1mBuilding Maven Stub Project (No POM) 1[m
+[[1;34mINFO[m] [1m--------------------------------[ pom ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mteaql:1.1.0:eval[m [1m(default-cli)[m @ [36mstandalone-pom[0;1m ---[m
+[[1;34mINFO[m] 
+  config (precedence: mojo > env > config.yml > default):
+    endpoint_prefix  = http://127.0.0.1:18080/  (from: env TEAQL_ENDPOINT_PREFIX)
+    api_key          = ********  (from: built-in default OOTB key)
+    build_dir        = /home/philip/githome/datahub-hackson-2026/generated-lib  (from: mojo parameter (-Dteaql.output))
+    timeout_seconds  = 1200  (from: ~/.teaql/config.yml (or built-in default))
+
+  api_key permissions:
+    subject = default-user
+    plan    = free
+    expires = 2026-12-08 07:22:24 UTC (122 days remaining)
+
+[[1;34mINFO[m] using http://127.0.0.1:18080/evaluate
+<!-- ephemeral -->
+# KSML Evaluation Report
+## 📊 Summary
+- **Errors**: 0
+- **Warnings**: 5
+- **Suggestions**: 1
+- **Solids**: 6
+
+## ⚠️ Warnings
+
+| Rule ID | Target | Warning Message |
+|---------|--------|-----------------|
+| `KSML-BUSINESS-002` | `user_account.user_name` | Field 'user_name' in business object 'user_account' should preferably use a rich concrete typical value instead of generic string(). |
+| `KSML-BUSINESS-002` | `payment_transaction.currency_code` | Field 'currency_code' in business object 'payment_transaction' should preferably use a rich concrete typical value instead of generic string(). |
+| `KSML-BUSINESS-002` | `payment_transaction.payment_account` | Field 'payment_account' in business object 'payment_transaction' should preferably use a rich concrete typical value instead of generic string(). |
+| `KSML-BUSINESS-002` | `payment_transaction.payment_method` | Field 'payment_method' in business object 'payment_transaction' should preferably use a rich concrete typical value instead of generic string(). |
+| `KSML-DOMAIN-ROOT-002` | `` | Multiple independent business objects found: user_account, payment_transaction. The model may have disconnected graphs. |
+
+
+## 💡 Suggestions
+
+| Rule ID | Target | Suggestion |
+|---------|--------|------------|
+| `KSML-PRIVACY-001-SUG` | `user_account.user_name` | Personal attribute field. Add `user_name` to `_audit_mask_fields` (e.g., `<user_account _audit_mask_fields="user_name">`). |
+
+
+## Privacy Findings
+
+| Severity | Target | Reason | Recommended Action | Regulatory Basis |
+|----------|--------|--------|--------------------|------------------|
+| Suggestion | `user_account.user_name` | Personal attribute field. | Add to `_audit_mask_fields="user_name"`. | GDPR Art. 4: identifier |
+
+
+## ✅ Solids
+
+| Rule ID | Target | Message |
+|---------|--------|---------|
+| `KSML-UPLOAD-001` | `` | The upload contains 1 files. |
+| `KSML-UPLOAD-005` | `` | Resolved entrypoint: 05-generated-model.xml |
+| `KSML-XML-002` | `` | The XML document 05-generated-model.xml was parsed successfully. |
+| `KSML-ROOT-003` | `` | Root name 'payment-service' is well-formed. |
+| `KSML-OBJECT-001` | `user_account` | Object 'user_account' defines display name, module, and module key metadata. |
+| `KSML-OBJECT-001` | `payment_transaction` | Object 'payment_transaction' defines display name, module, and module key metadata. |
+
+
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  1.029 s
+[[1;34mINFO[m] Finished at: 2026-08-08T09:43:46+08:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[0m[0m
+Script done on 2026-08-08 09:43:46+08:00 [COMMAND_EXIT_CODE="0"]

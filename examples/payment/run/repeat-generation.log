@@ -1,4 +1,9 @@
-Script started on 2026-08-08 09:44:47+08:00 [<not executed on terminal>]
+Script started on 2026-08-08 10:02:37+08:00 [<not executed on terminal>]
+STARTED_AT_UTC=2026-08-08T02:02:37Z
+MODEL_SHA256=48e44bb6dac1437cb806b1a00653b693c8c6cb4c12e87edf67afe4721a5bff64
+REPEAT_OUTPUT_ROOT=/tmp/payment-repeat.BRRpyc
+EMPTY_ENTRY_COUNT=0
+COMMAND=TEAQL_ENDPOINT_PREFIX=http://127.0.0.1:18080/ mvn teaql:generate -Dservice=java-lib-core
 [[1;34mINFO[m] Scanning for projects...
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m------------------< [0;36morg.apache.maven:standalone-pom[0;1m >-------------------[m
@@ -10,7 +15,7 @@ Script started on 2026-08-08 09:44:47+08:00 [<not executed on terminal>]
   config (precedence: mojo > env > config.yml > default):
     endpoint_prefix  = http://127.0.0.1:18080/  (from: env TEAQL_ENDPOINT_PREFIX)
     api_key          = ********  (from: built-in default OOTB key)
-    build_dir        = /tmp/payment-gen.nDjElC/java-lib-core  (from: mojo parameter (-Dteaql.output))
+    build_dir        = /tmp/payment-repeat.BRRpyc/java-lib-core  (from: mojo parameter (-Dteaql.output))
     timeout_seconds  = 1200  (from: ~/.teaql/config.yml (or built-in default))
 
   api_key permissions:
@@ -20,13 +25,22 @@ Script started on 2026-08-08 09:44:47+08:00 [<not executed on terminal>]
 
 [[1;34mINFO[m] model input: /home/philip/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
 [[1;34mINFO[m] using http://127.0.0.1:18080/generate
-[[1;34mINFO[m] generated output in /tmp/payment-gen.nDjElC/java-lib-core
-[[1;34mINFO[m] archive saved to /tmp/payment-gen.nDjElC/java-lib-core/domain.zip
+[[1;34mINFO[m] generated output in /tmp/payment-repeat.BRRpyc/java-lib-core
+[[1;34mINFO[m] archive saved to /tmp/payment-repeat.BRRpyc/java-lib-core/domain.zip
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  1.002 s
-[[1;34mINFO[m] Finished at: 2026-08-08T09:44:49+08:00
+[[1;34mINFO[m] Total time:  0.784 s
+[[1;34mINFO[m] Finished at: 2026-08-08T10:02:39+08:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[0m[0m
-Script done on 2026-08-08 09:44:49+08:00 [COMMAND_EXIT_CODE="0"]
+[0m[0mCOMMAND=cargo teaql --endpoint-prefix http://127.0.0.1:18080/ --input <model> --output <repeat>/rust-lib-core rust-lib-core
+model input: /home/philip/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
+using http://127.0.0.1:18080/generate
+generated output in /tmp/payment-repeat.BRRpyc/rust-lib-core
+archive saved to /tmp/payment-repeat.BRRpyc/rust-lib-core/domain.zip
+JAVA_COMPARISON=exclude domain.zip,target
+RUST_COMPARISON=exclude domain.zip,Cargo.lock,tests,target
+DETERMINISTIC_GENERATED_SOURCES=true
+FINISHED_AT_UTC=2026-08-08T02:02:39Z
+
+Script done on 2026-08-08 10:02:39+08:00 [COMMAND_EXIT_CODE="0"]

@@ -1,52 +1,53 @@
-=== Java Generation Command ===
+# Local TeaQL Generation Summary
+
+Captured: 2026-08-08
+
+## Server
+
+```bash
+cd /home/philip/githome/teaql-code-gen
+java -jar generator/target/generator-1.1.1.jar \
+  --server.address=127.0.0.1 \
+  --server.port=18080
+```
+
+- Endpoint: `http://127.0.0.1:18080/`
+- Generator Server: `20260804.173835`
+- teaql-java: `1.526-RELEASE`
+- teaql-rs: `4.2.3`
+
+## Input
+
+- Model: `examples/payment/05-generated-model.xml`
+- SHA-256: `48e44bb6dac1437cb806b1a00653b693c8c6cb4c12e87edf67afe4721a5bff64`
+- Evaluation: `Errors: 0`
+- Initial output root: newly created `/tmp/payment-gen.nDjElC`; no output children existed before generation
+
+## Java
+
+```bash
+TEAQL_ENDPOINT_PREFIX=http://127.0.0.1:18080/ \
 mvn io.teaql:teaql-maven-plugin:1.1.0:generate \
-  -Dteaql.modelFile=examples/payment/05-generated-model.xml \
-  -Dteaql.domainName=payment-service \
-  -Dteaql.scope=java-lib-core \
-  -Dteaql.output=examples/payment/07-generated-code/java-lib-core
+  -Dservice=java-lib-core \
+  -Dinput=<workspace>/examples/payment/05-generated-model.xml \
+  -Dteaql.output=/tmp/payment-gen.nDjElC/java-lib-core
+```
 
-=== Java Generation Log ===
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] ------------------< org.apache.maven:standalone-pom >-------------------
-[INFO] Building Maven Stub Project (No POM) 1
-[INFO] --------------------------------[ pom ]---------------------------------
-[INFO] 
-[INFO] --- teaql:1.1.0:generate (default-cli) @ standalone-pom ---
-[INFO] 
-  config (precedence: mojo > env > config.yml > default):
-    endpoint_prefix  = https://api.teaql.io/latest/  (from: ~/.teaql/config.yml (or built-in default))
-    api_key          = ********  (from: built-in default OOTB key)
-    build_dir        = /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core  (from: mojo parameter (-Dteaql.output))
-    timeout_seconds  = 1200  (from: ~/.teaql/config.yml (or built-in default))
+- Result: `BUILD SUCCESS`
+- Exit code: `0`
+- Raw log: `examples/payment/run/maven_generate.log`
 
-  api_key permissions:
-    subject = default-user
-    plan    = free
-    expires = 2026-12-08 07:22:24 UTC (122 days remaining)
+## Rust
 
-[INFO] model input: /opt/workspace/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
-[INFO] using https://api.teaql.io/latest/generate
-[INFO] generated output in /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core
-[INFO] archive saved to /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/domain.zip
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  1.705 s
-[INFO] Finished at: 2026-08-08T03:04:16+08:00
-[INFO] ------------------------------------------------------------------------
-Exit Code: 0
+```bash
+cargo teaql \
+  --endpoint-prefix http://127.0.0.1:18080/ \
+  --input <workspace>/examples/payment/05-generated-model.xml \
+  --output /tmp/payment-gen.nDjElC/rust-lib-core \
+  rust-lib-core
+```
 
-=== Rust Generation Command ===
-cargo teaql generate \
-  --model-file examples/payment/05-generated-model.xml \
-  --domain-name payment-service \
-  --scope rust-lib-core \
-  --output examples/payment/07-generated-code/rust-lib-core
+- Exit code: `0`
+- Raw log: `examples/payment/run/cargo_generate.log`
 
-=== Rust Generation Log ===
-model input: /opt/workspace/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
-using https://api.teaql.io/latest/generate
-generated output in /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core
-archive saved to /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core/domain.zip
-Exit Code: 0
+Final source files were moved into `examples/payment/07-generated-code/` only after Java compilation and Rust tests succeeded. Checksums are in `examples/payment/run/generated-files.sha256`.

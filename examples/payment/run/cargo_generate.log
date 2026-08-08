@@ -1,5 +1,7 @@
-model input: /opt/workspace/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
-using https://api.teaql.io/latest/generate
-generated output in /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core
-archive saved to /opt/workspace/githome/datahub-hackson-2026/examples/payment/07-generated-code/rust-lib-core/domain.zip
-Exit Code: 0
+Script started on 2026-08-08 09:45:35+08:00 [<not executed on terminal>]
+model input: /home/philip/githome/datahub-hackson-2026/examples/payment/05-generated-model.xml
+using http://127.0.0.1:18080/generate
+generated output in /tmp/payment-gen.nDjElC/rust-lib-core
+archive saved to /tmp/payment-gen.nDjElC/rust-lib-core/domain.zip
+
+Script done on 2026-08-08 09:45:35+08:00 [COMMAND_EXIT_CODE="0"]

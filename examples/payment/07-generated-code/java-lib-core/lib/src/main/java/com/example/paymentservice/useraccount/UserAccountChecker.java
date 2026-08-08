@@ -1,8 +1,6 @@
 
 package com.example.paymentservice.useraccount;
 
-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
-import com.example.paymentservice.paymenttransaction.PaymentTransactionChecker;
 import io.teaql.core.UserContext;
 import io.teaql.core.checker.Checker;
 import io.teaql.core.checker.ObjectLocation;
@@ -37,10 +35,6 @@ public class UserAccountChecker implements Checker<UserAccount>{
       checkUserName(_ctx, userAccount.getProperty(UserAccount.USER_NAME_PROPERTY), newLocation(_parentLocation, UserAccount.USER_NAME_PROPERTY));
       checkCreateTime(_ctx, userAccount.getProperty(UserAccount.CREATE_TIME_PROPERTY), newLocation(_parentLocation, UserAccount.CREATE_TIME_PROPERTY));
       checkUpdateTime(_ctx, userAccount.getProperty(UserAccount.UPDATE_TIME_PROPERTY), newLocation(_parentLocation, UserAccount.UPDATE_TIME_PROPERTY));
-      for(int i = 0; userAccount.getPaymentTransactionList() != null && i < userAccount.getPaymentTransactionList().size(); i++){
-         PaymentTransaction paymentTransaction = userAccount.getPaymentTransactionList().get(i);
-         new PaymentTransactionChecker().checkAndFix(_ctx, paymentTransaction, newLocation(_parentLocation, UserAccount.PAYMENT_TRANSACTION_LIST_PROPERTY, i));
-      }
     }
 
     public void checkUserName(UserContext _ctx, String userName, ObjectLocation _parentLocation){

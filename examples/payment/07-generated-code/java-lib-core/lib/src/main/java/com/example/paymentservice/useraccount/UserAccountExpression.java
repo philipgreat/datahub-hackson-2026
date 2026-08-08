@@ -1,8 +1,6 @@
 
 package com.example.paymentservice.useraccount;
 
-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
-import com.example.paymentservice.paymenttransaction.PaymentTransactionListExpression;
 import io.teaql.core.UserContext;
 import io.teaql.core.value.BaseEntityExpression;
 import io.teaql.core.value.Expression;
@@ -57,10 +55,4 @@ public class UserAccountExpression<T, E, U extends UserAccount> extends Expressi
        return new UserAccountExpression(this, $it ->  ((UserAccount)$it).updateUpdateTime(updateTime));
     }
 
-    public PaymentTransactionListExpression<T, U, PaymentTransaction> getPaymentTransactionList(){
-        return new PaymentTransactionListExpression(this, $it ->  ((UserAccount)$it).getPaymentTransactionList());
-    }
-    public UserAccountExpression<T, U, U> addPaymentTransaction(PaymentTransaction paymentTransaction){
-       return new UserAccountExpression(this, $it ->  ((UserAccount)$it).addPaymentTransaction(paymentTransaction));
-    }
 }

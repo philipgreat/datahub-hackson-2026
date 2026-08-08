@@ -1,13 +1,11 @@
 
 package com.example.paymentservice.useraccount;
 
-import com.example.paymentservice.paymenttransaction.PaymentTransaction;
 import io.teaql.core.Audited;
 import io.teaql.core.BaseEntity;
 import io.teaql.core.EntityStatus;
 import io.teaql.core.FrameworkInternal;
 import io.teaql.core.RemoteInput;
-import io.teaql.core.SmartList;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -25,11 +23,9 @@ public class UserAccount extends BaseEntity implements RemoteInput {
     public static final String USER_NAME_PROPERTY = "userName";
     public static final String CREATE_TIME_PROPERTY = "createTime";
     public static final String UPDATE_TIME_PROPERTY = "updateTime";
-    public static final String PAYMENT_TRANSACTION_LIST_PROPERTY = "paymentTransactionList";
     private String userName;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-    private SmartList<PaymentTransaction> paymentTransactionList;
 
     public String getUserName(){
         return this.userName;
@@ -39,9 +35,6 @@ public class UserAccount extends BaseEntity implements RemoteInput {
     }
     public LocalDateTime getUpdateTime(){
         return this.updateTime;
-    }
-    public SmartList<PaymentTransaction> getPaymentTransactionList(){
-        return this.paymentTransactionList;
     }
     public UserAccount updateUserName(String userName){
         userName = (userName == null ? null : userName.trim());
@@ -66,19 +59,6 @@ public class UserAccount extends BaseEntity implements RemoteInput {
         }
         handleUpdate(UPDATE_TIME_PROPERTY, getUpdateTime(), updateTime);
         this.updateTime = updateTime;
-        return this;
-    }
-    public UserAccount addPaymentTransaction(PaymentTransaction paymentTransaction){
-        if (paymentTransaction == null){
-            return this;
-        }
-
-        if(null == this.paymentTransactionList){
-            this.paymentTransactionList = new SmartList<>();
-        }
-
-        this.paymentTransactionList.add(paymentTransaction);
-        paymentTransaction.cacheRelation(PaymentTransaction.PAYMENT_ACCOUNT_PROPERTY, this);
         return this;
     }
 
@@ -115,7 +95,6 @@ public class UserAccount extends BaseEntity implements RemoteInput {
 
             case "updateTime": this.updateTime = (LocalDateTime) value; break;
 
-            case "paymentTransactionList": this.paymentTransactionList = (SmartList<PaymentTransaction>) value; break;
             default: super.__internalSet(property, value);
         }
     }
@@ -127,7 +106,6 @@ public class UserAccount extends BaseEntity implements RemoteInput {
             case "userName": return this.userName;
             case "createTime": return this.createTime;
             case "updateTime": return this.updateTime;
-            case "paymentTransactionList": return this.paymentTransactionList;
             default: return super.__internalGet(property);
         }
     }

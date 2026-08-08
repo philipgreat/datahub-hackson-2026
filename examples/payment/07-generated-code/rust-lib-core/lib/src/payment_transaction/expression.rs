@@ -32,6 +32,11 @@ impl<'a> PaymentTransactionExpression<'a> {
         crate::ValueExpression::new(next, self.root_desc.clone())
     }
 
+    pub fn get_payment_account(self) -> crate::ValueExpression<'a, String> {
+        let next = self.result.and_then("payment_account", |entity| entity.eval_payment_account());
+        crate::ValueExpression::new(next, self.root_desc.clone())
+    }
+
     pub fn get_currency_code(self) -> crate::ValueExpression<'a, String> {
         let next = self.result.and_then("currency_code", |entity| entity.eval_currency_code());
         crate::ValueExpression::new(next, self.root_desc.clone())
@@ -60,14 +65,6 @@ impl<'a> PaymentTransactionExpression<'a> {
     pub fn get_version(self) -> crate::ValueExpression<'a, i64> {
         let next = self.result.and_then("version", |entity| entity.eval_version());
         crate::ValueExpression::new(next, self.root_desc.clone())
-    }
-    pub fn get_payment_account_id(self) -> crate::ValueExpression<'a, u64> {
-        let next = self.result.and_then("payment_account_id", |entity| entity.eval_payment_account_id());
-        crate::ValueExpression::new(next, self.root_desc.clone())
-    }
-    pub fn get_payment_account(self) -> crate::UserAccountExpression<'a> {
-        let next = self.result.and_then("payment_account", |entity| entity.eval_payment_account());
-        crate::UserAccountExpression::new(next, self.root_desc.clone())
     }
 }
 

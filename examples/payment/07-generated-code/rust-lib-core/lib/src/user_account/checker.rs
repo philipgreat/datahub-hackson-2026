@@ -122,6 +122,15 @@ where
         location: &ObjectLocation,
         results: &mut CheckResults,
     ) {
+        if status == CheckObjectStatus::Create && entity.changed_create_time().is_none() {
+            entity.update_create_time(teaql_core::time::Timestamp::now());
+        }
+
+        if status == CheckObjectStatus::Update && entity.changed_update_time().is_none() {
+            entity.update_update_time(teaql_core::time::Timestamp::now());
+        }
+
+
         self.logic
             .check_and_fix_user_account(ctx, entity, status, location, results);
     }
