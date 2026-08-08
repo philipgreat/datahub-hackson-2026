@@ -1,144 +1,110 @@
-# Verified Evidence Mapping: DataHub MCP to TeaQL Code Generation
+# Evidence Mapping: DataHub MCP to TeaQL Code Generation
 
-> **Evidence status:**
-> - MCP Fetch: VERIFIED
-> - KSML Modeling: VERIFIED
-> - Code Generation: VERIFIED
-> - Compilation: VERIFIED
-> - Runtime Policy Verification (for `payment-service`): PENDING
+> **Current scope**
+>
+> - MCP `get_entities`: VERIFIED
+> - TeaQL model: PARTIALLY VERIFIED
+> - Online generation: VERIFIED WITH LIMITATIONS
+> - Generated Java/Rust library compilation: VERIFIED
+> - Payment runtime masking: PENDING
+> - Cross-dataset relationship grounding: PENDING / AGENT INFERENCE
+> - Clean Docker/DataHub health: PENDING
 
-This project uses the DataHub MCP Server from an external coding agent. The coding agent queries DataHub before writing a TeaQL model; the generated Rust and Java applications are outputs of that development workflow and do not call MCP at runtime.
+The DataHub MCP Server is used by an external coding agent during development. Generated Rust and Java code does not call MCP at runtime.
 
-## 1. Verified MCP Request (Agent Asking for Schema)
-During the recorded run, the coding agent called the `get_entities` tool from the DataHub MCP Server to fetch the schema and privacy tags for `prod.finance.payment_transactions`.
+## 1. Captured MCP Request
 
-**Agent JSON-RPC Call (Captured in `examples/payment/03-mcp-tool-calls.jsonl`):**
+The following request metadata is synchronized with `examples/payment/03-mcp-tool-calls.jsonl`:
+
 ```json
 {
-  "timestamp": "2026-08-07T18:28:20Z",
+  "timestamp": "2026-08-07T19:01:27.658225Z",
   "tool": "get_entities",
   "arguments": {
-    "urns": ["urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)"]
+    "urns": [
+      "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)",
+      "urn:li:dataset:(urn:li:dataPlatform:hive,fct_users_created,PROD)"
+    ]
   }
 }
 ```
 
-## 2. Verified MCP Response
-The following is the sanitized response captured from DataHub in Docker, which drove the AI's modeling decisions.
+The JSONL record contains the sanitized response. Its consolidated form is stored in `examples/payment/04-datahub-context.json`.
 
-**DataHub MCP Response (Captured in `examples/payment/04-datahub-context.json`):**
-```json
-{
-  "result": [
-    {
-      "urn": "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.finance.payment_transactions,PROD)",
-      "name": "payment_transactions",
-      "platform": {
-        "urn": "urn:li:dataPlatform:snowflake",
-        "name": "snowflake"
-      },
-      "properties": {
-        "name": "payment_transactions",
-        "description": "【黑客松专用】企业核心支付流水表。包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块。"
-      },
-      "schemaMetadata": {
-        "name": "payment_transactions",
-        "platformUrn": "urn:li:dataPlatform:snowflake",
-        "fields": [
-          {
-            "fieldPath": "payment_account",
-            "nativeDataType": "VARCHAR",
-            "description": "Linked user account ID",
-            "nullable": false
-          },
-          {
-            "fieldPath": "currency_code",
-            "nativeDataType": "VARCHAR",
-            "description": "Currency (e.g. USD, CNY)",
-            "nullable": false
-          },
-          {
-            "fieldPath": "payment_method",
-            "nativeDataType": "VARCHAR",
-            "description": "Method used (e.g. CREDIT_CARD)",
-            "nullable": false
-          },
-          {
-            "fieldPath": "transaction_amount",
-            "nativeDataType": "DECIMAL",
-            "description": "Total transaction amount",
-            "nullable": false
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+## 2. What the MCP Response Establishes
 
-## 3. Verified TeaQL Model
-Given the captured context (from both `payment_transactions` and the newly queried `fct_users_created` which provides the `user_account` schema), the coding agent wrote the following TeaQL model.
+The response establishes:
 
-- **Schema grounding**: Business fields strictly correspond to fields returned by DataHub.
-- **Shift-left governance**: The DataHub description context caused the agent to add `_audit_mask_fields="payment_account"`. Runtime masking behavior testing for this specific service is currently PENDING (verified at compilation level).
+- dataset `payment_transactions` and fields `payment_account`, `currency_code`, `payment_method`, and `transaction_amount`;
+- dataset `fct_users_created` and field `user_name`;
+- native field types and nullability;
+- a payment dataset description stating that sensitive payment-account data requires audit and masking treatment.
 
-**Generated `examples/payment/05-generated-model.xml`:**
+It does **not** contain a glossary term, lineage edge, foreign key, or documented join connecting `payment_account` to `user_account`. The captured field tag arrays are empty. Accordingly, the TeaQL relation `payment_account="user_account()"` is an agent/TeaQL modeling inference, not a verified DataHub relationship.
+
+## 3. Recorded TeaQL Model
+
+The canonical model is `examples/payment/05-generated-model.xml`. Its relevant entity is:
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<root name="payment-service"
-      data_service="sqlite"
-      org="example"
-      _module_key="root">
-
-  <user_account _name="User Account"
-                _module="Core"
-                _module_key="core"
-                user_name="string()"
-                create_time="createTime()"
-                update_time="updateTime()"/>
-
-  <!-- Derived from DataHub description: "包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块" -->
-  <payment_transaction _name="Payment Transaction"
-                       _module="Core"
-                       _module_key="core"
-                       payment_account="user_account()"
-                       currency_code="string()"
-                       payment_method="string()"
-                       transaction_amount="150.00"
-                       _audit_mask_fields="payment_account"
-                       create_time="createTime()"
-                       update_time="updateTime()"/>
-</root>
+<payment_transaction _name="Payment Transaction"
+                     _module="Core"
+                     _module_key="core"
+                     payment_account="user_account()"
+                     currency_code="string()"
+                     payment_method="string()"
+                     transaction_amount="150.00"
+                     _audit_mask_fields="payment_account"
+                     create_time="createTime()"
+                     update_time="updateTime()"/>
 ```
 
-## 4. Multi-Entity Graph and Policy Mapping Verification
+`create_time`, `update_time`, IDs, versions, and other base properties in generated code are TeaQL framework fields rather than DataHub business fields. `transaction_amount="150.00"` is the TeaQL decimal-model syntax selected from the captured `DECIMAL` type; it is not a captured transaction value.
 
-**Evidence of One-to-One Mapping:**
+## 4. Context-to-Code Mapping
 
-| DataHub Enterprise Context (Source of Truth) | Generated TeaQL KSML Model (AI Output) | Proof of Alignment |
-| :--- | :--- | :--- |
-| **Dataset**: `prod.finance.payment_transactions` | `<entity name="PaymentTransaction" ...>` | Entity mapped 1:1. |
-| **Field**: `transaction_amount` (DECIMAL) | `type="Decimal"` | Numeric validation enforced by TeaQL. |
-| **Constraint**: Description requested Masking | `_audit_mask_fields="payment_account"` | Expected policy mapping; runtime testing is pending for this specific module, though the exact same policy mechanism is successfully verified in the ERP sample. |
+| Captured source | Model output | Generated output | Verification boundary |
+| --- | --- | --- | --- |
+| `payment_transactions` dataset | `<payment_transaction ...>` | `PaymentTransaction` types | Entity naming recorded |
+| `transaction_amount` / `DECIMAL` | `transaction_amount="150.00"` | Numeric property APIs | Compilation verified |
+| Sensitive payment description | `_audit_mask_fields="payment_account"` | Java `audit_mask_fields` and Rust `audit_mask_fields` metadata | Metadata propagation verified; runtime masking pending |
+| Two separately fetched datasets | `payment_account="user_account()"` | Typed relation APIs | Agent inference; DataHub relationship not verified |
 
-## Verification Goal Achieved
+Generated metadata can be inspected in:
 
-The Docker run successfully established that the coding-agent workflow:
+- `examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/EntityMetaRegistry.java`
+- `examples/payment/07-generated-code/rust-lib-core/lib/src/payment_transaction/entity.rs`
 
-1. Reads schema fields from DataHub rather than inventing them.
-2. Translates captured constraints into explicit TeaQL policies.
-3. Generates code that successfully compiles natively (testing pending, see `examples/payment/09-test-summary.md`).
+## 5. Generation and Compilation Evidence
 
-## 5. Checked-In ERP Generation Sample (48 Interrelated Entities)
-The repository includes a 48-entity ERP model and large generated Rust and Java samples. The tests for these libraries were verified in the clean container (`run_all.sh` outputs recorded in `examples/payment/run/build-and-test/`).
+`examples/payment/run/generator.log` records successful Java and Rust online generation commands and exit codes for `payment-service`. The Java section contains Maven plugin output; the Rust section is a shorter summary. The current artifacts do not prove that both output directories were empty before generation, include a model SHA-256, or demonstrate deterministic repeat generation.
 
-| Microservice Framework / Layer | File Count | Lines of Code | Status |
-| :--- | :--- | :--- | :--- |
-| `java-lib-core` (Domain) | 250 | 85,363 | Verified compiled |
-| `rust-lib-core` (Domain) | 325 | 184,729 | Verified compiled |
-| `java-web-spring-boot` (App) | 4 | 193 | Verified 4 passing tests |
-| `java-web-quarkus` (App) | 4 | 193 | Verified compiled |
-| `java-web-micronaut` (App) | 4 | 189 | Verified compiled |
-| `rust-app-console` (App) | 3 | 174 | Verified 1 passing test |
-| `rust-web-axum` (App) | 3 | 65 | Verified compiled |
-| **Total Unique Artifacts** | **593** | **270,906** | Tests successfully ran in environment |
+The checked-in payment libraries have successful compilation records:
+
+- Java: `examples/payment/run/build-and-test/payment-service-java.log`
+- Rust: `examples/payment/run/build-and-test/payment-service-rust.log`
+
+The Java log identifies the payment project and 19 compiled sources. The Rust log records only a successful dev-profile completion and exit code, so its command, manifest, crate, and timestamp remain TODO items.
+
+## 6. Runtime and ERP Evidence Boundaries
+
+No test currently proves payment-service runtime masking. The pre-existing ERP sample tests are separate evidence:
+
+- Java directly instantiates a KYC interceptor; it is not a Spring MVC integration or masking test.
+- Rust tests a numeric data-quality filter; it is not a masking or lineage test.
+- `rust-web-topcoat/lib` compilation proves only that generated library, not a Topcoat web application.
+
+These ERP results cannot substitute for payment runtime policy verification.
+
+## 7. Unverified Items
+
+The following remain in `EVIDENCE_TODO.md`:
+
+- real Docker container status and DataHub health checks;
+- complete tool and image versions;
+- relationship/glossary/lineage grounding or explicit confirmation that none exists;
+- model evaluation output and model SHA-256;
+- empty-output and repeat-generation evidence;
+- complete Rust generation and compilation logs;
+- payment runtime masking/KYC tests;
+- failure-behavior tests, screenshots, and demo video.

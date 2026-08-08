@@ -1,22 +1,36 @@
-# Test Execution Summary
+# Build and Test Summary
 
-This document summarizes the test outcomes for the generated and extended projects, validating that the models and code work exactly as expected without compilation issues.
+This summary distinguishes the generated payment libraries from the pre-existing ERP application workspaces. It does not treat compilation, KYC, data quality, masking, and lineage as interchangeable evidence.
 
-## Java Application Tests
-- **Workspace**: `java-web-spring-boot`
-- **Test Class**: `com.example.enterpriseerpsystem.KycAuthInterceptorTest`
-- **Result**: `[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0`
-- **Duration**: `0.242 s`
-- **Status**: PASSED
-- **Significance**: Confirms that the Interceptor correctly enforces basic KYC access control rules via direct class instantiation (checking user ID headers), though without a full Spring MVC context.
+## Generated Payment Libraries
 
-## Rust Application Tests
-- **Workspace**: `rust-app-console`
-- **Result**: `test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s`
-- **Status**: PASSED
-- **Significance**: Confirms that the streaming logic correctly executes numeric data quality filters (rejecting negative or zero transaction amounts).
+| Target | Recorded result | Tests | Limitation |
+| --- | --- | --- | --- |
+| `examples/payment/07-generated-code/java-lib-core/lib` | Maven compiled 19 sources; exit code 0 | No payment tests recorded | Compilation only |
+| `examples/payment/07-generated-code/rust-lib-core/lib` | Cargo dev profile finished; exit code 0 | No payment tests recorded | Raw log omits command, manifest, crate, and timestamp |
 
-## Notes
-- The tests described above are executed against the massive ERP sample application present in the repository, which uses the exact same TeaQL generation workflow.
-- For the newly generated `payment-service` (produced during this MCP workflow), tests are currently pending; we have verified that the generated `rust-lib-core` and `java-lib-core` compile correctly natively (`cargo check` and `mvn compile`).
-- `java-web-quarkus`, `java-web-micronaut`, `rust-web-axum`, `rust-web-topcoat` compiled successfully but currently contain no active unit tests in this focused demo scope.
+Raw logs:
+
+- `examples/payment/run/build-and-test/payment-service-java.log`
+- `examples/payment/run/build-and-test/payment-service-rust.log`
+
+Payment runtime policy verification remains pending.
+
+## Pre-existing ERP Java Application
+
+- **Workspace:** `java-web-spring-boot`
+- **Test:** `com.example.enterpriseerpsystem.KycAuthInterceptorTest`
+- **Recorded result:** 4 tests, 0 failures, 0 errors, 0 skipped
+- **Scope:** direct class-instantiation checks of basic KYC header logic
+- **Not proven:** Spring MVC registration/integration, payment masking, or DataHub lineage
+
+## Pre-existing ERP Rust Console
+
+- **Workspace:** `rust-app-console`
+- **Recorded result:** 1 passed, 0 failed
+- **Scope:** numeric data-quality filtering of non-positive transaction amounts
+- **Not proven:** masking, KYC, or DataHub lineage
+
+## Other ERP Workspaces
+
+The recorded `run_all.log` shows compilation with zero tests for several Java/Rust workspaces. For `rust-web-topcoat`, only `rust-web-topcoat/lib` was compiled; no Topcoat web application manifest was present or verified.

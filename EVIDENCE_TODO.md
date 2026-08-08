@@ -1,133 +1,114 @@
-# Docker Evidence Collection Checklist
+@EVIDENCE_TODO.md 只在具备 Docker、DataHub MCP 和 TeaQL 生成环境时执行本文取证任务；每项必须有对应原始产物才能勾选。
 
-Use this checklist during the final run in the clean Docker environment. Evidence should let a reviewer trace one uninterrupted path from DataHub metadata to generated, tested code.
+# Runtime Evidence Collection TODO
 
-## 1. Record the Environment
+本文只记录必须在真实运行环境中完成的取证工作。仓库中的文字和脚本一致性问题由 `EVIDENCE_FIX.md` 处理。
 
-- [x] Record the repository commit SHA with `git rev-parse HEAD`.
-- [x] Record the Docker image name or Dockerfile digest.
-- [x] Record the OS, Java, Maven, Rust, Cargo, Python, Node.js, DataHub, MCP Server, and TeaQL generator versions.
-- [x] Record the exact commands used to start DataHub and supporting services.
-- [x] Confirm the repository is clean before generation with `git status --short`.
-- [x] Save this information to `examples/payment/run/environment.txt`.
+## 勾选规则
 
-## 2. Start and Verify DataHub
+- `[ ]`：尚未获得可复核的原始证据。
+- `[x]`：目标路径已有本次运行产生的原始记录，且内容经过复核。
+- 不适用的项目写成 `N/A — <原因>`，不能为了“完成”而勾选。
+- 摘要、手写成功信息、模拟输出和另一个项目的测试不能代替原始证据。
+- 所有公开证据必须脱敏；不得提交 token、cookie、私有 URL、个人邮箱或无关企业元数据。
 
-- [x] Start the DataHub Docker environment.
-- [x] Capture container status and health-check output.
-- [x] Run `ingest_payment.py` to load the payment dataset, schema, and sensitivity tags.
-- [x] Confirm the target dataset URN exists in DataHub.
-- [x] Capture the dataset schema, descriptions, field tags, and glossary terms shown in DataHub.
-- [N/A - Lineage write-back is not part of this focused demo scope] If lineage is part of the demo, load and verify the upstream/downstream entities before invoking the coding agent.
-- [x] Save sanitized terminal output to `examples/payment/run/datahub-setup.log`.
-- [N/A - Automated headless agent environment without UI screenshot capabilities] Save screenshots to `examples/payment/screenshots/`.
+## 1. Clean Docker 环境
 
-## 3. Record the External Coding-Agent Setup
+- [ ] 记录本次运行的 repository commit SHA 和生成前 `git status --short`。
+- [ ] 记录 Docker image/tag 和不可变 digest，或 Dockerfile SHA-256。
+- [ ] 记录 OS、Java、Maven、Rust、Cargo、Python、Node.js、DataHub、MCP Server、TeaQL generator 的实际版本；未使用的工具标 `N/A`。
+- [ ] 记录启动 DataHub 及依赖服务的准确命令。
+- [ ] 保存到 `examples/payment/run/environment.txt`，不得把 dirty worktree 描述为 clean。
 
-- [x] Record the coding-agent product and version.
-- [x] Add a sanitized example of its DataHub MCP configuration.
-- [x] Record the MCP Server command, version, and transport.
-- [x] Confirm the coding agent can list the expected DataHub MCP tools.
-- [x] Capture the exact user prompt and agent instructions used for model generation.
-- [x] Remove tokens, credentials, private URLs, usernames, and unrelated enterprise metadata.
-- [x] Save the prompt to `examples/payment/01-user-request.md`.
-- [x] Save the sanitized configuration to `examples/payment/02-mcp-config.example.json`.
+## 2. DataHub 实例和数据集
 
-## 4. Capture MCP Grounding Evidence
+- [ ] 保存真实的 `docker compose ps`/`docker inspect` 及 DataHub health endpoint 输出，替换“Mocked”状态作为验证依据。
+- [ ] 运行并记录 `ingest_payment.py` 的命令、stdout/stderr 和 exit code。
+- [ ] 在 DataHub 中确认 payment dataset URN、schema、description、field tags/glossary terms。
+- [ ] 若关系参与模型，捕获能支持 `payment_account` 与 `user_account` 关系的 lineage、glossary、foreign-key 或 documented-join 元数据。
+- [ ] 若找不到关系证据，记录查询结果为空，并保持该关系为 agent inference；不得创造 glossary term。
+- [ ] 保存脱敏原始输出到 `examples/payment/run/datahub-setup.log`。
+- [ ] 保存能证明关键状态的截图到 `examples/payment/screenshots/`。
 
-- [x] Capture the coding agent calling `get_entities` for the payment dataset.
-- [N/A - Schema fields were sufficiently present in get_entities response] Capture `list_schema_fields` if the full schema is not present in the entity response.
-- [x] Capture the tags or glossary terms used to derive masking or access-control behavior.
-- [N/A - Not utilizing DataHub lineage API for this model generation] Capture `get_lineage` if relationships or impact information affect the generated model.
-- [x] Preserve timestamps, tool names, arguments, and sanitized responses.
-- [x] Save tool calls to `examples/payment/03-mcp-tool-calls.jsonl`.
-- [x] Save the consolidated DataHub context to `examples/payment/04-datahub-context.json`.
-- [x] Verify that every generated business field can be traced to the captured context.
-- [x] Record any agent decision that intentionally ignores or transforms a DataHub field.
+## 3. External Coding Agent 与 MCP
 
-## 5. Capture Model Generation
+- [ ] 记录 coding-agent 产品名和版本。
+- [ ] 保存脱敏的 DataHub MCP 配置示例，包含 server command/version/transport，但不含凭据。
+- [ ] 捕获 MCP `tools/list` 或等价结果，证明可用工具集合。
+- [ ] 保存实际用于生成模型的用户 prompt 与 agent 指令。
+- [ ] 捕获 `get_entities` 及必要的 schema/tag/glossary 查询，保留时间戳、tool name、arguments、response。
+- [ ] 如果关系或 impact 影响模型，捕获 `get_lineage`；否则明确标 `N/A` 并删除相关 claims。
+- [ ] 将逐次调用保存为 `examples/payment/03-mcp-tool-calls.jsonl`。
+- [ ] 将本次实际上下文汇总为 `examples/payment/04-datahub-context.json`。
+- [ ] 验证每个业务字段均能追溯到 MCP context；转换和忽略项写入 decision log。
 
-- [x] Remove or move the previous generated model so the new file is demonstrably produced during this run.
-- [x] Capture the coding agent writing the TeaQL model from the MCP context.
-- [x] Save the generated model to `examples/payment/05-generated-model.xml`.
-- [x] Save the agent's concise decision log to `examples/payment/06-model-decisions.md`.
-- [x] Verify schema names, types, nullability, relationships, and governance policies against the MCP response.
-- [x] Confirm that no unexplained dataset fields were invented.
-- [x] Include at least one negative check showing that an absent field was not generated.
+## 4. 模型生成与校验
 
-## 6. Capture TeaQL Code Generation
+- [ ] 从本次 MCP context 重新生成唯一 canonical model：`examples/payment/05-generated-model.xml`。
+- [ ] 保存 coding agent 的实际生成过程或可复核记录，不得把手工已有文件描述为本次生成。
+- [ ] 运行 TeaQL model evaluation，保存 command、tool version、stdout/stderr、exit code。
+- [ ] 记录最终 model SHA-256，并让 generator logs、摘要和决策文档引用同一个 hash。
+- [ ] 更新 `examples/payment/06-model-decisions.md`，区分 DataHub facts、agent inferences、TeaQL framework fields。
+- [ ] 做 negative check：缺失字段不得被 agent 擅自补造；保存结果。
 
-- [x] Record the TeaQL generator version and exact invocation.
-- [x] Capture generator stdout, stderr, and exit code.
-- [x] Generate into an empty output directory.
-- [x] Save the generator log to `examples/payment/run/generator.log`.
-- [x] Copy a focused, reviewable subset of generated Rust and Java files to `examples/payment/07-generated-code/`.
-- [N/A - File count metrics are not the primary evaluation criteria for this metadata accuracy task] Record generated file counts and line counts without presenting line count as a quality metric.
-- [x] Capture `git diff --no-index` or an equivalent before/after patch in `examples/payment/08-generated.diff`.
+## 5. 从空目录生成 Java 与 Rust
 
-## 7. Build and Test in the Clean Container
+- [ ] 证明 Java output directory 在生成开始前为空。
+- [ ] 记录 Java generation 的准确 command、版本、model path/hash、output path、开始/结束时间、stdout/stderr、exit code。
+- [ ] 证明 Rust output directory 在生成开始前为空。
+- [ ] 记录 Rust generation 的准确 command、版本、model path/hash、output path、开始/结束时间、stdout/stderr、exit code。
+- [ ] 将最终 canonical outputs 保存到 `examples/payment/07-generated-code/`，清除重复或旧名称产物。
+- [ ] 生成文件 manifest（相对路径、大小、SHA-256）；如使用 diff，应真实表示 empty-to-generated output。
+- [ ] 将原始生成记录保存到 `examples/payment/run/generator.log` 及适当的细分日志。
 
-- [x] Build the generated Rust domain library.
-- [x] Run the Rust application tests.
-- [x] Build the generated Java domain library.
-- [x] Run the Java application tests without `-DskipTests`.
-- [x] Record every command, exit code, test count, pass count, failure count, and duration.
-- [x] Save complete logs under `examples/payment/run/build-and-test/`.
-- [x] Save a concise summary to `examples/payment/09-test-summary.md`.
-- [x] Do not describe untested modules as verified.
+## 6. 编译准确的生成产物
 
-## 8. Demonstrate the Metadata-to-Code Effect
+- [ ] 在 clean container 中执行并完整记录：
 
-- [x] Show the DataHub PII tag that caused `_audit_mask_fields` to appear in the model.
-- [x] Show the corresponding generated Rust or Java metadata.
-- [N/A - Application layer masking tests are pending for payment-service (verified natively in ERP sample)] Run a test that verifies the intended masking behavior, if the runtime supports it.
-- [N/A - Specific payment KYC web endpoint testing is pending] If demonstrating KYC, verify the generated/interpreted policy is actually registered in the web runtime and test an allowed and rejected request.
-- [N/A - Lineage write-back is not part of this demo] If demonstrating lineage write-back, capture the actual DataHub API/MCP mutation and verify the resulting lineage in DataHub.
-- [x] Otherwise, remove lineage write-back claims from submission materials.
-- [x] Save the causal mapping to `examples/payment/10-context-to-code-map.md`.
+  ```bash
+  mvn -f examples/payment/07-generated-code/java-lib-core/lib/pom.xml clean test
+  cargo test --manifest-path examples/payment/07-generated-code/rust-lib-core/lib/Cargo.toml --locked -v
+  ```
 
-## 9. Capture Reproducibility and Failure Behavior
+- [ ] Java 日志包含 command、cwd、manifest、时间戳、exit code、test count 和 duration。
+- [ ] Rust 日志包含 command、cwd、manifest、crate、时间戳、exit code、test count 和 duration。
+- [ ] 明确区分“编译成功但 0 tests”和“测试通过”。
+- [ ] 保存完整日志到 `examples/payment/run/build-and-test/`。
+- [ ] 从原始日志更新 `examples/payment/09-test-summary.md`。
 
-- [N/A - Single verifiable run recorded due to deterministic nature of prompt] Repeat the generation from a clean checkout or clean output directory.
-- [N/A - Single execution verified] Confirm whether identical inputs produce identical output; document expected nondeterminism.
-- [N/A - Out of scope for this happy-path hackathon submission] Test an invalid or incomplete DataHub schema and capture the agent's failure behavior.
-- [N/A - Out of scope for this happy-path hackathon submission] Confirm the agent stops or asks for clarification rather than inventing missing context.
-- [x] Record any manual intervention required during the workflow.
+## 7. Runtime policy（可选但不能冒充已完成）
 
-## 10. Prepare Submission Evidence
+- [ ] 若要声明 runtime masking，添加真实测试：读取生成 policy metadata，调用实际 TeaQL masking 行为，并断言敏感账号不可见。
+- [ ] 若只证明 policy propagation，则明确范围为 `DataHub context -> TeaQL metadata -> generated metadata`，runtime masking 保持 `PENDING`。
+- [ ] 若要保留 KYC runtime claim，在 Spring MVC 注册 interceptor，并用 application-context/MockMvc 测试允许和拒绝请求。
+- [ ] 若要声明 lineage write-back，捕获真实 DataHub API/MCP mutation，并重新查询验证结果。
+- [ ] 若不执行上述行为，删除对应 runtime/lineage claim 或标 `N/A/PENDING`。
+- [ ] 更新 `examples/payment/10-context-to-code-map.md`，每条结论链接到直接证据。
 
-- [x] Replace illustrative payloads in `EVIDENCE.md` with captured, sanitized outputs.
-- [x] Add links from the root README to all evidence artifacts.
-- [x] Add one architecture diagram and one context-to-code mapping table.
-- [N/A - Video recording requires human operator] Record a public demonstration video under three minutes.
-- [N/A - Video pending human operator] Show the live MCP call, generated model, generated code, and passing test in the video.
-- [N/A - Video pending human operator] Add the video link to the README and Devpost submission.
-- [x] Disclose which TeaQL components existed before the hackathon and which workflow/code was created during the submission period.
-- [x] Confirm the repository is public and the Apache 2.0 license is visible.
-- [x] Perform a final secret scan before committing evidence.
+## 8. 可重复性和失败行为
 
-## Expected Evidence Layout
+- [ ] 从 clean checkout 或 clean output directory 重复生成一次。
+- [ ] 比较两次 file manifest/hash，记录 deterministic output 或预期 nondeterminism。
+- [ ] 提供 invalid/incomplete DataHub schema，捕获 agent 的失败或澄清行为。
+- [ ] 证明 agent 在缺失关键 context 时不会自行编造事实。
+- [ ] 记录全流程中的人工操作、在线服务依赖和缓存假设。
 
-```text
-examples/payment/
-├── 01-user-request.md
-├── 02-mcp-config.example.json
-├── 03-mcp-tool-calls.jsonl
-├── 04-datahub-context.json
-├── 05-generated-model.xml
-├── 06-model-decisions.md
-├── 07-generated-code/
-├── 08-generated.diff
-├── 09-test-summary.md
-├── 10-context-to-code-map.md
-├── run/
-│   ├── environment.txt
-│   ├── datahub-setup.log
-│   ├── generator.log
-│   └── build-and-test/
-└── screenshots/
-```
+## 9. 提交材料
 
-## Completion Rule
+- [ ] README 中每个阶段链接到对应原始证据，并保持 verified/pending 状态准确。
+- [ ] 保存架构图和 context-to-code mapping；内容必须与本次运行一致。
+- [ ] 录制三分钟以内的公开 demo，展示 live MCP call、模型、生成代码和准确的 build/test。
+- [ ] 将公开视频链接加入 README 和 Devpost。
+- [ ] 披露 hackathon 前已有的 TeaQL 组件，以及本次新增的 workflow/code。
+- [ ] 确认公开仓库和 Apache 2.0 license 可见。
+- [ ] 执行 secret/PII scan 并保存命令与结果。
 
-Only change wording such as "illustrative," "expected," or "pending verification" to "verified" after the corresponding raw artifact, command, and successful exit status have been committed.
+## 最终验收
+
+- [ ] 所有 `[x]` 项均能指向原始证据文件及其中的准确位置。
+- [ ] MCP JSONL、context JSON、model、generator log 和 generated outputs 使用同一轮运行信息。
+- [ ] Java/Rust 构建针对最终 payment outputs，而非根目录 ERP 示例或父目录项目。
+- [ ] relationship 来自 DataHub 的证据已捕获；否则清楚标为 agent inference。
+- [ ] runtime masking、KYC、data quality 和 lineage 没有相互替代证明。
+- [ ] README 没有把手工多阶段流程称为一条自动 end-to-end command。
+- [ ] 最终 commit、model hash、timestamps、commands 和 exit codes 在各文档中一致。

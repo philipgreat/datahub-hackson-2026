@@ -4,97 +4,99 @@
 
 ## Project Positioning
 
-This project demonstrates a coding-agent workflow that uses DataHub as the source of enterprise data context before generating application code.
-
-The DataHub MCP Server is connected to an external coding agent. During modeling, the agent queries DataHub for schemas, field types, tags, glossary terms, and relationships. It then uses that context to write a TeaQL model. The TeaQL generator turns the model into strongly typed Rust and Java domain libraries that can be consumed by application workspaces.
-
-The repository contains the models, generated libraries, and sample application workspaces produced by that workflow. The coding agent itself is the MCP client; the generated Rust and Java applications do not need to connect to MCP at runtime.
+This project demonstrates a development-time workflow in which an external coding agent queries DataHub through MCP, writes a TeaQL model from the returned context, and invokes the TeaQL online generator to produce Rust and Java domain libraries. The generated applications do not connect to MCP at runtime.
 
 ```text
 Developer request
       |
       v
-External coding agent ---- DataHub MCP Server ---- DataHub context graph
-      |                         schema, tags, glossary, relationships
+External coding agent ---- DataHub MCP Server ---- DataHub
+      |                         schema and descriptions
       v
 TeaQL model
       |
       v
-TeaQL generator
+TeaQL online generator
       |
-      +---- Generated Rust/Java domain libraries
-      |
-      +---- Application workspaces and tests
+      +---- Java domain library
+      +---- Rust domain library
 ```
+
+For the checked-in payment example, MCP returned two datasets and their fields. The payment dataset description requested audit and masking treatment, so the agent added `_audit_mask_fields="payment_account"`. The captured metadata did not contain a foreign key, lineage edge, or glossary term proving that `payment_account` references `user_account`; that relation is disclosed as an agent/TeaQL modeling inference.
 
 ## Why DataHub Matters
 
-Without enterprise context, a coding agent can guess field names, types, relationships, or governance requirements. DataHub gives the agent a queryable source for those decisions.
+The verified mappings in this example are deliberately narrow:
 
-The intended context-to-code mappings include:
-
-| DataHub context | TeaQL model decision | Generated-code effect |
+| Captured DataHub context | TeaQL decision | Checked-in generated effect |
 | --- | --- | --- |
-| Dataset schema and field types | Entities, properties, and types | Strongly typed Rust and Java APIs |
-| PII or sensitivity tags | `_audit_mask_fields` policy | Masking metadata and policy-aware domain code |
-| Business glossary terms | Domain names and relationships | Consistent concepts across languages |
-| Dataset relationships and lineage | Entity references | Typed links between generated entities |
+| Dataset and field names | Business entities and properties | Typed Java/Rust domain APIs |
+| Native field types | TeaQL scalar types | Generated scalar properties |
+| Sensitive payment description | `_audit_mask_fields="payment_account"` | Java and Rust policy metadata |
 
-The generated-library/workspace split keeps generated domain infrastructure separate from manually maintained application behavior. This is intended to make regeneration predictable and application-layer pull requests easier to review.
+Glossary-driven relationships and lineage-driven generation are possible extensions, but they were not captured in this evidence run.
 
 ## Evidence Status
 
-The end-to-end evidence chain has been verified in the recorded Docker environment, with specific status per phase:
-- **MCP Fetch**: VERIFIED
-- **KSML Modeling**: VERIFIED
-- **Code Generation**: VERIFIED
-- **Compilation**: VERIFIED
-- **Runtime Policy Verification** (for `payment-service`): PENDING
+| Phase | Status | Scope |
+| --- | --- | --- |
+| MCP `get_entities` capture | VERIFIED | One recorded call for two dataset URNs |
+| TeaQL model | PARTIALLY VERIFIED | Fields and masking metadata are grounded; the cross-dataset relation is an inference |
+| Online code generation | VERIFIED WITH LIMITATIONS | Logs report successful Java and Rust output; clean-output and repeatability evidence is pending |
+| Generated library compilation | VERIFIED | Payment Java and Rust libraries compiled; the Rust log has limited command metadata |
+| Payment runtime policy | PENDING | No masking runtime test |
+| DataHub lineage/write-back | N/A | Not part of the demonstrated workflow |
+| Clean Docker/DataHub health | PENDING | The checked-in setup log is explicitly mocked |
 
-The coding agent successfully queried DataHub via MCP, generated a TeaQL model that was schema-grounded for the captured payment example, and the generated Rust/Java artifacts were successfully compiled natively. 
+## Repository Build and Evidence Summary Command
 
-### Reproducible End-to-End Run Command
-To reproduce the environment setup, DataHub ingestion, and compilation/testing steps:
+The following commands cover ingestion and repository builds only. They do **not** invoke the external coding agent, capture MCP calls, create the TeaQL model, or call the TeaQL online generator.
+
 ```bash
-# 1. Start the services (DataHub, etc.)
-# 2. Ingest mock payment metadata
 python3 ingest_payment.py
-# 3. Run all tests and builds (compiles payment-service and runs tests for the ERP app)
 ./run_all.sh
 ```
 
-### Verified Environment
-- **Java**: openjdk version "25.0.2"
-- **Rust**: rustc 1.97.1
-- **DataHub**: Running in Docker (`datahub-gms` v1.5.0.6)
-- *See `examples/payment/run/environment.txt` for exact versions and Git commit state.*
+The complete workflow has four separate phases:
 
-### Evidence Chain Links
-The complete evidence chain is preserved in the `examples/payment/` directory:
-1. **[User Prompt](examples/payment/01-user-request.md)**: The prompt given to the AI Agent.
-2. **[MCP Context](examples/payment/04-datahub-context.json)**: The sanitized dataset schema and description retrieved via DataHub MCP Server.
-3. **[TeaQL Model](examples/payment/05-generated-model.xml)**: The generated TeaQL model mapping the DataHub schema and privacy constraints (`_audit_mask_fields`).
-4. **[Model Decisions](examples/payment/06-model-decisions.md)**: AI agent reasoning for the mappings.
-5. **[Context to Code Mapping](examples/payment/10-context-to-code-map.md)**: The causal chain showing how DataHub metadata influenced the Rust and Java code.
-6. **[Test Summary](examples/payment/09-test-summary.md)**: The build and test execution results.
+1. Start DataHub and ingest metadata.
+2. Use an external coding agent to query DataHub MCP and capture the response.
+3. Evaluate the TeaQL model and invoke Java/Rust online generation.
+4. Compile the exact generated outputs and run any available application tests.
 
-### Test Results Summary
-- **Generated Payment Service**: Code generation succeeded, and the resulting `java-lib-core` and `rust-lib-core` successfully compiled. Runtime integration tests are currently PENDING.
-- **Pre-existing Massive ERP System**: The repository includes a large-scale ERP system generated using the exact same TeaQL workflow. For this ERP system:
-  - **Java (`java-web-spring-boot`)**: 4 tests passed, validating the Interceptor's basic KYC access control logic (checking user ID headers directly).
-  - **Rust (`rust-app-console`)**: 1 test passed, validating the streaming logic's numeric data quality filter (rejecting negative transaction amounts).
+Commands and missing evidence for these phases are tracked in [EVIDENCE_TODO.md](EVIDENCE_TODO.md).
 
-### Known Limitations
-- **TeaQL Generator**: The code generation process utilizes an online service directly rather than a local `generator-1.1.0.jar` executable. As such, local generation steps are bypassed, and the test phase relies on the domain libraries (`rust-lib-core` and `java-lib-core`) that have been successfully generated and returned by this online service.
+## Captured Environment
 
-## What Reviewers Should Inspect
+The existing [environment record](examples/payment/run/environment.txt) includes the Git SHA, OS, Java, Maven, Cargo, and Python output. It does not establish a clean worktree, Docker image digest, DataHub version, MCP Server version, Node.js version, or TeaQL generator version. Those items remain pending.
 
-Review the project in this order:
+## Evidence Chain
 
-1. The MCP request and response captured in `examples/payment/`.
-2. The resulting TeaQL model and its field-by-field mapping to DataHub context.
-3. The generated Rust and Java domain APIs.
-4. The application-layer code that consumes the generated libraries.
-5. The clean-container build, test, and runtime evidence in `examples/payment/run/build-and-test/`.
+1. [User prompt](examples/payment/01-user-request.md)
+2. [MCP configuration example](examples/payment/02-mcp-config.example.json)
+3. [Raw MCP tool call](examples/payment/03-mcp-tool-calls.jsonl)
+4. [Consolidated DataHub context](examples/payment/04-datahub-context.json)
+5. [TeaQL model](examples/payment/05-generated-model.xml)
+6. [Model decisions](examples/payment/06-model-decisions.md)
+7. [Generated Java and Rust code](examples/payment/07-generated-code/)
+8. [Recorded generation/change diff](examples/payment/08-generated.diff)
+9. [Test and compilation summary](examples/payment/09-test-summary.md)
+10. [Context-to-code mapping](examples/payment/10-context-to-code-map.md)
+11. [Raw run logs](examples/payment/run/)
 
-The large `rust-lib-core` and `java-lib-core` directories are generated outputs. They are included so reviewers can inspect output quality and scale, but application behavior is easier to assess in the smaller workspace modules.
+## Test Results
+
+- **Payment service Java library:** compilation succeeded; no payment application runtime test is recorded.
+- **Payment service Rust library:** compilation succeeded; the current raw log is only a short success summary.
+- **Pre-existing ERP Java application:** four direct-instantiation KYC interceptor tests passed. These are not Spring MVC integration or masking tests.
+- **Pre-existing ERP Rust console:** one numeric data-quality filter test passed. It does not test masking or lineage.
+- **Topcoat:** only `rust-web-topcoat/lib` was compiled. No Topcoat web application workspace was verified.
+
+## Known Limitations
+
+- Online generation depends on `api.teaql.io`; a local generator JAR is not included.
+- No captured metadata proves the payment-to-user relationship.
+- No payment runtime masking, KYC integration, lineage mutation, deterministic regeneration, invalid-schema behavior, screenshot, or public video evidence is currently checked in.
+- The existing `datahub-setup.log` is a mocked status summary, not a Docker health check.
+
+Use [EVIDENCE.md](EVIDENCE.md) for the evidence mapping, [EVIDENCE_FIX.md](EVIDENCE_FIX.md) for static remediation instructions, and [EVIDENCE_TODO.md](EVIDENCE_TODO.md) for work that requires the real Docker/MCP/generator environment.
