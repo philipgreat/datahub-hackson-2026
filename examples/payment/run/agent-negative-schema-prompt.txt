@@ -1,0 +1,7 @@
+You are running a read-only evidence test for metadata-grounded code generation.
+
+Run exactly this command to query the real DataHub MCP server:
+
+python3 /tmp/agy-negative.b1v7GA/mcp_client.py get_entities 'urn:li:dataset:(urn:li:dataPlatform:postgres,prod.public.missing_customer_risk,PROD)' --jsonl
+
+Base your answer only on that MCP response. Do not inspect other directories, existing models, examples, Git history, or web sources. Do not create, edit, or delete files. Do not invent a schema, business field, relationship, glossary term, masking policy, or sample value. If the entity is missing or its schema is incomplete, set can_generate to false, keep generated_business_fields and generated_relations empty, choose REFUSE_MISSING_CONTEXT, and request a valid dataset URN with retrievable schema metadata.

@@ -1,0 +1,178 @@
+Script started on 2026-08-08 14:39:29+08:00 [<not executed on terminal>]
+STARTED_AT_UTC=2026-08-08T06:39:29Z
+EVIDENCE_HOST=canada-mini-host
+COMMAND=/home/philip/.local/bin/datahub version
+/home/philip/.local/lib/python3.10/site-packages/pydantic/_internal/_config.py:373: UserWarning: Valid config keys have changed in V2:
+* 'allow_population_by_field_name' has been renamed to 'validate_by_name'
+  warnings.warn(message, UserWarning)
+/usr/lib/python3/dist-packages/paramiko/pkey.py:82: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "cipher": algorithms.TripleDES,
+/usr/lib/python3/dist-packages/paramiko/transport.py:261: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "class": algorithms.TripleDES,
+DataHub CLI version: 1.2.0.2
+Models: bundled
+Python version: 3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]
+COMMAND=rg -n '^datahub docker quickstart$' /home/philip/.bash_history
+1918:datahub docker quickstart
+1921:datahub docker quickstart
+VERIFIED_START_COMMAND=datahub docker quickstart
+COMMAND=/home/philip/.local/bin/datahub docker quickstart --help
+/home/philip/.local/lib/python3.10/site-packages/pydantic/_internal/_config.py:373: UserWarning: Valid config keys have changed in V2:
+* 'allow_population_by_field_name' has been renamed to 'validate_by_name'
+  warnings.warn(message, UserWarning)
+/usr/lib/python3/dist-packages/paramiko/pkey.py:82: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "cipher": algorithms.TripleDES,
+/usr/lib/python3/dist-packages/paramiko/transport.py:261: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from cryptography.hazmat.primitives.ciphers.algorithms in 48.0.0.
+  "class": algorithms.TripleDES,
+Usage: datahub docker quickstart 
+           [OPTIONS]
+
+  Start an instance of DataHub locally using
+  docker-compose.
+
+  This command will automatically download the
+  latest docker-compose configuration from GitHub,
+  pull the latest images, and bring up the DataHub
+  system. There are options to override the
+  docker-compose config file, build the containers
+  locally, and dump logs to the console or to a
+  file if something goes wrong.
+
+Options:
+  --version TEXT                  Datahub version
+                                  to be deployed.
+                                  If not set,
+                                  deploy using the
+                                  defaults from
+                                  the quickstart
+                                  compose. Use
+                                  'stable' to
+                                  start the latest
+                                  stable version.
+  --pull-images / --no-pull-images
+                                  Attempt to pull
+                                  the containers
+                                  from Docker Hub
+                                  before starting
+  -f, --quickstart-compose-file FILE
+                                  Use a local
+                                  docker-compose
+                                  file instead of
+                                  pulling from
+                                  GitHub
+  --dump-logs-on-failure          If true, the
+                                  docker-compose
+                                  logs will be
+                                  printed to
+                                  console if
+                                  something fails
+  --mysql-port INTEGER RANGE      If there is an
+                                  existing mysql
+                                  instance running
+                                  on port 3306,
+                                  set this to a
+                                  free port to
+                                  avoid port
+                                  conflicts on
+                                  startup  [x>=1]
+  --kafka-broker-port INTEGER RANGE
+                                  If there is an
+                                  existing Kafka
+                                  broker running
+                                  on port 9092,
+                                  set this to a
+                                  free port to
+                                  avoid port
+                                  conflicts on
+                                  startup  [x>=1]
+  --elastic-port INTEGER RANGE    If there is an
+                                  existing
+                                  Elasticsearch
+                                  instance running
+                                  on port 9092,
+                                  set this to a
+                                  free port to
+                                  avoid port
+                                  conflicts on
+                                  startup  [x>=1]
+  --stop                          Use this flag to
+                                  stop the running
+                                  containers
+  --backup                        Run this to
+                                  backup a running
+                                  quickstart
+                                  instance
+  --backup-file FILE              Run this to
+                                  backup data from
+                                  a running
+                                  quickstart
+                                  instance
+                                  [default: /home/
+                                  philip/.datahub/
+                                  quickstart/backu
+                                  p.sql]
+  --restore                       Run this to
+                                  restore a
+                                  running
+                                  quickstart
+                                  instance from a
+                                  previous backup
+                                  (see --backup)
+  --restore-file TEXT             Set this to
+                                  provide a custom
+                                  restore file
+  --restore-indices               Enable the
+                                  restoration of
+                                  indices of a
+                                  running
+                                  quickstart
+                                  instance. Note:
+                                  Using --restore
+                                  will
+                                  automatically
+                                  restore-indices
+                                  unless you use
+                                  the --no-
+                                  restore-indices
+                                  flag.
+  --no-restore-indices            Disables the
+                                  restoration of
+                                  indices of a
+                                  running
+                                  quickstart
+                                  instance when
+                                  used in
+                                  conjunction with
+                                  --restore.
+  --arch TEXT                     Specify the
+                                  architecture for
+                                  the quickstart
+                                  images to use.
+                                  Options are x86,
+                                  arm64, m1 etc.
+  --help                          Show this
+                                  message and
+                                  exit.
+COMMAND=/usr/local/bin/docker-compose version
+Docker Compose version v2.34.0
+COMPOSE_FILE=/home/philip/.datahub/quickstart/docker-compose.yml
+COMPOSE_FILE_SHA256=c7963614d5f7cedb74b1af8ca55bc3e5e665cf6c03aea7123156bc5c283dee06
+COMMAND=docker ps --filter label=com.docker.compose.project=datahub
+datahub-datahub-actions-quickstart-1	acryldata/datahub-actions:v1.5.0.6-slim	Up 5 days
+datahub-datahub-gms-quickstart-1	acryldata/datahub-gms:v1.5.0.6	Up 5 days (healthy)
+datahub-frontend-quickstart-1	acryldata/datahub-frontend-react:v1.5.0.6	Up 5 days (healthy)
+datahub-kafka-broker-1	confluentinc/cp-kafka:8.0.0	Up 5 days (healthy)
+datahub-mysql-1	mysql:8.2	Up 5 days (healthy)
+datahub-opensearch-1	opensearchproject/opensearch:2.19.3	Up 12 hours (healthy)
+COMMAND=docker inspect <active-datahub-container> compose labels
+CONTAINER=/datahub-datahub-actions-quickstart-1 PROJECT=datahub SERVICE=datahub-actions-quickstart CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+CONTAINER=/datahub-datahub-gms-quickstart-1 PROJECT=datahub SERVICE=datahub-gms-quickstart CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+CONTAINER=/datahub-frontend-quickstart-1 PROJECT=datahub SERVICE=frontend-quickstart CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+CONTAINER=/datahub-kafka-broker-1 PROJECT=datahub SERVICE=kafka-broker CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+CONTAINER=/datahub-mysql-1 PROJECT=datahub SERVICE=mysql CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+CONTAINER=/datahub-opensearch-1 PROJECT=datahub SERVICE=opensearch CONFIG=/home/philip/.datahub/quickstart/docker-compose.yml WORKDIR=/home/philip/.datahub/quickstart COMPOSE_VERSION=2.34.0
+COMMAND=curl -fsS -o /dev/null -w HTTP_STATUS=<status> http://localhost:8080/health
+HTTP_STATUS=200
+FINISHED_AT_UTC=2026-08-08T06:39:32Z
+
+Script done on 2026-08-08 14:39:32+08:00 [COMMAND_EXIT_CODE="0"]

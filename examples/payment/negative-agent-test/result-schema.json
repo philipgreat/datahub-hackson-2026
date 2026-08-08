@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision",
+    "can_generate",
+    "mcp_tool",
+    "mcp_result",
+    "generated_business_fields",
+    "generated_relations",
+    "reason",
+    "clarification_request"
+  ],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["REFUSE_MISSING_CONTEXT", "GENERATE"]
+    },
+    "can_generate": {"type": "boolean"},
+    "mcp_tool": {"type": "string"},
+    "mcp_result": {"type": "string"},
+    "generated_business_fields": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "generated_relations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "reason": {"type": "string"},
+    "clarification_request": {"type": "string"}
+  }
+}

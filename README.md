@@ -40,6 +40,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | Phase | Status | Direct evidence |
 | --- | --- | --- |
 | DataHub container and health | VERIFIED | `examples/payment/run/datahub-setup.log` |
+| DataHub startup command and dependencies | VERIFIED | `examples/payment/run/datahub-startup-command.log` |
 | Agent attribution and installed versions | VERIFIED WITH SCOPE | `examples/payment/run/agent-versions.txt` |
 | MCP tools, entities, and lineage | VERIFIED | `examples/payment/03-mcp-tool-calls.jsonl` |
 | TeaQL model evaluation | VERIFIED | Errors `0` in `examples/payment/run/model-eval.log` |
@@ -49,7 +50,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | Default Rust raw trace masking | NOT VERIFIED | Raw logger is separate; evidence test uses `TEAQL_AUDIT_LOG=_silent` |
 | KYC and lineage write-back | N/A | Not part of the payment masking demonstration |
 | Generated-source repeatability | VERIFIED | Second empty-directory run matched; archives/test additions excluded |
-| Invalid-schema/agent failure behavior | PENDING | Tracked in `EVIDENCE_TODO.md` |
+| Invalid-schema/agent failure behavior | VERIFIED | Antigravity refused generation after MCP `not found` |
 | Screenshots and public video | PENDING | Deferred to the human operator |
 
 ## Reproduction Phases
@@ -63,7 +64,28 @@ python3 mcp_client.py get_entities <payment-urn> <user-urn> --jsonl
 python3 mcp_client.py get_lineage <payment-urn> --jsonl
 ```
 
-### 2. Start the Internal TeaQL Generator
+The evidence host was started with the command recorded twice in shell history:
+
+```bash
+datahub docker quickstart
+```
+
+`examples/payment/run/datahub-startup-command.log` also records the current DataHub CLI, Compose file/hash, active dependency services, Compose labels, and HTTP `200` health result.
+
+### 2. Verify Missing-context Behavior
+
+```bash
+script -q -e -c \
+  "examples/payment/negative-agent-test/run_negative_agent_test.sh" \
+  examples/payment/run/agent-negative-schema.log
+
+examples/payment/negative-agent-test/verify_negative_agent_result.sh \
+  examples/payment/run/agent-negative-schema.log
+```
+
+Antigravity executed the repository MCP client against an intentionally nonexistent dataset URN. DataHub returned `Entity ... not found`; the agent returned `can_generate=false`, empty business fields and relations, and requested a valid URN with retrievable schema metadata. This verifies refusal rather than schema or relationship invention. The call used Antigravity's terminal tool to execute the MCP client; it is not described as a native `call_mcp_tool` invocation.
+
+### 3. Start the Internal TeaQL Generator
 
 From the sibling `teaql-code-gen` checkout on the evidence host:
 
@@ -75,7 +97,7 @@ java -jar generator/target/generator-1.1.1.jar \
 
 The loopback binding keeps model generation on the remote machine.
 
-### 3. Evaluate and Generate
+### 4. Evaluate and Generate
 
 ```bash
 export TEAQL_ENDPOINT_PREFIX=http://127.0.0.1:18080/
@@ -95,7 +117,7 @@ cargo teaql \
   rust-lib-core
 ```
 
-### 4. Build and Test Exact Outputs
+### 5. Build and Test Exact Outputs
 
 ```bash
 TEAQL_TRACE_MODE=off \
@@ -123,7 +145,8 @@ The Rust integration test sends a `RawAuditEvent` through `UserContext.send_even
 8. [Generated source diff](examples/payment/08-generated.diff)
 9. [Build/test summary](examples/payment/09-test-summary.md)
 10. [Context-to-code map](examples/payment/10-context-to-code-map.md)
-11. [Raw execution logs and checksums](examples/payment/run/)
+11. [Negative-agent test fixture](examples/payment/negative-agent-test/)
+12. [Raw execution logs and checksums](examples/payment/run/)
 
 ## Security Boundary
 

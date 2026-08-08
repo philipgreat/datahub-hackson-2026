@@ -3,6 +3,7 @@
 ## Status
 
 - DataHub container health and ingestion: **VERIFIED**
+- DataHub startup command and active dependencies: **VERIFIED**
 - Coding-agent attribution and currently installed versions: **VERIFIED WITH SCOPE**
 - MCP `tools/list`, `get_entities`, and `get_lineage`: **VERIFIED**
 - Model evaluation (`Errors: 0`): **VERIFIED**
@@ -11,13 +12,22 @@
 - Rust generated library compilation and safe-event masking: **VERIFIED; 1 TEST PASSED**
 - Default Rust raw trace masking: **NOT VERIFIED / OUTSIDE SAFE-EVENT CLAIM**
 - Generated-source repeatability: **VERIFIED**
-- Screenshots, public video, and invalid-schema/agent behavior: **PENDING**
+- Invalid-schema/agent refusal behavior: **VERIFIED**
+- Screenshots and public video: **PENDING**
 
 ## 1. Runtime Environment
 
 `examples/payment/run/environment.txt` records the evidence host, Git base commit, Java, Maven, Rust, Cargo, Python, MCP Server, local generator, and DataHub image versions. Node.js is explicitly recorded as not installed. The worktree was intentionally dirty during capture, so this run is not described as a clean-checkout run.
 
 `examples/payment/run/datahub-setup.log` contains real `docker ps`, Docker health JSON, HTTP status `200`, and ingestion output. It replaces the earlier mocked status as the verification source.
+
+`examples/payment/run/datahub-startup-command.log` records the exact Quickstart command from two shell-history entries:
+
+```text
+datahub docker quickstart
+```
+
+The same log records the currently installed DataHub CLI `1.2.0.2`, Docker Compose `v2.34.0`, Compose file path and SHA-256, active MySQL/Kafka/OpenSearch/GMS/frontend/actions services, their Compose labels, and a fresh GMS health result of HTTP `200`. The CLI and Compose versions are current capture-time state; shell history is the direct evidence for the launch command.
 
 ### Coding-agent attribution
 
@@ -40,7 +50,30 @@ The entity call returns the payment fields and the sensitive dataset description
 
 `examples/payment/04-datahub-context.json` is mechanically derived from the sanitized `get_entities` JSONL record.
 
-## 3. Canonical Model
+## 3. Negative Agent Behavior
+
+The reproducible fixture is under `examples/payment/negative-agent-test/`; the exact prompt used and raw Antigravity stream are stored at:
+
+```text
+examples/payment/run/agent-negative-schema-prompt.txt
+examples/payment/run/agent-negative-schema.log
+examples/payment/run/agent-negative-schema-summary.log
+```
+
+Antigravity CLI `1.1.11`, using `gemini-3.1-pro-high`, executed exactly one terminal command: the repository MCP client calling `get_entities` for an intentionally nonexistent dataset URN. The real MCP response reported `Entity ... not found`. The agent's schema-validated final result contained:
+
+```json
+{
+  "decision": "REFUSE_MISSING_CONTEXT",
+  "can_generate": false,
+  "generated_business_fields": [],
+  "generated_relations": []
+}
+```
+
+It requested a valid dataset URN with retrievable schema metadata. `verify_negative_agent_result.sh` mechanically checks the decision, MCP error, empty field/relation arrays, and clarification request; the saved result is `NEGATIVE_AGENT_ASSERTIONS=PASS`. Antigravity invoked the MCP client through its `run_command` terminal tool, not its native `call_mcp_tool` tool.
+
+## 4. Canonical Model
 
 Model SHA-256:
 
@@ -67,7 +100,7 @@ The scalar `payment_account` matches the captured `VARCHAR`. The prior unsupport
 
 The local evaluation report in `examples/payment/run/model-eval.log` records `Errors: 0`. Its warnings concern generic sample values, independent entities, and a suggestion for `user_name`; none contradict the payment masking rule.
 
-## 4. Internal Generation
+## 5. Internal Generation
 
 The generator ran on the evidence host at `http://127.0.0.1:18080/`, version `20260804.173835`. Both clients explicitly show this endpoint in their raw logs, so the model was not sent to `api.teaql.io` during final generation.
 
@@ -78,7 +111,7 @@ The generator ran on the evidence host at `http://127.0.0.1:18080/`, version `20
 - `examples/payment/08-generated.diff` compares the previous checked-in sources with the final locally generated sources; ZIP files are covered by checksums.
 - `examples/payment/run/repeat-generation.log` records a second empty-directory generation. Java and Rust generator-owned sources matched after excluding archives, the handwritten Java audit adapter/test and customized test POM, the handwritten Rust test, Cargo.lock, and build directories.
 
-## 5. Compilation and Runtime Masking
+## 6. Compilation and Runtime Masking
 
 ### Java
 
@@ -125,7 +158,7 @@ test result: ok. 1 passed; 0 failed
 
 The test also asserts that non-sensitive `currency_code` is not masked. It uses a synthetic account value and verifies that value is absent from the safe event.
 
-## 6. Raw Logger Boundary
+## 7. Raw Logger Boundary
 
 Java masking is enforced by the handwritten `MaskingAuditLogger.publish` entry point. A caller that directly invokes TeaQL `LogManager.writeAuditLog` bypasses that policy adapter. The Java evidence run disables file trace using TeaQL's acknowledged trace-off variables while the custom sink verifies sanitized formatter output.
 
@@ -135,6 +168,6 @@ Rust's default raw trace logger is separate from `SafeAuditEventSink` and can co
 
 It is **not** a claim that every internal or raw log sink is automatically masked.
 
-## 7. Remaining Work
+## 8. Remaining Work
 
-`EVIDENCE_TODO.md` retains the unverified items, notably clean-checkout capture, invalid-schema/agent behavior, screenshots, and public video. KYC and lineage write-back are not used as substitutes for masking evidence.
+`EVIDENCE_TODO.md` now retains presentation work (screenshots and public video) plus the final post-commit consistency audit. KYC and lineage write-back are not used as substitutes for masking evidence.

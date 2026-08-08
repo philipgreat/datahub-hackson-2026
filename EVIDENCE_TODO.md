@@ -17,7 +17,7 @@
 - [x] 记录本次运行的 repository commit SHA 和 `git status --short`；本次取证时 worktree 为 dirty，未声称 clean。
 - [x] 记录 DataHub Docker image/tag、image ID 和不可变 digest。
 - [x] 记录 OS、Java、Maven、Rust、Cargo、Python、DataHub、MCP Server、TeaQL generator 的实际版本；Node.js 明确记录为未安装。
-- [ ] 记录启动 DataHub 及依赖服务的准确命令。
+- [x] 从 shell history 记录准确命令 `datahub docker quickstart`，并保存当前 CLI/Compose、配置 hash、活动依赖服务、Compose labels 和 HTTP 200 到 `examples/payment/run/datahub-startup-command.log`。
 - [x] 保存到 `examples/payment/run/environment.txt`，且没有把 dirty worktree 描述为 clean。
 
 ## 2. DataHub 实例和数据集
@@ -90,8 +90,8 @@
 
 - [x] 从第二个 clean output directory 重复生成一次。
 - [x] 比较两次 generator-owned sources；排除 ZIP、Java 手写 adapter/test 与测试 POM、Rust 手写测试、Cargo.lock 和 build directory 后内容一致。
-- [ ] 提供 invalid/incomplete DataHub schema，捕获 agent 的失败或澄清行为。
-- [ ] 证明 agent 在缺失关键 context 时不会自行编造事实。
+- [x] 使用不存在的 DataHub dataset URN，捕获 Antigravity 经仓库 MCP client 收到 `Entity ... not found` 后的拒绝和澄清行为。
+- [x] 结构化结果中 `can_generate=false`、业务字段与关系均为空；机械校验记录为 `NEGATIVE_AGENT_ASSERTIONS=PASS`。
 - [x] 记录人工操作、内网 generator endpoint、Cargo offline cache 和 raw logger 配置假设。
 
 ## 9. 提交材料
