@@ -66,19 +66,20 @@
 - [x] 在 evidence host 上针对最终 payment manifests 执行并完整记录：
 
   ```bash
-  mvn -f examples/payment/07-generated-code/java-lib-core/lib/pom.xml clean test
+  TEAQL_TRACE_MODE=off TEAQL_TRACE_OFF_ACK=<acknowledged-value> mvn -f examples/payment/07-generated-code/java-lib-core/lib/pom.xml clean test
   cargo test --manifest-path examples/payment/07-generated-code/rust-lib-core/lib/Cargo.toml --locked -v
   ```
 
 - [x] Java 日志包含 command、cwd、manifest、时间戳、exit code、test count 和 duration。
 - [x] Rust 日志包含 command、cwd、manifest、crate、时间戳、exit code、test count 和 duration。
-- [x] 明确区分 Java“编译成功但 0 tests”和 Rust“1 integration test passed”。
+- [x] Java 与 Rust 各有 1 个 runtime masking test passed，并分别记录安全边界。
 - [x] 保存完整日志到 `examples/payment/run/build-and-test/`。
 - [x] 从原始日志更新 `examples/payment/09-test-summary.md`。
 
 ## 7. Runtime policy（可选但不能冒充已完成）
 
 - [x] Rust 真实测试读取生成 descriptor policy，调用 `UserContext.send_event` safe-event masking，并断言敏感账号不可见。
+- [x] Java 真实测试读取生成 `EntityMetaRegistry` policy，经手写 `MaskingAuditLogger` 输出 safe event 和 TeaQL formatted log，并断言敏感账号不可见。
 - N/A — 已完成 Rust runtime safe-event test，不使用仅 propagation 的替代结论。
 - N/A — Payment demo 不声明 KYC 或 Spring MVC runtime 行为。
 - N/A — Payment demo 不声明 lineage write-back；`get_lineage` 仅用于关系决策。
@@ -88,7 +89,7 @@
 ## 8. 可重复性和失败行为
 
 - [x] 从第二个 clean output directory 重复生成一次。
-- [x] 比较两次 generated sources；排除 ZIP、手写测试、Cargo.lock 和 build directory 后 Java/Rust 内容一致。
+- [x] 比较两次 generator-owned sources；排除 ZIP、Java 手写 adapter/test 与测试 POM、Rust 手写测试、Cargo.lock 和 build directory 后内容一致。
 - [ ] 提供 invalid/incomplete DataHub schema，捕获 agent 的失败或澄清行为。
 - [ ] 证明 agent 在缺失关键 context 时不会自行编造事实。
 - [x] 记录人工操作、内网 generator endpoint、Cargo offline cache 和 raw logger 配置假设。

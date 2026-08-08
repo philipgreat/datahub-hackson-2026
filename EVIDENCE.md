@@ -6,7 +6,7 @@
 - MCP `tools/list`, `get_entities`, and `get_lineage`: **VERIFIED**
 - Model evaluation (`Errors: 0`): **VERIFIED**
 - Java/Rust generation through loopback TeaQL service: **VERIFIED**
-- Java generated library compilation: **VERIFIED; ZERO TESTS**
+- Java generated library plus masking adapter: **VERIFIED; 1 TEST PASSED**
 - Rust generated library compilation and safe-event masking: **VERIFIED; 1 TEST PASSED**
 - Default Rust raw trace masking: **NOT VERIFIED / OUTSIDE SAFE-EVENT CLAIM**
 - Generated-source repeatability: **VERIFIED**
@@ -66,13 +66,27 @@ The generator ran on the evidence host at `http://127.0.0.1:18080/`, version `20
 - Output began under a new `/tmp/payment-gen.*` directory.
 - `examples/payment/run/generated-files.sha256` records the final output manifest.
 - `examples/payment/08-generated.diff` compares the previous checked-in sources with the final locally generated sources; ZIP files are covered by checksums.
-- `examples/payment/run/repeat-generation.log` records a second empty-directory generation. Java and Rust generated sources matched after excluding archives, the handwritten Rust test, Cargo.lock, and build directories.
+- `examples/payment/run/repeat-generation.log` records a second empty-directory generation. Java and Rust generator-owned sources matched after excluding archives, the handwritten Java audit adapter/test and customized test POM, the handwritten Rust test, Cargo.lock, and build directories.
 
 ## 5. Compilation and Runtime Masking
 
 ### Java
 
-`examples/payment/run/build-and-test/payment-service-java.log` records compilation of 19 Java sources and `BUILD SUCCESS`. Maven reports `No tests to run`; therefore Java runtime masking is not claimed.
+The generated Java library contains a handwritten policy adapter and test:
+
+```text
+examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/audit/MaskingAuditLogger.java
+examples/payment/07-generated-code/java-lib-core/lib/src/test/java/com/example/paymentservice/audit/MaskingAuditLoggerTest.java
+```
+
+`MaskingAuditLogger` resolves `audit_mask_fields` from the generated `EntityMetaRegistry`, normalizes the model's `payment_account` policy name against the generated Java runtime property `paymentAccount`, creates a `SafeAuditEvent`, sends it to an optional `SafeAuditEventSink`, and delegates only sanitized `FieldChange` values to TeaQL's formatter. It fails closed when entity metadata is unavailable.
+
+`examples/payment/run/build-and-test/payment-service-java.log` records compilation of 23 Java sources and one passing test. The assertions cover `masked=true`, reason `_audit_mask_fields`, preservation of non-sensitive `currency_code`, and absence of the synthetic raw account in both the safe event and formatted log. Its marker is:
+
+```text
+JAVA_MASKING_EVIDENCE entity=PaymentTransaction policy_field=payment_account runtime_field=paymentAccount masked=true reason=_audit_mask_fields raw_present=false formatted_log_raw_present=false
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+```
 
 ### Rust
 
@@ -103,9 +117,11 @@ The test also asserts that non-sensitive `currency_code` is not masked. It uses 
 
 ## 6. Raw Logger Boundary
 
-TeaQL's default raw trace logger is separate from `SafeAuditEventSink` and can contain raw mutation values. The final evidence command uses `TEAQL_AUDIT_LOG=_silent` to prevent raw trace output while testing the safe-event path. The verified claim is therefore:
+Java masking is enforced by the handwritten `MaskingAuditLogger.publish` entry point. A caller that directly invokes TeaQL `LogManager.writeAuditLog` bypasses that policy adapter. The Java evidence run disables file trace using TeaQL's acknowledged trace-off variables while the custom sink verifies sanitized formatter output.
 
-> Generated masking metadata is consumed by the Rust TeaQL runtime to mask `payment_account` in `SafeAuditEvent` output.
+Rust's default raw trace logger is separate from `SafeAuditEventSink` and can contain raw mutation values. The final Rust evidence command uses `TEAQL_AUDIT_LOG=_silent` to prevent raw trace output while testing the safe-event path. The verified claim is therefore:
+
+> Generated masking metadata is consumed by the Java policy adapter and Rust TeaQL runtime to mask `payment_account` before safe audit output.
 
 It is **not** a claim that every internal or raw log sink is automatically masked.
 

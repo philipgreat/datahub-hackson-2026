@@ -18,7 +18,7 @@ TeaQL model
       v
 TeaQL generator (127.0.0.1:18080)
       |
-      +---- Java domain library
+      +---- Java domain library + masking adapter/test
       +---- Rust domain library + masking integration test
 ```
 
@@ -30,7 +30,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | --- | --- | --- |
 | Dataset and field names | Independent business entities and properties | Typed Java/Rust domain APIs |
 | `payment_account` / `VARCHAR` | `payment_account="string()"` | Java `String` and Rust `String` field |
-| Sensitive payment description | `_audit_mask_fields="payment_account"` | Java/Rust policy metadata; Rust safe audit event masks the value |
+| Sensitive payment description | `_audit_mask_fields="payment_account"` | Java/Rust policy metadata; both safe audit paths mask the value |
 | `get_lineage` upstream total `0` | No payment-to-user relation | No unsupported relation in generated code |
 
 ## Evidence Status
@@ -41,7 +41,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | MCP tools, entities, and lineage | VERIFIED | `examples/payment/03-mcp-tool-calls.jsonl` |
 | TeaQL model evaluation | VERIFIED | Errors `0` in `examples/payment/run/model-eval.log` |
 | Local Java/Rust generation | VERIFIED | `examples/payment/run/maven_generate.log`, `cargo_generate.log` |
-| Generated Java compilation | VERIFIED | 19 sources, build success, zero tests |
+| Java safe-event masking | VERIFIED | 23 sources compiled; one runtime masking test passed |
 | Generated Rust masking | VERIFIED | One safe-event masking test passed |
 | Default Rust raw trace masking | NOT VERIFIED | Raw logger is separate; evidence test uses `TEAQL_AUDIT_LOG=_silent` |
 | KYC and lineage write-back | N/A | Not part of the payment masking demonstration |
@@ -95,6 +95,8 @@ cargo teaql \
 ### 4. Build and Test Exact Outputs
 
 ```bash
+TEAQL_TRACE_MODE=off \
+TEAQL_TRACE_OFF_ACK=__i_agree_to_disable_runtime_trace_only_for_extreme_performance_testing \
 mvn -f examples/payment/07-generated-code/java-lib-core/lib/pom.xml clean test
 
 TEAQL_AUDIT_LOG=_silent cargo test \
@@ -102,7 +104,9 @@ TEAQL_AUDIT_LOG=_silent cargo test \
   --locked --offline -- --nocapture
 ```
 
-The Rust integration test sends a `RawAuditEvent` through `UserContext.send_event`. The context reads the generated `PaymentTransaction` descriptor, builds a `SafeAuditEvent`, and sends it to a registered `SafeAuditEventSink`. The test asserts `masked=true`, `_audit_mask_fields` as the reason, and absence of the synthetic raw account value. It also confirms that `currency_code` remains unmasked.
+The Java test sends a TeaQL `AuditEvent` through the handwritten `MaskingAuditLogger`, using the generated runtime property name `paymentAccount`. The adapter reads `payment_account` from the generated `EntityMetaRegistry`, normalizes the snake_case/camelCase names, creates a `SafeAuditEvent`, and only then delegates sanitized values to TeaQL's formatter. It verifies that neither the safe event nor final formatted log contains the synthetic account value.
+
+The Rust integration test sends a `RawAuditEvent` through `UserContext.send_event`. The context reads the generated `PaymentTransaction` descriptor, builds a `SafeAuditEvent`, and sends it to a registered `SafeAuditEventSink`. Both tests assert `masked=true`, `_audit_mask_fields` as the reason, absence of the synthetic raw account value, and that `currency_code` remains unmasked.
 
 ## Evidence Chain
 
@@ -112,7 +116,7 @@ The Rust integration test sends a `RawAuditEvent` through `UserContext.send_even
 4. [Consolidated context](examples/payment/04-datahub-context.json)
 5. [Canonical model](examples/payment/05-generated-model.xml)
 6. [Model decisions](examples/payment/06-model-decisions.md)
-7. [Generated code and Rust masking test](examples/payment/07-generated-code/)
+7. [Generated code and Java/Rust masking tests](examples/payment/07-generated-code/)
 8. [Generated source diff](examples/payment/08-generated.diff)
 9. [Build/test summary](examples/payment/09-test-summary.md)
 10. [Context-to-code map](examples/payment/10-context-to-code-map.md)
@@ -120,10 +124,12 @@ The Rust integration test sends a `RawAuditEvent` through `UserContext.send_even
 
 ## Security Boundary
 
-The verified claim is specifically about TeaQL's `SafeAuditEvent` path. TeaQL also has a separate default raw trace logger that can contain raw mutation values. The evidence command sets `TEAQL_AUDIT_LOG=_silent` so that raw trace is not written while the safe-event sink is tested. Production deployments must disable or appropriately secure the raw logger; this repository does not claim that the raw trace path is masked.
+The Java guarantee applies when audit events enter through the handwritten `MaskingAuditLogger.publish` adapter; direct calls to TeaQL `LogManager.writeAuditLog` bypass that adapter and are not claimed safe. The Java evidence command disables the file trace while still exercising the registered custom sink, which receives sanitized formatter output.
+
+Rust's verified claim is specifically about TeaQL's `SafeAuditEvent` path. Its separate default raw trace logger can contain raw mutation values, so the evidence command sets `TEAQL_AUDIT_LOG=_silent`. Production deployments must route Java events through the masking adapter and disable or appropriately secure raw trace paths.
 
 ## Hackathon Scope Disclosure
 
-The TeaQL generator, Java/Rust runtimes, generated-library templates, and large ERP sample existed before this submission. This submission adds the DataHub MCP-to-TeaQL workflow, the payment metadata ingestion and evidence capture, the payment model and regenerated Java/Rust outputs, the Rust safe-event masking integration test, and the reproducibility/evidence scripts under `examples/payment/`.
+The TeaQL generator, Java/Rust runtimes, generated-library templates, and large ERP sample existed before this submission. This submission adds the DataHub MCP-to-TeaQL workflow, the payment metadata ingestion and evidence capture, the payment model and regenerated Java/Rust outputs, a handwritten Java masking adapter, Java/Rust safe-event masking tests, and the reproducibility/evidence scripts under `examples/payment/`.
 
 Use [EVIDENCE.md](EVIDENCE.md) for detailed verification and [EVIDENCE_TODO.md](EVIDENCE_TODO.md) for remaining work. Screenshots and video are intentionally left for the human operator.

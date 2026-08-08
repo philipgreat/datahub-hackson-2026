@@ -30,8 +30,8 @@ echo "COMMAND=cargo teaql --endpoint-prefix $ENDPOINT --input <model> --output <
   --output "$REPEAT_ROOT/rust-lib-core" \
   rust-lib-core
 
-echo "JAVA_COMPARISON=exclude domain.zip,target"
-diff -qr --exclude=domain.zip --exclude=target \
+echo "JAVA_COMPARISON=exclude domain.zip,target,pom.xml,tests,handwritten audit adapter"
+diff -qr --exclude=domain.zip --exclude=target --exclude=pom.xml --exclude=test --exclude=audit \
   "$JAVA_EXPECTED" "$REPEAT_ROOT/java-lib-core"
 
 echo "RUST_COMPARISON=exclude domain.zip,Cargo.lock,tests,target"

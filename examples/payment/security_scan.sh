@@ -48,7 +48,7 @@ check_absent "unmasked_api_key_or_password" \
   'api[_-]?key.{0,8}[=:].{0,4}[A-Za-z0-9._-]{12,}|password.{0,8}[=:].{0,4}[^* <][^ <]{7,}' \
   "${scan_paths[@]}"
 check_absent "synthetic_raw_account_in_logs" \
-  'TEST-ACCOUNT-0001' \
+  'TEST-ACCOUNT-0001|payment-account-runtime-secret-8472|previous-secret' \
   examples/payment/run
 
 echo "FINISHED_AT_UTC=$(date -u +%Y-%m-%dT%H:%M:%SZ)"

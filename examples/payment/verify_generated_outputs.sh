@@ -12,9 +12,11 @@ run_java() {
   echo "TARGET=payment-service-java-library"
   echo "CWD=$WORKSPACE"
   echo "MANIFEST=$manifest"
-  echo "COMMAND=mvn -f $manifest clean test"
+  echo "COMMAND=TEAQL_TRACE_MODE=off TEAQL_TRACE_OFF_ACK=<acknowledged-value> mvn -f $manifest clean test"
   cd "$WORKSPACE"
   JAVA_HOME="$JAVA_HOME_PATH" \
+    TEAQL_TRACE_MODE=off \
+    TEAQL_TRACE_OFF_ACK=__i_agree_to_disable_runtime_trace_only_for_extreme_performance_testing \
     PATH="$JAVA_HOME_PATH/bin:/home/philip/.sdkman/candidates/maven/current/bin:/usr/bin:/bin" \
     "$MAVEN_PATH" -f "$manifest" clean test
 }

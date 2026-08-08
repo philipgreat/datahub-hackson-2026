@@ -3,11 +3,14 @@
 ## Generated Payment Java Library
 
 - **Manifest:** `examples/payment/07-generated-code/java-lib-core/lib/pom.xml`
-- **Command:** Maven `clean test` with Java 25
-- **Result:** 19 sources compiled; `BUILD SUCCESS`
-- **Tests:** `No tests to run`
-- **Claim:** compilation only; no Java runtime masking claim
+- **Command:** TeaQL file trace disabled; Maven `clean test` with Java 25
+- **Result:** 23 sources compiled; `BUILD SUCCESS`
+- **Tests:** 1 passed, 0 failed
+- **Test:** `src/test/java/com/example/paymentservice/audit/MaskingAuditLoggerTest.java`
+- **Claim:** generated Java masking metadata is enforced by the handwritten safe audit adapter
 - **Raw log:** `examples/payment/run/build-and-test/payment-service-java.log`
+
+The Java test sends a TeaQL `AuditEvent` through `MaskingAuditLogger.publish`, using the generated runtime property constant `paymentAccount`. It verifies normalization against the model policy name `payment_account`, and that the generated `EntityMetaRegistry` drives masking before delivery to both `SafeAuditEventSink` and TeaQL's final formatter. The synthetic raw account is absent from both outputs; `currency_code` remains visible.
 
 ## Generated Payment Rust Library
 
@@ -27,7 +30,7 @@ The integration test registers a `SafeAuditEventSink`, sends a `RawAuditEvent` t
 
 ## Security Boundary
 
-The test verifies TeaQL's safe audit event path. The separate default raw trace logger is silenced with its documented `TEAQL_AUDIT_LOG=_silent` setting and is not claimed to be masked.
+The Java claim requires callers to use the handwritten `MaskingAuditLogger`; direct `LogManager.writeAuditLog` calls bypass it. The Java file trace is disabled during the test, while a custom sink verifies the sanitized formatter output. The separate Rust default raw trace logger is silenced with `TEAQL_AUDIT_LOG=_silent` and is not claimed to be masked.
 
 ## Unrelated ERP Tests
 
