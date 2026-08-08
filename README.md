@@ -45,7 +45,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | MCP tools, entities, and lineage | VERIFIED | `examples/payment/03-mcp-tool-calls.jsonl` |
 | TeaQL model evaluation | VERIFIED | Errors `0` in `examples/payment/run/model-eval.log` |
 | Local Java/Rust generation | VERIFIED | `examples/payment/run/maven_generate.log`, `cargo_generate.log` |
-| Java safe-event masking | VERIFIED | 23 sources compiled; one runtime masking test passed |
+| Java safe-event masking | VERIFIED | 23 sources compiled; two masking tests passed, including JSON deserialization |
 | Generated Rust masking | VERIFIED | One safe-event masking test passed |
 | Default Rust raw trace masking | NOT VERIFIED | Raw logger is separate; evidence test uses `TEAQL_AUDIT_LOG=_silent` |
 | KYC and lineage write-back | N/A | Not part of the payment masking demonstration |
@@ -129,9 +129,9 @@ TEAQL_AUDIT_LOG=_silent cargo test \
   --locked --offline -- --nocapture
 ```
 
-The Java test sends a TeaQL `AuditEvent` through the handwritten `MaskingAuditLogger`, using the generated runtime property name `paymentAccount`. The adapter reads `payment_account` from the generated `EntityMetaRegistry`, normalizes the snake_case/camelCase names, creates a `SafeAuditEvent`, and only then delegates sanitized values to TeaQL's formatter. It verifies that neither the safe event nor final formatted log contains the synthetic account value.
+The Java tests cover both an in-memory TeaQL `AuditEvent` and an external JSON replay/import payload. `MaskingAuditLogger.deserialize` consults the generated metadata while deserializing and returns only a `SafeAuditEvent`; `deserializeAndPublish` applies the same policy before either sink receives the event. The adapter normalizes `payment_account` against the generated Java property `paymentAccount`, masks both old and new values, and fails closed for unknown entities. Neither the safe object nor TeaQL's final formatted log contains the synthetic account value.
 
-The Rust integration test sends a `RawAuditEvent` through `UserContext.send_event`. The context reads the generated `PaymentTransaction` descriptor, builds a `SafeAuditEvent`, and sends it to a registered `SafeAuditEventSink`. Both tests assert `masked=true`, `_audit_mask_fields` as the reason, absence of the synthetic raw account value, and that `currency_code` remains unmasked.
+The Rust integration test starts from deserialized JSON business input and sends the resulting `RawAuditEvent` through `UserContext.send_event`. The context reads the generated `PaymentTransaction` descriptor, builds a `SafeAuditEvent`, and sends it to a registered `SafeAuditEventSink`. The masking tests assert `masked=true`, `_audit_mask_fields` as the reason, absence of the synthetic raw account value, and that `currency_code` remains unmasked.
 
 ## Evidence Chain
 

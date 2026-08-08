@@ -1,59 +1,57 @@
-Script started on 2026-08-08 12:33:02+08:00 [<not executed on terminal>]
-STARTED_AT_UTC=2026-08-08T04:33:02Z
+STARTED_AT_UTC=2026-08-08T11:23:29Z
 TARGET=payment-service-java-library
 CWD=/home/philip/githome/datahub-hackson-2026
 MANIFEST=examples/payment/07-generated-code/java-lib-core/lib/pom.xml
 COMMAND=TEAQL_TRACE_MODE=off TEAQL_TRACE_OFF_ACK=<acknowledged-value> mvn -f examples/payment/07-generated-code/java-lib-core/lib/pom.xml clean test
-[[1;34mINFO[m] Scanning for projects...
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m------------------< [0;36mcom.example:payment-service-core[0;1m >------------------[m
-[[1;34mINFO[m] [1mBuilding payment-service-core 0.0.1-SNAPSHOT[m
-[[1;34mINFO[m]   from pom.xml
-[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mclean:3.2.0:clean[m [1m(default-clean)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] Deleting /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/target
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mresources:3.4.0:resources[m [1m(default-resources)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mcompiler:3.12.1:compile[m [1m(default-compile)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
-[[1;34mINFO[m] Compiling 23 source files with javac [debug parameters release 21] to target/classes
-[[1;34mINFO[m] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java: /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java uses or overrides a deprecated API.
-[[1;34mINFO[m] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java: Recompile with -Xlint:deprecation for details.
-[[1;34mINFO[m] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java: Some input files use unchecked or unsafe operations.
-[[1;34mINFO[m] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java: Recompile with -Xlint:unchecked for details.
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mresources:3.4.0:testResources[m [1m(default-testResources)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/test/resources
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32mcompiler:3.12.1:testCompile[m [1m(default-testCompile)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
-[[1;34mINFO[m] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m--- [0;32msurefire:3.5.2:test[m [1m(default-test)[m @ [36mpayment-service-core[0;1m ---[m
-[[1;34mINFO[m] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[[1;34mINFO[m] 
-[[1;34mINFO[m] -------------------------------------------------------
-[[1;34mINFO[m]  T E S T S
-[[1;34mINFO[m] -------------------------------------------------------
-[[1;34mINFO[m] Running com.example.paymentservice.audit.[1mMaskingAuditLoggerTest[m
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------< com.example:payment-service-core >------------------
+[INFO] Building payment-service-core 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- clean:3.2.0:clean (default-clean) @ payment-service-core ---
+[INFO] Deleting /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/target
+[INFO]
+[INFO] --- resources:3.4.0:resources (default-resources) @ payment-service-core ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]
+[INFO] --- compiler:3.12.1:compile (default-compile) @ payment-service-core ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 23 source files with javac [debug parameters release 21] to target/classes
+[INFO] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java: /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java uses or overrides a deprecated API.
+[INFO] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/Q.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java: Some input files use unchecked or unsafe operations.
+[INFO] /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/paymentservice/useraccount/UserAccount.java: Recompile with -Xlint:unchecked for details.
+[INFO]
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ payment-service-core ---
+[INFO] skip non existing resourceDirectory /home/philip/githome/datahub-hackson-2026/examples/payment/07-generated-code/java-lib-core/lib/src/test/resources
+[INFO]
+[INFO] --- compiler:3.12.1:testCompile (default-testCompile) @ payment-service-core ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO]
+[INFO] --- surefire:3.5.2:test (default-test) @ payment-service-core ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO]
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.paymentservice.audit.MaskingAuditLoggerTest
+JAVA_DESERIALIZATION_MASKING_EVIDENCE entity=PaymentTransaction field=payment_account masked=true reason=_audit_mask_fields raw_present=false unknown_entity_fail_closed=true
 JAVA_MASKING_EVIDENCE entity=PaymentTransaction policy_field=payment_account runtime_field=paymentAccount masked=true reason=_audit_mask_fields raw_present=false formatted_log_raw_present=false
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.142 s -- in com.example.paymentservice.audit.[1mMaskingAuditLoggerTest[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] Results:
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1;32mTests run: 1, Failures: 0, Errors: 0, Skipped: 0[m
-[[1;34mINFO[m] 
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  5.896 s
-[[1;34mINFO[m] Finished at: 2026-08-08T12:33:09+08:00
-[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[0m[0mFINISHED_AT_UTC=2026-08-08T04:33:09Z
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.343 s -- in com.example.paymentservice.audit.MaskingAuditLoggerTest
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.041 s
+[INFO] Finished at: 2026-08-08T19:23:36+08:00
+[INFO] ------------------------------------------------------------------------
+FINISHED_AT_UTC=2026-08-08T11:23:36Z
 DURATION_SECONDS=7
 EXIT_CODE=0
-
-Script done on 2026-08-08 12:33:09+08:00 [COMMAND_EXIT_CODE="0"]

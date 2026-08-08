@@ -1,5 +1,8 @@
 package com.example.paymentservice.audit;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.teaql.core.UserContext;
 import io.teaql.core.meta.EntityDescriptor;
 import io.teaql.core.meta.EntityMetaFactory;
@@ -23,8 +26,26 @@ import java.util.stream.Collectors;
 public final class MaskingAuditLogger {
   public static final String MASKED_VALUE = "[MASKED]";
   public static final String MASK_REASON = "_audit_mask_fields";
+  private static final ObjectMapper JSON = new ObjectMapper();
 
   private MaskingAuditLogger() {}
+
+  /**
+   * Deserializes an external audit-event payload into the safe representation.
+   *
+   * <p>This is the default boundary for replay/import consumers: callers never receive an
+   * {@link AuditEvent} containing policy-protected values. Unknown entities and malformed payloads
+   * fail closed.
+   */
+  public static SafeAuditEvent deserialize(String json) {
+    return mask(deserializeRaw(json));
+  }
+
+  /** Deserializes, masks, and publishes without exposing the intermediate raw event to callers. */
+  public static SafeAuditEvent deserializeAndPublish(UserContext context, String json) {
+    Objects.requireNonNull(context, "context");
+    return publish(context, deserializeRaw(json));
+  }
 
   public static SafeAuditEvent publish(UserContext context, AuditEvent rawEvent) {
     Objects.requireNonNull(context, "context");
@@ -55,7 +76,15 @@ public final class MaskingAuditLogger {
     if (factory == null) {
       throw new IllegalStateException("EntityMetaFactory is not registered; refusing unsafe audit output");
     }
-    EntityDescriptor descriptor = factory.resolveEntityDescriptor(rawEvent.getEntityType());
+    EntityDescriptor descriptor;
+    try {
+      descriptor = factory.resolveEntityDescriptor(rawEvent.getEntityType());
+    } catch (RuntimeException e) {
+      throw new IllegalArgumentException(
+          "No entity descriptor for " + rawEvent.getEntityType()
+              + "; refusing unsafe audit output",
+          e);
+    }
     if (descriptor == null) {
       throw new IllegalArgumentException(
           "No entity descriptor for " + rawEvent.getEntityType() + "; refusing unsafe audit output");
@@ -74,6 +103,55 @@ public final class MaskingAuditLogger {
         rawEvent.getEntityId(),
         rawEvent.getMutationKind(),
         safeChanges);
+  }
+
+  private static AuditEvent deserializeRaw(String json) {
+    Objects.requireNonNull(json, "json");
+    try {
+      JsonNode root = JSON.readTree(json);
+      if (root == null || !root.isObject()) {
+        throw new IllegalArgumentException("Audit event payload must be a JSON object");
+      }
+      String entityType = requiredText(root, "entityType");
+      String mutationKind = requiredText(root, "mutationKind");
+      JsonNode changesNode = root.get("changes");
+      if (changesNode == null || !changesNode.isArray()) {
+        throw new IllegalArgumentException("Audit event changes must be a JSON array");
+      }
+
+      List<FieldChange> changes = new java.util.ArrayList<>();
+      for (JsonNode change : changesNode) {
+        if (!change.isObject()) {
+          throw new IllegalArgumentException("Each audit field change must be a JSON object");
+        }
+        changes.add(new FieldChange(
+            requiredText(change, "field"),
+            jsonValue(change.get("oldValue")),
+            jsonValue(change.get("newValue"))));
+      }
+      return new AuditEvent(
+          entityType,
+          jsonValue(root.get("entityId")),
+          mutationKind,
+          List.copyOf(changes));
+    } catch (JsonProcessingException e) {
+      throw new IllegalArgumentException("Invalid audit event JSON", e);
+    }
+  }
+
+  private static String requiredText(JsonNode parent, String field) {
+    JsonNode value = parent.get(field);
+    if (value == null || !value.isTextual() || value.textValue().isBlank()) {
+      throw new IllegalArgumentException("Audit event " + field + " must be non-blank text");
+    }
+    return value.textValue();
+  }
+
+  private static Object jsonValue(JsonNode value) {
+    if (value == null || value.isNull()) {
+      return null;
+    }
+    return JSON.convertValue(value, Object.class);
   }
 
   private static SafeFieldChange maskChange(FieldChange change, Set<String> maskFields) {

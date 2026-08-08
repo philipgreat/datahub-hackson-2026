@@ -122,13 +122,14 @@ examples/payment/07-generated-code/java-lib-core/lib/src/main/java/com/example/p
 examples/payment/07-generated-code/java-lib-core/lib/src/test/java/com/example/paymentservice/audit/MaskingAuditLoggerTest.java
 ```
 
-`MaskingAuditLogger` resolves `audit_mask_fields` from the generated `EntityMetaRegistry`, normalizes the model's `payment_account` policy name against the generated Java runtime property `paymentAccount`, creates a `SafeAuditEvent`, sends it to an optional `SafeAuditEventSink`, and delegates only sanitized `FieldChange` values to TeaQL's formatter. It fails closed when entity metadata is unavailable.
+`MaskingAuditLogger` resolves `audit_mask_fields` from the generated `EntityMetaRegistry`, normalizes the model's `payment_account` policy name against the generated Java runtime property `paymentAccount`, creates a `SafeAuditEvent`, sends it to an optional `SafeAuditEventSink`, and delegates only sanitized `FieldChange` values to TeaQL's formatter. Its `deserialize` API returns only the safe representation for JSON replay/import payloads; `deserializeAndPublish` combines that boundary with sink delivery. It fails closed when entity metadata is unavailable or the payload is malformed.
 
-`examples/payment/run/build-and-test/payment-service-java.log` records compilation of 23 Java sources and one passing test. The assertions cover `masked=true`, reason `_audit_mask_fields`, preservation of non-sensitive `currency_code`, and absence of the synthetic raw account in both the safe event and formatted log. Its marker is:
+`examples/payment/run/build-and-test/payment-service-java.log` records compilation of 23 Java sources and two passing tests. The assertions cover `masked=true`, reason `_audit_mask_fields`, preservation of non-sensitive `currency_code`, absence of the synthetic raw account in the safe object and formatted log, and fail-closed behavior for an unknown entity. Its markers are:
 
 ```text
 JAVA_MASKING_EVIDENCE entity=PaymentTransaction policy_field=payment_account runtime_field=paymentAccount masked=true reason=_audit_mask_fields raw_present=false formatted_log_raw_present=false
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+JAVA_DESERIALIZATION_MASKING_EVIDENCE entity=PaymentTransaction field=payment_account masked=true reason=_audit_mask_fields raw_present=false unknown_entity_fail_closed=true
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 ```
 
 ### Rust
@@ -152,7 +153,7 @@ generated PaymentTransaction descriptor
 The raw test log contains:
 
 ```text
-MASKING_EVIDENCE entity=PaymentTransaction field=payment_account masked=true reason=_audit_mask_fields raw_present=false
+MASKING_EVIDENCE entity=PaymentTransaction field=payment_account input_deserialized=true masked=true reason=_audit_mask_fields raw_present=false
 test result: ok. 1 passed; 0 failed
 ```
 
@@ -160,7 +161,7 @@ The test also asserts that non-sensitive `currency_code` is not masked. It uses 
 
 ## 7. Raw Logger Boundary
 
-Java masking is enforced by the handwritten `MaskingAuditLogger.publish` entry point. A caller that directly invokes TeaQL `LogManager.writeAuditLog` bypasses that policy adapter. The Java evidence run disables file trace using TeaQL's acknowledged trace-off variables while the custom sink verifies sanitized formatter output.
+Java masking is enforced by the handwritten `MaskingAuditLogger.deserialize`, `deserializeAndPublish`, and `publish` entry points. The JSON APIs do not expose the intermediate raw event to callers. A caller that directly invokes TeaQL `LogManager.writeAuditLog` bypasses that policy adapter. The Java evidence run disables file trace using TeaQL's acknowledged trace-off variables while the custom sink verifies sanitized formatter output.
 
 Rust's default raw trace logger is separate from `SafeAuditEventSink` and can contain raw mutation values. The final Rust evidence command uses `TEAQL_AUDIT_LOG=_silent` to prevent raw trace output while testing the safe-event path. The verified claim is therefore:
 

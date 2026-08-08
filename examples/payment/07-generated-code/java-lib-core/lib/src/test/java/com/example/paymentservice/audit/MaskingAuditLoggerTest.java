@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.paymentservice.EntityMetaRegistry;
 import com.example.paymentservice.paymenttransaction.PaymentTransaction;
 import io.teaql.core.meta.EntityMetaFactory;
@@ -83,5 +85,50 @@ class MaskingAuditLoggerTest {
         "JAVA_MASKING_EVIDENCE entity=PaymentTransaction policy_field=payment_account "
             + "runtime_field=paymentAccount masked=true reason=_audit_mask_fields "
             + "raw_present=false formatted_log_raw_present=false");
+  }
+
+  @Test
+  void masksPolicyFieldsAtTheDefaultJsonDeserializationBoundary() throws Exception {
+    String json = """
+        {
+          "entityType": "PaymentTransaction",
+          "entityId": 42,
+          "mutationKind": "UPDATE",
+          "changes": [
+            {
+              "field": "payment_account",
+              "oldValue": "previous-secret",
+              "newValue": "%s"
+            },
+            {
+              "field": "currency_code",
+              "oldValue": "EUR",
+              "newValue": "USD"
+            }
+          ]
+        }
+        """.formatted(RAW_ACCOUNT);
+
+    SafeAuditEvent event = MaskingAuditLogger.deserialize(json);
+    SafeFieldChange account = event.changes().get(0);
+    assertTrue(account.masked());
+    assertEquals(MaskingAuditLogger.MASKED_VALUE, account.oldValue());
+    assertEquals(MaskingAuditLogger.MASKED_VALUE, account.newValue());
+    assertEquals(MaskingAuditLogger.MASK_REASON, account.maskReason());
+    assertEquals("USD", event.changes().get(1).newValue());
+
+    String safeJson = new ObjectMapper().writeValueAsString(event);
+    assertFalse(safeJson.contains(RAW_ACCOUNT));
+    assertFalse(safeJson.contains("previous-secret"));
+    assertTrue(safeJson.contains("[MASKED]"));
+
+    assertThrows(IllegalArgumentException.class,
+        () -> MaskingAuditLogger.deserialize("{\"entityType\":\"Unknown\","
+            + "\"mutationKind\":\"UPDATE\",\"changes\":[]}"));
+
+    System.out.println(
+        "JAVA_DESERIALIZATION_MASKING_EVIDENCE entity=PaymentTransaction "
+            + "field=payment_account masked=true reason=_audit_mask_fields "
+            + "raw_present=false unknown_entity_fail_closed=true");
   }
 }
