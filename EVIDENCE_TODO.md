@@ -32,7 +32,7 @@
 
 ## 3. External Coding Agent 与 MCP
 
-- [ ] 记录 coding-agent 产品名和版本。
+- [x] 记录 coding-agent 产品和阶段：Antigravity 初始实现，Codex Desktop 复核修复；证据机当前 `agy 1.1.11`，本机 Codex CLI package `0.114.0`，Desktop build 未暴露。
 - [x] 保存脱敏的 DataHub MCP 配置示例，包含 server command/version/transport，但不含凭据。
 - [x] 捕获 MCP `tools/list`，证明可用工具集合。
 - [x] 保存实际用于生成模型的用户 prompt 与 agent 指令。

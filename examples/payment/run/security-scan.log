@@ -1,12 +1,12 @@
-Script started on 2026-08-08 12:33:36+08:00 [<not executed on terminal>]
-STARTED_AT_UTC=2026-08-08T04:33:36Z
+Script started on 2026-08-08 13:09:44+08:00 [<not executed on terminal>]
+STARTED_AT_UTC=2026-08-08T05:09:44Z
 SCOPE=authored documentation, MCP/context evidence, scripts, and text logs
 RESULT=known_sample_pii PASS
 RESULT=authorization_or_bearer PASS
 RESULT=unmasked_api_key_or_password PASS
 RESULT=synthetic_raw_account_in_logs PASS
-FINISHED_AT_UTC=2026-08-08T04:33:36Z
+FINISHED_AT_UTC=2026-08-08T05:09:44Z
 FAILURES=0
 SECURITY_SCAN=PASS
 
-Script done on 2026-08-08 12:33:36+08:00 [COMMAND_EXIT_CODE="0"]
+Script done on 2026-08-08 13:09:44+08:00 [COMMAND_EXIT_CODE="0"]

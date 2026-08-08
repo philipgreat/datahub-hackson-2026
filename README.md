@@ -6,6 +6,8 @@
 
 An external coding agent queries DataHub through MCP, writes a TeaQL model from the returned metadata, and invokes a TeaQL generator running on the same remote host. The generated applications do not connect to MCP at runtime.
 
+This was a two-agent workflow. Antigravity performed the initial MCP-assisted implementation; Codex Desktop performed the later review, MCP re-execution, internal regeneration, Java/Rust masking remediation, and evidence collection. The evidence host currently has Antigravity CLI `agy 1.1.11` at `/home/philip/.local/bin/agy`. The reviewing workstation has local `@openai/codex` CLI package `0.114.0`; this package version is not presented as the Codex Desktop build, which was not exposed to the session.
+
 ```text
 Developer request
       |
@@ -38,6 +40,7 @@ The payment dataset description requires audit and masking treatment. The agent 
 | Phase | Status | Direct evidence |
 | --- | --- | --- |
 | DataHub container and health | VERIFIED | `examples/payment/run/datahub-setup.log` |
+| Agent attribution and installed versions | VERIFIED WITH SCOPE | `examples/payment/run/agent-versions.txt` |
 | MCP tools, entities, and lineage | VERIFIED | `examples/payment/03-mcp-tool-calls.jsonl` |
 | TeaQL model evaluation | VERIFIED | Errors `0` in `examples/payment/run/model-eval.log` |
 | Local Java/Rust generation | VERIFIED | `examples/payment/run/maven_generate.log`, `cargo_generate.log` |
@@ -130,6 +133,6 @@ Rust's verified claim is specifically about TeaQL's `SafeAuditEvent` path. Its s
 
 ## Hackathon Scope Disclosure
 
-The TeaQL generator, Java/Rust runtimes, generated-library templates, and large ERP sample existed before this submission. This submission adds the DataHub MCP-to-TeaQL workflow, the payment metadata ingestion and evidence capture, the payment model and regenerated Java/Rust outputs, a handwritten Java masking adapter, Java/Rust safe-event masking tests, and the reproducibility/evidence scripts under `examples/payment/`.
+The TeaQL generator, Java/Rust runtimes, generated-library templates, and large ERP sample existed before this submission. Antigravity produced the initial MCP-assisted implementation. Codex Desktop subsequently reviewed and corrected it, re-executed the repository MCP client, regenerated the payment outputs through the internal endpoint, added a handwritten Java masking adapter, verified Java/Rust safe-event masking, and updated the reproducibility evidence under `examples/payment/`.
 
 Use [EVIDENCE.md](EVIDENCE.md) for detailed verification and [EVIDENCE_TODO.md](EVIDENCE_TODO.md) for remaining work. Screenshots and video are intentionally left for the human operator.

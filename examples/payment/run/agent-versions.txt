@@ -1,0 +1,18 @@
+CAPTURED_AT_UTC=2026-08-08T05:08:36Z
+
+[initial_implementation]
+PRODUCT=Antigravity
+ROLE=Initial MCP-assisted implementation
+ATTRIBUTION_SOURCE=Project operator report
+EVIDENCE_HOST_COMMAND=bash -lic 'type -a agy; agy --version'
+CURRENT_EXECUTABLE=/home/philip/.local/bin/agy
+CURRENT_INSTALLED_VERSION=1.1.11
+LIMITATION=Current installation check is not an immutable attestation of the initial session binary.
+
+[review_and_remediation]
+PRODUCT=OpenAI Codex Desktop
+ROLE=Review, MCP re-execution, internal regeneration, Java/Rust masking remediation, and evidence collection
+LOCAL_CLI_PACKAGE=@openai/codex
+LOCAL_CLI_PACKAGE_VERSION=0.114.0
+CODEX_DESKTOP_BUILD=NOT_EXPOSED
+LIMITATION=The local CLI package version is not claimed as the Codex Desktop build.

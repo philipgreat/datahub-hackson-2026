@@ -3,6 +3,7 @@
 ## Status
 
 - DataHub container health and ingestion: **VERIFIED**
+- Coding-agent attribution and currently installed versions: **VERIFIED WITH SCOPE**
 - MCP `tools/list`, `get_entities`, and `get_lineage`: **VERIFIED**
 - Model evaluation (`Errors: 0`): **VERIFIED**
 - Java/Rust generation through loopback TeaQL service: **VERIFIED**
@@ -17,6 +18,15 @@
 `examples/payment/run/environment.txt` records the evidence host, Git base commit, Java, Maven, Rust, Cargo, Python, MCP Server, local generator, and DataHub image versions. Node.js is explicitly recorded as not installed. The worktree was intentionally dirty during capture, so this run is not described as a clean-checkout run.
 
 `examples/payment/run/datahub-setup.log` contains real `docker ps`, Docker health JSON, HTTP status `200`, and ingestion output. It replaces the earlier mocked status as the verification source.
+
+### Coding-agent attribution
+
+`examples/payment/run/agent-versions.txt` records the two-agent workflow:
+
+- Antigravity performed the initial MCP-assisted implementation. A login-shell check on the evidence host currently resolves `/home/philip/.local/bin/agy` and reports version `1.1.11`.
+- Codex Desktop performed review, MCP re-execution, regeneration, masking fixes, and final evidence collection. The review workstation's local `@openai/codex` CLI package metadata reports `0.114.0`; this is recorded separately from the Codex Desktop build, which was not exposed.
+
+The Antigravity version check establishes the version currently installed on the evidence host, not an immutable historical attestation that the initial session used the same binary. Agent phase attribution is supplied by the project operator.
 
 ## 2. MCP Evidence
 
@@ -127,4 +137,4 @@ It is **not** a claim that every internal or raw log sink is automatically maske
 
 ## 7. Remaining Work
 
-`EVIDENCE_TODO.md` retains the unverified items, notably clean-checkout capture, invalid-schema/agent behavior, coding-agent product/version capture, screenshots, and public video. KYC and lineage write-back are not used as substitutes for masking evidence.
+`EVIDENCE_TODO.md` retains the unverified items, notably clean-checkout capture, invalid-schema/agent behavior, screenshots, and public video. KYC and lineage write-back are not used as substitutes for masking evidence.
