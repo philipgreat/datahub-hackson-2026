@@ -1,4 +1,5 @@
-STARTED_AT_UTC=2026-08-08T11:23:47Z
+Script started on 2026-08-08 10:01:31+08:00 [<not executed on terminal>]
+STARTED_AT_UTC=2026-08-08T02:01:31Z
 TARGET=payment-service-rust-library
 CWD=/home/philip/githome/datahub-hackson-2026
 MANIFEST=examples/payment/07-generated-code/rust-lib-core/lib/Cargo.toml
@@ -25,7 +26,7 @@ warning: unused import: `crate::request_support::AuditedSave`
 
 warning: `payment-service-core` (lib) generated 3 warnings (run `cargo fix --lib -p payment-service-core` to apply 3 suggestions)
 warning: `payment-service-core` (lib test) generated 3 warnings (3 duplicates)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.05s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
      Running unittests src/lib.rs (/tmp/cargo-target/debug/deps/payment_service_core-1bd4d172fc4b8c4b)
 
 running 0 tests
@@ -35,7 +36,7 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
      Running tests/runtime_masking.rs (/tmp/cargo-target/debug/deps/runtime_masking-4d6871db4892ceba)
 
 running 1 test
-MASKING_EVIDENCE entity=PaymentTransaction field=payment_account input_deserialized=true masked=true reason=_audit_mask_fields raw_present=false output=Te*********************")
+MASKING_EVIDENCE entity=PaymentTransaction field=payment_account masked=true reason=_audit_mask_fields raw_present=false output=Te*********************")
 test generated_payment_policy_masks_the_runtime_audit_event ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
@@ -46,6 +47,8 @@ running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-FINISHED_AT_UTC=2026-08-08T11:23:48Z
+FINISHED_AT_UTC=2026-08-08T02:01:32Z
 DURATION_SECONDS=1
 EXIT_CODE=0
+
+Script done on 2026-08-08 10:01:32+08:00 [COMMAND_EXIT_CODE="0"]

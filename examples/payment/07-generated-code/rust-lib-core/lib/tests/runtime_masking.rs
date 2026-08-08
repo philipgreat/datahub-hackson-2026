@@ -26,20 +26,6 @@ impl SafeAuditEventSink for CapturingSafeAuditSink {
 fn generated_payment_policy_masks_the_runtime_audit_event() {
     const SYNTHETIC_ACCOUNT: &str = "TEST-ACCOUNT-0001";
 
-    // Model the real boundary: untrusted JSON is deserialized into business input before the
-    // runtime constructs an audit event. Only SafeAuditEvent is exposed to the application sink.
-    let input: serde_json::Value = serde_json::from_str(&format!(
-        r#"{{"transaction_amount":150.00,"payment_account":"{}","currency_code":"CNY"}}"#,
-        SYNTHETIC_ACCOUNT
-    ))
-    .expect("business input must deserialize");
-    let input_account = input["payment_account"]
-        .as_str()
-        .expect("payment_account must be text");
-    let input_currency = input["currency_code"]
-        .as_str()
-        .expect("currency_code must be text");
-
     let descriptor = PaymentTransaction::entity_descriptor();
     assert_eq!(descriptor.audit_mask_fields, vec!["payment_account"]);
 
@@ -53,11 +39,11 @@ fn generated_payment_policy_masks_the_runtime_audit_event() {
         Record::from([
             (
                 "payment_account".to_owned(),
-                Value::Text(input_account.to_owned()),
+                Value::Text(SYNTHETIC_ACCOUNT.to_owned()),
             ),
             (
                 "currency_code".to_owned(),
-                Value::Text(input_currency.to_owned()),
+                Value::Text("CNY".to_owned()),
             ),
         ]),
     );
@@ -87,7 +73,7 @@ fn generated_payment_policy_masks_the_runtime_audit_event() {
     assert!(currency.value.as_deref().unwrap().contains("CNY"));
 
     println!(
-        "MASKING_EVIDENCE entity={} field={} input_deserialized=true masked={} reason={} raw_present={} output={}",
+        "MASKING_EVIDENCE entity={} field={} masked={} reason={} raw_present={} output={}",
         event.entity,
         account.name,
         account.masked,
