@@ -12,14 +12,14 @@ export const ModelScene: React.FC = () => (
   <SceneFrame chapter="CONTEXT TO MODEL" step="03 / 07">
     <FadeUp name="Model title" delay={5}>
       <div style={{ color: palette.cyan, fontFamily: "monospace", fontSize: 18, fontWeight: 800, letterSpacing: 3 }}>MCP CONTEXT → TEAQL POLICY</div>
-      <h2 style={{ margin: "14px 0 34px", fontSize: 72, letterSpacing: -3 }}>治理信息直接改变生成模型</h2>
+      <h2 style={{ margin: "14px 0 34px", fontSize: 68, letterSpacing: -3 }}>Governance context changes the generated model</h2>
     </FadeUp>
     <div style={{ display: "grid", gridTemplateColumns: "0.88fr 1.12fr", gap: 30, height: 610 }}>
       <FadeUp name="DataHub input" delay={22} style={{ height: "100%" }}>
         <div style={{ height: "100%", padding: 30, border: `1px solid ${palette.line}`, borderRadius: 20, backgroundColor: "rgba(13,27,31,0.92)" }}>
           <div style={{ display: "flex", justifyContent: "space-between" }}><span style={{ color: palette.orange, fontFamily: "monospace", fontSize: 16, fontWeight: 850 }}>DATAHUB / get_entities</span><span style={{ color: palette.green, fontFamily: "monospace", fontSize: 13 }}>REAL MCP RESPONSE</span></div>
           <div style={{ marginTop: 28, color: palette.muted, fontFamily: "monospace", fontSize: 18, lineHeight: 1.75 }}><div><span style={{ color: palette.cyan }}>name:</span> payment_transactions</div><div><span style={{ color: palette.cyan }}>field:</span> payment_account</div><div><span style={{ color: palette.cyan }}>nativeDataType:</span> VARCHAR</div><div><span style={{ color: palette.cyan }}>nullable:</span> false</div></div>
-          <div style={{ marginTop: 30, padding: 24, borderRadius: 14, border: `1px solid ${palette.orange}44`, backgroundColor: "rgba(255,138,76,0.09)", color: "#ffc09f", fontSize: 23, lineHeight: 1.55 }}>“包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块。”</div>
+          <div style={{ marginTop: 30, padding: 24, borderRadius: 14, border: `1px solid ${palette.orange}44`, backgroundColor: "rgba(255,138,76,0.09)", color: "#ffc09f", fontSize: 21, lineHeight: 1.5 }}>“Contains highly sensitive payment-account data and must use auditing and masking.”</div>
           <div style={{ marginTop: 26, color: palette.green, fontSize: 19, fontWeight: 760 }}>✓ lineage upstream total = 0</div>
         </div>
       </FadeUp>

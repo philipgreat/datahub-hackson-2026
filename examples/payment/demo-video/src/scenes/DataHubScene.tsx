@@ -1,22 +1,24 @@
-import { Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, CanvasImage, staticFile } from "remotion";
 import { FadeUp } from "../components/FadeUp";
-import { SceneFrame } from "../components/SceneFrame";
 import { palette } from "../constants";
 
-const fields = [["payment_account", "VARCHAR", "Linked user account ID"], ["currency_code", "VARCHAR", "Currency (e.g. USD, CNY)"], ["payment_method", "VARCHAR", "Method used (e.g. CREDIT_CARD)"], ["transaction_amount", "DECIMAL", "Total transaction amount"]];
-
-export const DataHubScene: React.FC = () => {
-  const frame = useCurrentFrame();
-  return <SceneFrame chapter="SOURCE OF TRUTH" step="02 / 07">
-    <FadeUp name="DataHub title" delay={5} style={{ marginBottom: 30 }}><div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}><div><div style={{ color: palette.cyan, fontFamily: "monospace", fontSize: 18, fontWeight: 800, letterSpacing: 3 }}>DATAHUB CONTEXT · VERIFIED SNAPSHOT</div><h2 style={{ margin: "14px 0 0", fontSize: 72, letterSpacing: -3 }}>先读取企业真实的数据上下文</h2></div><div style={{ padding: "13px 18px", border: `1px solid ${palette.line}`, borderRadius: 999, color: palette.green, fontFamily: "monospace", fontSize: 16 }}>HEALTH · PASS</div></div></FadeUp>
-    <FadeUp name="DataHub browser" delay={25} style={{ height: 610 }}>
-      <div style={{ height: "100%", border: `1px solid ${palette.line}`, borderRadius: 22, overflow: "hidden", backgroundColor: "rgba(13,27,31,0.94)", boxShadow: "0 32px 90px rgba(0,0,0,0.28)" }}>
-        <div style={{ height: 60, display: "flex", alignItems: "center", padding: "0 24px", gap: 12, borderBottom: `1px solid ${palette.line}`, backgroundColor: "#102126" }}>{[palette.red, "#f2c65c", palette.green].map((color) => <span key={color} style={{ width: 12, height: 12, borderRadius: "50%", backgroundColor: color }} />)}<div style={{ marginLeft: 24, flex: 1, padding: "10px 18px", borderRadius: 9, backgroundColor: "rgba(255,255,255,0.045)", color: palette.muted, fontFamily: "monospace", fontSize: 15 }}>DataHub / snowflake / prod.finance.payment_transactions</div></div>
-        <div style={{ display: "grid", gridTemplateColumns: "390px 1fr", height: "calc(100% - 60px)" }}>
-          <div style={{ padding: 32, borderRight: `1px solid ${palette.line}` }}><div style={{ color: palette.muted, fontFamily: "monospace", fontSize: 14 }}>DATASET</div><div style={{ marginTop: 10, fontSize: 31, fontWeight: 820 }}>payment_transactions</div><div style={{ marginTop: 28, color: palette.orange, fontSize: 20, fontWeight: 720, lineHeight: 1.55 }}>企业核心支付流水表。包含高度敏感的用户支付账号信息，必须接入审计与脱敏模块。</div><div style={{ marginTop: 36, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}><div style={{ padding: 16, borderRadius: 12, backgroundColor: "rgba(79,225,209,0.08)" }}><div style={{ color: palette.muted, fontSize: 13 }}>PLATFORM</div><div style={{ marginTop: 8, color: palette.cyan, fontSize: 20, fontWeight: 760 }}>Snowflake</div></div><div style={{ padding: 16, borderRadius: 12, backgroundColor: "rgba(255,255,255,0.035)" }}><div style={{ color: palette.muted, fontSize: 13 }}>UPSTREAM</div><div style={{ marginTop: 8, fontSize: 20, fontWeight: 760 }}>0</div></div></div></div>
-          <div style={{ padding: 30 }}><div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.6fr 1.5fr", padding: "0 20px 14px", color: "#617779", fontFamily: "monospace", fontSize: 13, letterSpacing: 1.4 }}><span>FIELD</span><span>TYPE</span><span>DESCRIPTION</span></div>{fields.map((field, index) => <div key={field[0]} style={{ display: "grid", gridTemplateColumns: "1.1fr 0.6fr 1.5fr", alignItems: "center", minHeight: 94, padding: "0 20px", borderTop: `1px solid ${palette.line}`, backgroundColor: index === 0 ? `rgba(255,138,76,${interpolate(frame, [70, 95, 145, 170], [0, 0.15, 0.15, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) })})` : "transparent", opacity: interpolate(frame, [48 + index * 12, 68 + index * 12], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) }}><span style={{ color: index === 0 ? palette.orange : palette.text, fontFamily: "monospace", fontSize: 21, fontWeight: 750 }}>{field[0]}</span><span style={{ color: palette.cyan, fontFamily: "monospace", fontSize: 17 }}>{field[1]}</span><span style={{ color: palette.muted, fontSize: 18 }}>{field[2]}</span></div>)}</div>
-        </div>
+export const DataHubScene: React.FC = () => (
+  <AbsoluteFill style={{ backgroundColor: palette.background }}>
+    <CanvasImage
+      src={staticFile("datahub-payment-transactions.jpg")}
+      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+    />
+    <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(4,11,14,0.32) 0%, transparent 24%, transparent 72%, rgba(4,11,14,0.42) 100%)" }} />
+    <FadeUp name="Real DataHub evidence" delay={8} style={{ position: "absolute", top: 70, left: 88 }}>
+      <div style={{ display: "inline-flex", alignItems: "center", gap: 13, padding: "14px 20px", border: "1px solid rgba(255,255,255,0.24)", borderRadius: 999, backgroundColor: "rgba(5,12,14,0.84)", boxShadow: "0 18px 48px rgba(0,0,0,0.25)", color: "white", fontFamily: "monospace", fontSize: 18, fontWeight: 800, letterSpacing: 1.7 }}>
+        <span style={{ width: 10, height: 10, borderRadius: "50%", backgroundColor: palette.green, boxShadow: `0 0 18px ${palette.green}` }} />
+        REAL DATAHUB UI · SSH-TUNNELED CAPTURE
       </div>
     </FadeUp>
-  </SceneFrame>;
-};
+    <FadeUp name="DataHub PII proof" delay={40} style={{ position: "absolute", right: 88, bottom: 150 }}>
+      <div style={{ padding: "16px 22px", border: "1px solid rgba(255,255,255,0.24)", borderRadius: 14, backgroundColor: "rgba(5,12,14,0.86)", color: "white", fontSize: 22, fontWeight: 760 }}>
+        payment_account <span style={{ color: palette.green }}>· PII</span>
+      </div>
+    </FadeUp>
+  </AbsoluteFill>
+);

@@ -21,10 +21,10 @@ export const FailClosedScene: React.FC = () => (
       <div>
         <FadeUp name="Fail closed title" delay={5}>
           <div style={{ color: palette.orange, fontFamily: "monospace", fontSize: 18, fontWeight: 800, letterSpacing: 3 }}>NO EVIDENCE · NO GENERATION</div>
-          <h2 style={{ margin: "16px 0 0", fontSize: 82, lineHeight: 1.08, letterSpacing: -4 }}>缺少上下文时，<br />Agent 拒绝虚构</h2>
+          <h2 style={{ margin: "16px 0 0", fontSize: 76, lineHeight: 1.08, letterSpacing: -4 }}>No context?<br />The Agent refuses to invent.</h2>
         </FadeUp>
         <FadeUp name="Fail closed summary" delay={36}>
-          <p style={{ margin: "34px 0 0", color: palette.muted, fontSize: 29, lineHeight: 1.55 }}>不存在的 DataHub URN 不会被补成看似合理的字段和关系。</p>
+          <p style={{ margin: "34px 0 0", color: palette.muted, fontSize: 27, lineHeight: 1.55 }}>A missing DataHub URN is never filled with plausible-looking fields or relationships.</p>
         </FadeUp>
         <FadeUp name="Fail closed pass" delay={95}>
           <div style={{ marginTop: 36, display: "inline-flex", padding: "15px 20px", border: `1px solid ${palette.green}55`, borderRadius: 12, backgroundColor: "rgba(114,230,166,0.09)", color: palette.green, fontFamily: "monospace", fontSize: 18, fontWeight: 850 }}>✓ MECHANICALLY VERIFIED</div>

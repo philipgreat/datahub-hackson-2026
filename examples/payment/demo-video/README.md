@@ -19,7 +19,7 @@ npm run render
 
 Output: `out/datahub-teaql-demo.mp4`.
 
-The first version is silent and uses burned-in Chinese captions from `public/captions.json`. A voice-over can be added later without changing the scene structure.
+The video is silent and uses burned-in English captions from `public/captions.json`. A voice-over can be added later without changing the scene structure.
 
 Authoritative evidence remains in the parent `examples/payment` directory. Visuals use curated excerpts for legibility.
 
@@ -30,6 +30,6 @@ Authoritative evidence remains in the parent `examples/payment` directory. Visua
 - Canvas: 1920 × 1080
 - Output codec: H.264
 - Scenes: seven independently previewable compositions
-- Captions: burned-in Chinese captions backed by Remotion `Caption` JSON
+- Captions: burned-in English captions backed by Remotion `Caption` JSON
 
-The checked-in MP4 is the verified render of the checked-in source. Replace the reconstructed DataHub scene with captured UI footage later if desired; the scene boundary and timing can remain unchanged.
+The DataHub scene uses a real screenshot captured from the evidence host through an SSH tunnel. The checked-in MP4 is the verified English render of the checked-in source.
