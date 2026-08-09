@@ -1,0 +1,16 @@
+[
+  {"text":"很多代码生成只看一段提示词。我们的流程先读取企业真实的数据治理上下文。","startMs":1500,"endMs":10500,"timestampMs":null,"confidence":null},
+  {"text":"Coding Agent 通过 MCP 查询 DataHub，再在受控网络中生成 TeaQL 应用。","startMs":10500,"endMs":20500,"timestampMs":null,"confidence":null},
+  {"text":"这里是 DataHub 中真实存在的 payment_transactions 支付流水表。","startMs":21500,"endMs":30500,"timestampMs":null,"confidence":null},
+  {"text":"它提供四个业务字段，并明确说明 payment_account 属于高度敏感信息。","startMs":30500,"endMs":48500,"timestampMs":null,"confidence":null},
+  {"text":"Agent 将字段类型准确映射到 TeaQL，并把治理要求转成 _audit_mask_fields。","startMs":50500,"endMs":66500,"timestampMs":null,"confidence":null},
+  {"text":"DataHub lineage 返回 upstream 为零，因此模型没有虚构 payment-to-user 关系。","startMs":66500,"endMs":79500,"timestampMs":null,"confidence":null},
+  {"text":"生成器运行在 127.0.0.1，模型不会发送到公共生成服务。","startMs":80500,"endMs":94500,"timestampMs":null,"confidence":null},
+  {"text":"Java 和 Rust 都从空目录生成，并通过第二次生成验证确定性。","startMs":94500,"endMs":104500,"timestampMs":null,"confidence":null},
+  {"text":"原始审计事件服务受控取证和调试；分析系统只接收 SafeAuditEvent。","startMs":105500,"endMs":120500,"timestampMs":null,"confidence":null},
+  {"text":"SafeAuditEvent 读取生成的 audit_mask_fields，在输出前屏蔽 payment_account。","startMs":120500,"endMs":137500,"timestampMs":null,"confidence":null},
+  {"text":"Java 和 Rust 的真实测试都证明 masked 为 true，原始账号没有进入安全输出。","startMs":137500,"endMs":145500,"timestampMs":null,"confidence":null},
+  {"text":"我们还验证了失败路径：DataHub 返回 entity not found 后，Agent 明确拒绝生成。","startMs":146500,"endMs":160500,"timestampMs":null,"confidence":null},
+  {"text":"业务字段和关系数组都为空，机械验证结果为 PASS。","startMs":160500,"endMs":166500,"timestampMs":null,"confidence":null},
+  {"text":"这让企业已有的 DataHub 治理上下文真正约束模型、代码和运行时行为。","startMs":167000,"endMs":179000,"timestampMs":null,"confidence":null}
+]

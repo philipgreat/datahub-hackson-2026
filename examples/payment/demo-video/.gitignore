@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Keep the verified final render, but ignore local preview stills.
+out/*
+!out/datahub-teaql-demo.mp4
