@@ -1,6 +1,6 @@
 # DataHub × TeaQL Demo Video
 
-A deterministic three-minute Remotion composition built from the committed payment evidence. The video is explicitly labeled `VERIFIED RUN REPLAY`: terminal output is a concise replay of real evidence, not a claim that commands execute during rendering.
+A deterministic 90-second Remotion composition built from the committed payment evidence. The video is explicitly labeled `VERIFIED RUN REPLAY`: terminal output is a concise replay of real evidence, not a claim that commands execute during rendering.
 
 ## Preview
 
@@ -26,7 +26,7 @@ Authoritative evidence remains in the parent `examples/payment` directory. Visua
 ## Video specification
 
 - Composition: `DataHubTeaQLDemo`
-- Timeline: 5,400 frames at 30 FPS (180 seconds)
+- Timeline: 2,700 frames at 30 FPS (90 seconds)
 - Canvas: 1920 × 1080
 - Output codec: H.264
 - Scenes: seven independently previewable compositions

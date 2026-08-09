@@ -1,16 +1,14 @@
 [
-  {"text":"Most code generation starts with a prompt. Our workflow starts with real enterprise governance context.","startMs":1500,"endMs":10500,"timestampMs":null,"confidence":null},
-  {"text":"A Coding Agent queries DataHub through MCP, then generates TeaQL applications inside a controlled network.","startMs":10500,"endMs":20500,"timestampMs":null,"confidence":null},
-  {"text":"This is the real payment_transactions dataset running in our DataHub instance.","startMs":21500,"endMs":30500,"timestampMs":null,"confidence":null},
-  {"text":"Its schema exposes four business fields and marks payment_account as PII.","startMs":30500,"endMs":48500,"timestampMs":null,"confidence":null},
-  {"text":"The Agent maps each field into TeaQL and turns governance policy into _audit_mask_fields.","startMs":50500,"endMs":66500,"timestampMs":null,"confidence":null},
-  {"text":"DataHub lineage reports zero upstream entities, so the model does not invent a payment-to-user relationship.","startMs":66500,"endMs":79500,"timestampMs":null,"confidence":null},
-  {"text":"The generator runs on 127.0.0.1. The model never leaves the controlled network.","startMs":80500,"endMs":94500,"timestampMs":null,"confidence":null},
-  {"text":"Java and Rust are generated from empty directories, then a second run verifies deterministic output.","startMs":94500,"endMs":104500,"timestampMs":null,"confidence":null},
-  {"text":"Raw audit events stay on a controlled forensic path. Analytics systems receive only SafeAuditEvent.","startMs":105500,"endMs":120500,"timestampMs":null,"confidence":null},
-  {"text":"SafeAuditEvent reads the generated audit_mask_fields policy and masks payment_account before output.","startMs":120500,"endMs":137500,"timestampMs":null,"confidence":null},
-  {"text":"Real Java and Rust tests prove masking is enabled and the raw account never reaches safe output.","startMs":137500,"endMs":145500,"timestampMs":null,"confidence":null},
-  {"text":"We also test the failure path. When DataHub returns entity not found, the Agent refuses to generate.","startMs":146500,"endMs":160500,"timestampMs":null,"confidence":null},
-  {"text":"Both business-field and relationship arrays remain empty, and the mechanical assertion passes.","startMs":160500,"endMs":166500,"timestampMs":null,"confidence":null},
-  {"text":"Enterprise DataHub governance now constrains the model, generated code, and runtime behavior.","startMs":167000,"endMs":179000,"timestampMs":null,"confidence":null}
+  {"text":"Most code generation starts with a prompt. Our workflow starts with real enterprise governance context.","startMs":500,"endMs":5500,"timestampMs":null,"confidence":null},
+  {"text":"A Coding Agent reads DataHub through MCP and generates TeaQL applications inside a controlled network.","startMs":5500,"endMs":10000,"timestampMs":null,"confidence":null},
+  {"text":"This is the real payment_transactions dataset running in our DataHub instance.","startMs":10000,"endMs":16500,"timestampMs":null,"confidence":null},
+  {"text":"Its schema exposes four business fields and marks payment_account as PII.","startMs":16500,"endMs":22000,"timestampMs":null,"confidence":null},
+  {"text":"The Agent maps each field into TeaQL and turns governance policy into _audit_mask_fields.","startMs":22000,"endMs":30000,"timestampMs":null,"confidence":null},
+  {"text":"Zero upstream lineage means the model does not invent a payment-to-user relationship.","startMs":30000,"endMs":34000,"timestampMs":null,"confidence":null},
+  {"text":"The generator runs on 127.0.0.1. The model never leaves the controlled network.","startMs":34000,"endMs":40500,"timestampMs":null,"confidence":null},
+  {"text":"Java and Rust are generated from empty directories, then verified for deterministic output.","startMs":40500,"endMs":47000,"timestampMs":null,"confidence":null},
+  {"text":"Raw audit events stay on a controlled forensic path. Analytics receive only SafeAuditEvent.","startMs":47000,"endMs":55000,"timestampMs":null,"confidence":null},
+  {"text":"Real Java and Rust tests prove that payment_account is masked before safe output.","startMs":55000,"endMs":63000,"timestampMs":null,"confidence":null},
+  {"text":"When DataHub returns entity not found, the Agent refuses to invent fields or relationships.","startMs":63000,"endMs":76000,"timestampMs":null,"confidence":null},
+  {"text":"Enterprise DataHub governance now constrains the model, generated code, and runtime behavior.","startMs":76000,"endMs":89500,"timestampMs":null,"confidence":null}
 ]

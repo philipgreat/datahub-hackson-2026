@@ -1,4 +1,4 @@
-import { Easing, Interactive, interpolate, useCurrentFrame } from "remotion";
+import { Interactive, useCurrentFrame } from "remotion";
 import { palette } from "../constants";
 import type { TerminalLine } from "../types";
 
@@ -13,7 +13,7 @@ export const Terminal: React.FC<{ title: string; lines: TerminalLine[]; style?: 
         <span style={{ marginLeft: 14, color: palette.muted, fontFamily: "monospace", fontSize: 15 }}>{title}</span>
       </div>
       <div style={{ padding: "26px 30px", fontFamily: "monospace", fontSize: 20, lineHeight: 1.62 }}>
-        {lines.map((line, index) => <div key={`${line.at}-${index}`} style={{ minHeight: 32, color: toneColor(line.tone), opacity: interpolate(frame, [line.at, line.at + 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) }), transform: `translateY(${interpolate(frame, [line.at, line.at + 8], [8, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.bezier(0.16, 1, 0.3, 1) })}px)` }}>{frame >= line.at ? line.text : ""}</div>)}
+        {lines.map((line, index) => <div key={`${line.at}-${index}`} style={{ minHeight: 32, color: toneColor(line.tone) }}>{frame >= line.at ? line.text : ""}</div>)}
       </div>
     </Interactive.Div>
   );

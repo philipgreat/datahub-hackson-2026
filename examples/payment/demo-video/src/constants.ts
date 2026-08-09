@@ -1,8 +1,7 @@
 export const FPS = 30;
 export const WIDTH = 1920;
 export const HEIGHT = 1080;
-export const TOTAL_FRAMES = 5400;
-export const TRANSITION_FRAMES = 12;
+export const TOTAL_FRAMES = 2700;
 export const VERIFIED_SOURCE_COMMIT = "6707529";
 
 export const palette = {
